@@ -1,0 +1,49 @@
+<interface>
+	<object id="window" class="GtkWindow">
+		<property name="visible">True</property>
+		<property name="title">RT with gtk+</property>
+		<property name="border-width">10</property>
+		<child>
+			<object id="grid" class="GtkGrid">
+				<property name="visible">True</property>
+				<child>
+					<object id="list" class="GtkComboBox">
+						<property name="visible">True</property>
+						<!--
+						<child>
+							<object id="line1" class="GtkLabel">
+								<property name="visible">True</property>
+								<property name="label">Scene 1</property>
+							</object>
+						</child>
+						<child>
+							<object id="line2" class="GtkLabel">
+								<property name="visible">True</property>
+								<property name="label">Scene 2</property>
+							</object>
+						</child>
+						<child>
+							<object id="line3" class="GtkLabel">
+								<property name="visible">True</property>
+								<property name="label">Scene 3</property>
+							</object>
+						</child>
+						-->
+					</object>
+				</child>
+				<child>
+					<object id="quit" class="GtkButton">
+						<property name="label">Quit</property>
+						<property name="visible">True</property>
+					</object>
+				</child>
+				<child>
+					<object id="trace" class="GtkButton">
+						<property name="label">Trace</property>
+						<property name="visible">True</property>
+					</object>
+				</child>
+			</object>
+		</child>
+	</object>
+</interface>
