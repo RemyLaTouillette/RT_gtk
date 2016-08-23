@@ -1,48 +1,72 @@
 <interface>
 	<object id="window" class="GtkWindow">
 		<property name="visible">True</property>
-		<property name="title">RT with gtk+</property>
+		<property name="title">Grid</property>
 		<property name="border-width">10</property>
 		<child>
 			<object id="grid" class="GtkGrid">
 				<property name="visible">True</property>
+
 				<child>
-					<object id="list" class="GtkComboBox">
+					<object id="button1" class="GtkButton">
 						<property name="visible">True</property>
-						<!--
-						<child>
-							<object id="line1" class="GtkLabel">
-								<property name="visible">True</property>
-								<property name="label">Scene 1</property>
-							</object>
-						</child>
-						<child>
-							<object id="line2" class="GtkLabel">
-								<property name="visible">True</property>
-								<property name="label">Scene 2</property>
-							</object>
-						</child>
-						<child>
-							<object id="line3" class="GtkLabel">
-								<property name="visible">True</property>
-								<property name="label">Scene 3</property>
-							</object>
-						</child>
-						-->
+						<property name="label">Draw</property>
 					</object>
+					<packing>
+						<property name="left-attach">0</property>
+						<property name="top-attach">0</property>
+					</packing>
 				</child>
+
+				<child>
+					<object id="button2" class="GtkButton">
+						<property name="visible">True</property>
+						<property name="label">Save</property>
+					</object>
+					<packing>
+						<property name="left-attach">1</property>
+						<property name="top-attach">0</property>
+					</packing>
+				</child>
+
 				<child>
 					<object id="quit" class="GtkButton">
+						<property name="visible">True</property>
 						<property name="label">Quit</property>
-						<property name="visible">True</property>
 					</object>
+					<packing>
+						<property name="left-attach">0</property>
+						<property name="top-attach">1</property>
+						<property name="width">2</property>
+					</packing>
 				</child>
+
 				<child>
-					<object id="trace" class="GtkButton">
-						<property name="label">Trace</property>
+					<object id="lst_scenes" class="GtkComboBoxText">
 						<property name="visible">True</property>
 					</object>
 				</child>
+
+
+				<child>
+					<object id="bbox" class="GtkButtonBox">
+						<property name="visible">True</property>
+						<child>
+							<object id="radio1" class="GtkRadioButton">
+								<property name="visible">True</property>
+								<property name="label">mode 1</property>
+								<property name="group">radio1</property>
+							</object>
+						</child>
+						<child>
+							<object id="radio2" class="GtkRadioButton">
+								<property name="label">mode 2</property>
+								<property name="group">radio1</property>
+							</object>
+						</child>
+					</object>	
+				</child>
+
 			</object>
 		</child>
 	</object>

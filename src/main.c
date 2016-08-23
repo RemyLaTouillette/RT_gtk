@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/18 19:52:57 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/23 18:46:45 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,24 @@ gtk_widget_show_all(win);
 */
 //}
 
-static void btn_click_quit(GtkApplication *app, gpointer user_data)
+typedef struct	s_ui
+{
+	GtkWidget	*win;
+	GtkWidget	*grid;
+	GtkWidget	*frame;
+	GtkWidget	*btn_draw;
+	GtkWidget	*btn_quit;
+	GtkWidget	*lst_scenes;
+	GtkWidget	*radio1;
+	GtkWidget	*radio2;
+	GtkWidget	*btn_color;
+	GtkWidget	*check1;
+	GtkWidget	*scale;
+	GtkWidget	*progress;
+	GtkWidget	*img;
+}				t_ui;
+/*
+static void click_quit(GtkApplication *app, gpointer user_data)
 {
 	(void)app;
 	(void)user_data;
@@ -296,43 +313,117 @@ static void btn_click_quit(GtkApplication *app, gpointer user_data)
 	gtk_main_quit();
 }
 
-static void btn_click_draw(GtkApplication *app, gpointer user_data)
+static void click_draw(GtkApplication *app, gpointer user_data)
 {
 	(void)app;
 	(void)user_data;
 	g_print("btn_click_draw()\n");
 }
-
+*/
 int		main(void)
 {
-	GtkWidget	*win;
-	GtkWidget	*grid;
-	GtkWidget	*btn;
+	//t_ui	ui;
+	GtkBuilder	*builder;
+	GObject		*win;
+	GObject		*v;
+	GObject		*w;
 
 	gtk_init(NULL, NULL);
+	(void)v;
+	(void)w;
 
+
+	builder = gtk_builder_new_from_file ("./ui/builder.c.ui");
+	win = gtk_builder_get_object (builder, "window");
+	g_signal_connect (win, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+
+/*
+	// Set combo box text
+	w = gtk_builder_get_object(builder, "lst_scenes");
+	gtk_combo_box_text_append (GTK_COMBO_BOX_TEXT(w), "s1", "Scene 1");
+	gtk_combo_box_text_append (GTK_COMBO_BOX_TEXT(w), "s2", "Scene 2");
+	gtk_combo_box_text_append (GTK_COMBO_BOX_TEXT(w), "s3", "Scene 3");
+	gtk_combo_box_set_active_id (GTK_COMBO_BOX(w), "s1");
+	
+	v = gtk_builder_get_object(builder, "radio1");
+
+	w = gtk_builder_get_object(builder, "radio2");
+	gtk_radio_button_join_group (GTK_RADIO_BUTTON(v), NULL);
+	gtk_radio_button_join_group (GTK_RADIO_BUTTON(w), GTK_RADIO_BUTTON(v));
+	//gtk_widget_set_visible (GTK_WIDGET(v), 1);
+*/
+
+	/*
 	// Init window
-	win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title (GTK_WINDOW (win), "RT with gtk+");
-	gtk_window_set_resizable (GTK_WINDOW (win), 0);
-	gtk_window_set_default_size (GTK_WINDOW (win), 640, 480);
+	ui.win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title (GTK_WINDOW (ui.win), "RT with gtk+");
+	gtk_window_set_resizable (GTK_WINDOW (ui.win), 0);
+	gtk_window_set_default_size (GTK_WINDOW (ui.win), 640, 480);
 
 	// Init grid
-	grid = gtk_grid_new();
-	gtk_container_add(GTK_CONTAINER (win), grid);
+	ui.grid = gtk_grid_new();
+	gtk_container_add(GTK_CONTAINER (ui.win), ui.grid);
+
+	// Init frame
+	ui.frame = gtk_frame_new("Settings");
+	gtk_grid_attach(GTK_GRID(ui.grid), ui.frame, 0, 0, 10, 10);
 
 	// Init button "Draw"
-	btn = gtk_button_new_with_label("Draw");
-	gtk_grid_attach(GTK_GRID (grid), btn, 0, 0, 10, 10);
-	g_signal_connect(btn, "clicked", G_CALLBACK (btn_click_draw), NULL);
-
+	ui.btn_draw = gtk_button_new_with_label("Draw");
+	//gtk_grid_attach(GTK_GRID (ui.grid), ui.btn_draw, 0, 0, 10, 10);
+	gtk_container_add(GTK_CONTAINER(ui.frame), ui.btn_draw);
+	g_signal_connect(ui.btn_draw, "clicked", G_CALLBACK (click_draw), NULL);
 
 	// Init button "Quit"
-	btn = gtk_button_new_with_label("Quit");
-	gtk_grid_attach(GTK_GRID (grid), btn, 0, 10, 10, 10);
-	g_signal_connect(btn, "clicked", G_CALLBACK (btn_click_quit), NULL);
+	ui.btn_quit = gtk_button_new_with_label("Quit");
+	//gtk_grid_attach(GTK_GRID (ui.grid), ui.btn_quit, 0, 10, 10, 10);
+	g_signal_connect(ui.btn_quit, "clicked", G_CALLBACK (click_quit), NULL);
+	gtk_container_add(GTK_CONTAINER(ui.frame), ui.btn_quit);
 
-	gtk_widget_show_all(win);
+	// Init combo box text "Scenes"
+	ui.lst_scenes = gtk_combo_box_text_new();
+	gtk_combo_box_text_append (GTK_COMBO_BOX_TEXT(ui.lst_scenes), "s1", "Scene 1");
+	gtk_combo_box_text_append (GTK_COMBO_BOX_TEXT(ui.lst_scenes), "s2", "Scene 2");
+	gtk_combo_box_text_append (GTK_COMBO_BOX_TEXT(ui.lst_scenes), "s3", "Scene 3");
+	gtk_combo_box_set_active_id (GTK_COMBO_BOX(ui.lst_scenes), "s1");
+	//gtk_grid_attach(GTK_GRID (ui.grid), ui.lst_scenes, 0, 90, 10, 10);
+
+	// Init radio buttons
+	ui.radio1 = gtk_radio_button_new_with_label (NULL, "Hum ...");
+	ui.radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(ui.radio1), "Yeah !");
+	//gtk_grid_attach(GTK_GRID (ui.grid), ui.radio1, 0, 100, 10, 10);
+	//gtk_grid_attach(GTK_GRID (ui.grid), ui.radio2, 0, 110, 10, 10);
+
+	// Init color button
+	ui.btn_color = gtk_color_button_new ();
+	//gtk_grid_attach(GTK_GRID (ui.grid), ui.btn_color, 0, 120, 10, 10);
+
+	// init check button
+	ui.check1 = gtk_check_button_new_with_label ("Heu ...");
+	//gtk_grid_attach(GTK_GRID (ui.grid), ui.check1, 0, 130, 10, 10);
+
+	// Init scale
+	ui.scale = gtk_scale_new (GTK_ORIENTATION_HORIZONTAL,
+			gtk_adjustment_new (0, -10, 10, 1, 1, 1));
+	//gtk_grid_attach(GTK_GRID (ui.grid), ui.scale, 0, 140, 10, 10);
+
+	// Init progress bar
+	ui.progress = gtk_progress_bar_new ();
+	//gtk_grid_attach(GTK_GRID (ui.grid), ui.progress, 0, 150, 10, 10);
+	gtk_progress_bar_pulse (GTK_PROGRESS_BAR(ui.progress));
+
+	GdkPixbuf		*pixbuf;
+	unsigned char	*buf;
+
+	ui.img = gtk_image_new();
+	buf = new_image_buffer(WIDTH, HEIGHT);
+	pixbuf = gtk_new_image(buf, WIDTH, HEIGHT);
+	gtk_put_image_to_window(GTK_IMAGE(ui.img), pixbuf);
+	gtk_grid_attach(GTK_GRID (ui.grid), ui.img, 150, 0, 10, 10);
+	*/
+
+	//
+	//gtk_widget_show_all(GTK_WIDGET(win));
 	gtk_main();
 	return (0);
 }

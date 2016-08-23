@@ -1,0 +1,5 @@
+<interface>
+  <object class="GtkWindow" id="window">
+    <property name="visible">True</property>
+  </object>
+</interface>
