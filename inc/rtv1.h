@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/24 17:57:36 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/24 18:47:35 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,21 @@
 # include <parallelo.h>
 # include <cyco_internal_struct.h>
 
-# define ESCAPE	53
-# define WIDTH 1920
-# define HEIGHT 1080
-# define PRECISION 10000000
+# define ESCAPE		53
+# define WIDTH		1920
+# define HEIGHT		1080
+# define PRECISION	10000000
 
-typedef struct	s_iter
+# define N_THREAD	4
+
+typedef pthread_t t_pthread;
+typedef pthread_mutex_t t_mutex;
+
+typedef	struct		s_iter
 {
-	int			i;
-	int			j;
-}				t_iter;
+	int				i;
+	int				j;
+}					t_iter;
 
 typedef struct		s_env
 {
@@ -63,13 +68,25 @@ typedef struct		s_env
 	int				fd;
 }					t_env;
 
+typedef struct		s_thread
+{
+	t_scene			*scene;
+	unsigned char 	*buf;
+	int				y_start;
+	int				y_end;
+	t_pthread		pth;
+	t_mutex			*mutex;
+	t_env			*env;
+}					t_thread;
+
 t_color		mix_color(t_color *mixed_color, int n_color);
 t_color		*new_color_array(int blur_lvl);
 
 void				*apply_depth_of_field(t_env *env, t_blur *array, double dof);
 void				*apply_blur(t_env *env, int  blur_lvl);
 int					key_hook(int keycode, t_env *e);
-int					draw_scene(t_env *env, t_scene *scene);
+//int					draw_scene(t_env *env, t_scene *scene);
+void				*draw_scene(void *data);
 double				deg_to_rad(double angle);
 
 t_color				add_color(t_color a, t_color b);

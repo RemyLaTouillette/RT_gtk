@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/24 18:06:54 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/24 18:47:45 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ int		pulse_pbar(void *data)
 	return (0);
 }
 
-int		draw_scene(t_env *env, t_scene *scene)
+void	*draw_scene(void *data)
 {
 	int		x;
 	int		y;
@@ -236,22 +236,31 @@ int		draw_scene(t_env *env, t_scene *scene)
 		y++;
 	}
 	////////////////////////////
-	x = -1;
-	while (++x < WIDTH)
+
+//	write_scene(scene);
+//	x = -1;
+	x = ((t_thread *)(data))->y_start - 1;
+//	while (++x < WIDTH)
+	while (++x < ((t_thread *)(data))->y_end)
 	{
 		y = -1;
+//		y = ((t_thread *)(data))->y_start - 1;
+//		while (++y < ((t_thread *)(data))->y_end)
 		while (++y < HEIGHT)
 		{
 			double noise;
 			noise = apply_marble_noise(x, y, 50, tab_noise);
-			start.pos = scene->cam.ray.pos;
-			start.dir = normalize(calc_vec_dir(x, y, scene->cam, scene->cam.look_at));
+			start.pos = ((t_thread *)(data))->scene->cam.ray.pos;
+			start.dir = normalize(calc_vec_dir(x, y, ((t_thread *)(data))->scene->cam, ((t_thread *)(data))->scene->cam.look_at));
 
-			final_color = color_render(scene, &start, noise, &(scene->blur_array[x * HEIGHT + y]));
+			final_color = color_render(((t_thread *)(data))->scene, &start, noise, &(((t_thread*)(data))->scene->blur_array[x * HEIGHT + y]));
 
-			put_pixel_on_buffer(env->buf, x, y, final_color);
+			//put_pixel_on_image(env->img, x, y, final_color);
+//			pthread_mutex_lock(((t_thread *)(data))->mutex);
+			put_pixel_on_buffer(((unsigned char *)(((t_thread *)(data))->buf)), x, y, final_color);
+//			pthread_mutex_unlock(((t_thread *)(data))->mutex);
 		}
-		env->x = x;
+		((t_thread *)(data))->env->x = x;
 		//pulse_pbar(env);
 	}
 //	if (scene->is_dof)
@@ -265,5 +274,5 @@ int		draw_scene(t_env *env, t_scene *scene)
 //	if (!(env->img = sepia_filter(env->mlx, env->img, scene->filter)))
 //		return (0);
 //	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
-	return (0);
+	return (data);
 }

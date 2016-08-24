@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/24 17:37:13 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/24 18:50:07 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,20 +309,58 @@ static void click_quit(GtkApplication *app, gpointer user_data)
 }
 
 #include <stdio.h>
+
+void		init_threads(t_thread *threads, t_scene *scene, t_env *e)
+{
+	int			i;
+	t_pthread	pth[N_THREAD];
+	t_mutex		mutex;
+
+	pthread_mutex_init(&mutex, NULL);
+	i = -1;
+	while (++i < N_THREAD)
+	{
+		threads[i].scene = scene;
+		threads[i].buf = e->buf;
+		threads[i].env = e;
+		threads[i].y_start = (WIDTH / N_THREAD) * i;
+		threads[i].y_end = (WIDTH / N_THREAD) * (i + 1);
+		threads[i].pth = pth[i];
+		threads[i].mutex = &mutex;
+	}
+}
+
 static void click_draw(GtkApplication *app, gpointer user_data)
 {
 
 	t_scene		*s;
 	GdkPixbuf	*pixbuf;
 	t_env		*e;
+	t_thread	threads[N_THREAD];
+	int			i;
 	GObject		*o;
 
 	g_print("btn_click_draw()\n");
 	e = user_data;
-	if (!(s = parse("scenes/scene1")))
+	if (!(s = parse("scenes/scene_cartoon2")))
 		printf("No scene\n");
 	else
-		draw_scene(e, s);
+	{
+		init_threads(threads, s, e);
+		i = -1;
+		while (++i < N_THREAD)
+		{
+			if (pthread_create(&(threads[i].pth), NULL, draw_scene, &threads[i]) != 0)
+				printf("FAIL1\n");
+		}
+		i = -1;
+		while (++i < N_THREAD)
+		{
+			if (pthread_join(threads[i].pth, NULL) != 0)
+				printf("FAIL2\n");
+		}
+	}
+
 	
 	o = gtk_builder_get_object(e->builder, "btn_draw");
 	gtk_widget_set_sensitive (GTK_WIDGET(o), FALSE);
