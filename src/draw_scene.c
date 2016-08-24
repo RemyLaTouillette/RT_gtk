@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/18 19:53:00 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/24 13:31:55 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ int		draw_scene(t_env *env, t_scene *scene)
 			final_color = color_render(scene, &start, noise);
 
 			//put_pixel_on_image(env->img, x, y, final_color);
-			put_pixel_on_buffer((unsigned char *)env->img, x, y, final_color);
+			put_pixel_on_buffer((unsigned char *)env->buf, x, y, final_color);
 		}
 
 	}

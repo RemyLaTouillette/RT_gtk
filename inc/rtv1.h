@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/17 02:39:40 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/24 13:21:58 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@
 
 typedef struct		s_env
 {
-	void			*mlx;
-	void			*win;
+//	void			*mlx;
+//	void			*win;
 	void			*img;
-	t_vec			pos_plan;
-	t_cam			cam;
-	int				fd;
+//	t_vec			pos_plan;
+//	t_cam			cam;
+//	int				fd;
+	unsigned char *buf;
 }					t_env;
 
 int					key_hook(int keycode, t_env *e);

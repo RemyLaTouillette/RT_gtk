@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/08/18 19:06:12 by sduprey          ###   ########.fr        #
+#    Updated: 2016/08/24 13:25:43 by sduprey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,9 +55,9 @@ LIB = -L libft -lft
 
 RM = rm -rf
 
-C_FLAGS= -Wall -Werror -Wextra -o3 `pkg-config --cflags gtk+-3.0`
+C_FLAGS= -Wall -Werror -Wextra -o3 `pkg-config --cflags gtk+-3.0` -fsanitize=address
 
-MLX_FLAGS = `pkg-config --libs gtk+-3.0`
+MLX_FLAGS = `pkg-config --libs gtk+-3.0` -fsanitize=address
 
 all: lft $(NAME)
 

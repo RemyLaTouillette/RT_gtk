@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/24 12:01:21 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/24 13:31:30 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,11 +313,30 @@ static void click_quit(GtkApplication *app, gpointer user_data)
 	gtk_main_quit();
 }
 */
+#include <stdio.h>
 static void click_draw(GtkApplication *app, gpointer user_data)
 {
+
+	t_scene		*s;
+	GdkPixbuf	*pixbuf;
+	t_env		*e;
+
+	e = user_data;
+	if (!(s = parse("scenes/scene1")))
+		printf("No scene\n");
+	else
+		draw_scene(e, s);
+	
+	gtk_new_image(e->buf, WIDTH, HEIGHT);
+	pixbuf = gtk_new_image(e->buf, WIDTH, HEIGHT);
+	gtk_put_image_to_window(e->img, pixbuf);
+
+
 	(void)app;
 	(void)user_data;
 	g_print("btn_click_draw()\n");
+	
+
 }
 
 int		main(void)
@@ -327,7 +346,13 @@ int		main(void)
 	GObject		*win;
 	GObject		*v;
 	GObject		*w;
-	GObject		*o;
+	GObject			*o;
+	//GObject			*img;
+	//unsigned char	*buf;
+	GdkPixbuf		*pixbuf;
+	t_env			e;
+//	t_scene			*s;
+
 
 	gtk_init(NULL, NULL);
 	(void)v;
@@ -335,13 +360,19 @@ int		main(void)
 
 	(void)click_draw;
 
+//	s = parse("scene/scene1");
+
 	builder = gtk_builder_new_from_file ("./ui/builder.c.ui");
 	win = gtk_builder_get_object (builder, "window");
 	g_signal_connect (win, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 
+	e.img = gtk_builder_get_object(builder, "img");
+	e.buf = new_image_buffer(WIDTH, HEIGHT);
+	pixbuf = gtk_new_image(e.buf, WIDTH, HEIGHT);
+	gtk_put_image_to_window(GTK_IMAGE(e.img), pixbuf);
 
 	o = gtk_builder_get_object(builder, "btn_draw");
-	g_signal_connect(o, "clicked", G_CALLBACK(click_draw), NULL);
+	g_signal_connect(o, "clicked", G_CALLBACK(click_draw), &e);
 
 /*
 	// Set combo box text
