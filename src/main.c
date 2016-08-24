@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/23 18:46:45 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/24 12:01:21 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,14 +312,14 @@ static void click_quit(GtkApplication *app, gpointer user_data)
 	g_print("btn_click_quit()\n");
 	gtk_main_quit();
 }
-
+*/
 static void click_draw(GtkApplication *app, gpointer user_data)
 {
 	(void)app;
 	(void)user_data;
 	g_print("btn_click_draw()\n");
 }
-*/
+
 int		main(void)
 {
 	//t_ui	ui;
@@ -327,15 +327,21 @@ int		main(void)
 	GObject		*win;
 	GObject		*v;
 	GObject		*w;
+	GObject		*o;
 
 	gtk_init(NULL, NULL);
 	(void)v;
 	(void)w;
 
+	(void)click_draw;
 
 	builder = gtk_builder_new_from_file ("./ui/builder.c.ui");
 	win = gtk_builder_get_object (builder, "window");
 	g_signal_connect (win, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+
+
+	o = gtk_builder_get_object(builder, "btn_draw");
+	g_signal_connect(o, "clicked", G_CALLBACK(click_draw), NULL);
 
 /*
 	// Set combo box text

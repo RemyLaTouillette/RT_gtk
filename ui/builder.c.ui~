@@ -66,6 +66,7 @@
               <object class="GtkComboBoxText">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="active">0</property>
                 <items>
                   <item id="s1" translatable="yes">Scene 1</item>
                   <item id="s2" translatable="yes">Scene 2</item>
