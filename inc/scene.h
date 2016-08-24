@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:31:39 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/15 04:04:15 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/23 20:00:14 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,21 @@
 # define REALISTIC		1
 # define CARTOON		2
 
+typedef struct	s_blur
+{
+	int			p_obj;
+	double		t;
+}				t_blur;
+
 typedef struct	s_scene
 {
 	int			is_real;
+	int			is_dof;
+	int			dof;
 	int			blur;
 	int			filter;
 	double		ambient;
+	t_blur		*blur_array;
 	t_cam		cam;
 	int			w;
 	int			h;

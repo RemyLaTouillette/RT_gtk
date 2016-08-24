@@ -6,40 +6,43 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/08/24 13:25:43 by sduprey          ###   ########.fr        #
+#    Updated: 2016/08/24 17:55:14 by sduprey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = rtv1
 
 SRC =	main.c \
-		image_buffer.c \
-		color.c \
-		draw_scene.c \
-		vector.c \
-		vector_math.c \
-		light.c \
-		refraction.c \
-		parse.c \
 		camera.c \
-		node.c \
-		sphere.c \
 		cylinder.c \
-		plane.c \
-		plane.c \
+		draw_scene.c \
+		find_closest_object.c \
+		get_file_content.c \
+		get_objects.c \
+		get_scene.c \
+		get_val.c \
+		light.c \
+		node.c \
+		part.c \
+		parse.c \
 		parse_scop.c \
 		parse_tools.c \
+		parse_tools_is.c \
+		plane.c \
+		refraction.c \
 		scene.c \
+		sphere.c \
+		vector.c \
+		vector_math.c \
 		cone.c \
+		color.c \
 		perlin.c \
-		elipsoid.c \
-		find_closest_object.c \
 		checker.c \
-		part.c \
-		get_file_content.c \
-		get_scene.c \
-		get_objects.c \
-
+		elipsoid.c \
+		triangle.c \
+		parallelo.c \
+		write_scene.c \
+		image_buffer.c 
 
 SRCDIR = src/
 

@@ -6,11 +6,13 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/24 13:31:30 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/24 17:37:13 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+#include <image_buffer.h>
 
 GdkPixbuf			*gtk_new_image(unsigned char *data, int width, int height)
 {
@@ -24,14 +26,7 @@ GdkPixbuf			*gtk_new_image(unsigned char *data, int width, int height)
 	{
 		i++;
 	}
-	//ft_putendl("ICI");
-	//	ft_putnbr(ft_strlen((char *)data));
-	//ft_putnbr(i);
-	//ft_putendl("\n");
-	//ft_putnbr(width * height * 3);
-	//ft_putendl("\n");
 	buffer = g_bytes_new(data, width * height * 3);
-	ft_putendl("ou pas");
 	pixbuf = gdk_pixbuf_new_from_bytes(buffer, GDK_COLORSPACE_RGB, 0, 8, width, height, 3 * width);
 	if (!pixbuf)
 		return (NULL);
@@ -304,7 +299,7 @@ typedef struct	s_ui
 	GtkWidget	*progress;
 	GtkWidget	*img;
 }				t_ui;
-/*
+
 static void click_quit(GtkApplication *app, gpointer user_data)
 {
 	(void)app;
@@ -312,7 +307,7 @@ static void click_quit(GtkApplication *app, gpointer user_data)
 	g_print("btn_click_quit()\n");
 	gtk_main_quit();
 }
-*/
+
 #include <stdio.h>
 static void click_draw(GtkApplication *app, gpointer user_data)
 {
@@ -320,29 +315,32 @@ static void click_draw(GtkApplication *app, gpointer user_data)
 	t_scene		*s;
 	GdkPixbuf	*pixbuf;
 	t_env		*e;
+	GObject		*o;
 
+	g_print("btn_click_draw()\n");
 	e = user_data;
 	if (!(s = parse("scenes/scene1")))
 		printf("No scene\n");
 	else
 		draw_scene(e, s);
 	
+	o = gtk_builder_get_object(e->builder, "btn_draw");
+	gtk_widget_set_sensitive (GTK_WIDGET(o), FALSE);
+
+	//g_idle_add(pulse_pbar, &e);
+
 	gtk_new_image(e->buf, WIDTH, HEIGHT);
 	pixbuf = gtk_new_image(e->buf, WIDTH, HEIGHT);
 	gtk_put_image_to_window(e->img, pixbuf);
 
-
 	(void)app;
 	(void)user_data;
-	g_print("btn_click_draw()\n");
-	
-
 }
 
 int		main(void)
 {
 	//t_ui	ui;
-	GtkBuilder	*builder;
+	//GtkBuilder	*builder;
 	GObject		*win;
 	GObject		*v;
 	GObject		*w;
@@ -362,17 +360,58 @@ int		main(void)
 
 //	s = parse("scene/scene1");
 
-	builder = gtk_builder_new_from_file ("./ui/builder.c.ui");
-	win = gtk_builder_get_object (builder, "window");
+	e.builder = gtk_builder_new_from_file ("./ui/builder.c.ui");
+	win = gtk_builder_get_object (e.builder, "window");
 	g_signal_connect (win, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 
-	e.img = gtk_builder_get_object(builder, "img");
+	e.img = gtk_builder_get_object(e.builder, "img");
 	e.buf = new_image_buffer(WIDTH, HEIGHT);
 	pixbuf = gtk_new_image(e.buf, WIDTH, HEIGHT);
 	gtk_put_image_to_window(GTK_IMAGE(e.img), pixbuf);
 
-	o = gtk_builder_get_object(builder, "btn_draw");
+	o = gtk_builder_get_object(e.builder, "btn_draw");
 	g_signal_connect(o, "clicked", G_CALLBACK(click_draw), &e);
+
+	o = gtk_builder_get_object(e.builder, "btn_quit");
+	g_signal_connect(o, "clicked", G_CALLBACK(click_quit), &e);
+
+
+	//o = gtk_builder_get_object(e.builder, "pbar");
+	//gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(o), 0.0);
+	//g_timeout_add(300, pulse_pbar, o);
+	//printf("pouet\n");
+	//gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(o), 0.0);
+	//gtk_progress_bar_pulse(GTK_PROGRESS_BAR(o));
+	/*
+	int i;
+	double j;
+	i = 0;
+	while (i < 100)
+	{
+		j = (double)i / (double)100;
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(o), j);
+		printf("i=%f\n", j);
+		i++;
+		//sleep(1);
+	}
+*/
+/*
+	double step;
+	double new_val;
+
+	step = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(o));
+	//gtk_progress_bar_pulse(GTK_PROGRESS_BAR(o));
+
+	new_val = 0.0;//step + 0.1;
+
+	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(o), new_val);
+	//step = gtk_progress_bar_get_pulse_step(GTK_PROGRESS_BAR(o));
+	//printf("fraction = %f\n", step);
+	
+	//gtk_progress_bar_pulse(GTK_PROGRESS_BAR(o));
+	//step = gtk_progress_bar_get_pulse_step(GTK_PROGRESS_BAR(o));
+	//printf("fraction = %f\n", step);
+*/	
 
 /*
 	// Set combo box text
@@ -460,7 +499,6 @@ int		main(void)
 	*/
 
 	//
-	//gtk_widget_show_all(GTK_WIDGET(win));
 	gtk_main();
 	return (0);
 }

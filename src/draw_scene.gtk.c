@@ -6,13 +6,12 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/24 18:06:54 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/24 16:36:15 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
-#include <image_buffer.h>
 
 double		deg_to_rad(double angle)
 {
@@ -108,7 +107,7 @@ void	apply_ambient(t_color *color, float index)
 }
 
 
-t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
+t_color color_render(t_scene *scene, t_ray *start, double noise)
 {
 	double	reflet;
 	t_color final_color;
@@ -117,11 +116,12 @@ t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 	t_color	ambient;
 	int		r;
 
-	(void)blur;
 	r = 0;
 	final_color = init_color(0, 0, 0);
 	while (r < 3)
 	{		
+		drawn_pixel.reflection = (int)(PRECISION * drawn_pixel.reflection);
+		drawn_pixel.reflection /= (double)PRECISION;
 		if (r == 0 || drawn_pixel.reflection != 0)
 		{
 			reflet = pow(drawn_pixel.reflection, r * 3);
@@ -134,8 +134,12 @@ t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 					drawn_pixel.color = init_color(0, 0, 0);
 				else
 				{
-					drawn_pixel.color = apply_light(scene, drawn_pixel, start);
-					drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
+					//faire attention condition ici
+			//		if (drawn_pixel.t != drawn_pixel.t_max)
+			//		{
+						drawn_pixel.color = apply_light(scene, drawn_pixel, start);
+						drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
+			//		}
 					if (drawn_pixel.opacity < 1.0)
 						drawn_pixel.color = add_color(drawn_pixel.color, apply_refraction(start, scene, drawn_pixel, noise));
 					if (drawn_pixel.texture == MARBLE)
@@ -146,40 +150,13 @@ t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 						drawn_pixel.color = checkerboard(drawn_pixel.color, tmp);
 					}	
 				}
-				if (blur && r == 0)
-				{
-					blur->p_obj = 0;
-					t_vec tmp2;
-//					printf("t : %f\n", drawn_pixel.t);
-//					write_vector(start->dir, "cam->dir");
-//					write_vector(start->pos, "start->pos");
-//					write_vector(start->dir, "start->dir");
-					if (drawn_pixel.bool == 1)
-					{
-						tmp2 = (vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)));
-//						write_vector(tmp2, "tmp2");
-						blur->t = tmp2.z;
-						if (blur->t == scene->cam.ray.pos.z)
-							blur->t = 0;
-						if (blur->t > 100)
-							blur->t = 100;
-
-					}
-					else
-						blur->t = 10;
-				}
 			}
 			else
-			{
-				if (blur)
-					blur->t = 100;
 				break;
-			}
 			start->pos = vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)); 
 			reflet = dot_product(start->dir, drawn_pixel.point_norm) * 2.0;
 			start->dir = normalize(vec_sub(scalar_product(drawn_pixel.point_norm, reflet), start->dir));
-			if (!(scene->is_real == CARTOON && is_black_edge(&drawn_pixel)))
-				drawn_pixel.color = add_color(drawn_pixel.color, ambient);
+			drawn_pixel.color = add_color(drawn_pixel.color, ambient);
 			final_color = add_color(final_color, drawn_pixel.color);
 		}
 		if (scene->is_real == CARTOON)
@@ -195,20 +172,40 @@ t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 		white = init_color(255, 255, 255);
 		final_color = sub_color(white, final_color);
 	}
+
 	return (final_color);
 }
 
-int		pulse_pbar(void *data)
+int	pulse_pbar(void *data)
 {
 	GObject	*o;
-	//double nv;
-	t_env *e;
+	double	new_val;
+	t_env	*e;
 
 	e = (t_env *)data;
 
 	o = gtk_builder_get_object(e->builder, "btn_draw");
 	gtk_widget_set_sensitive(GTK_WIDGET(o), FALSE);
 
+	o = gtk_builder_get_object(e->builder, "pbar");
+
+	new_val = (double)e->x / (double)WIDTH;
+	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(o), new_val);
+	while (gtk_events_pending())
+		gtk_main_iteration_do(0);
+	//gtk_main_iteration_do(1);
+/*
+	if (((t_env *)(data))->builder == NULL)
+		ft_putendl("NICAKY !");
+
+	(void)x;
+	o = gtk_builder_get_object(e->builder, "pbar");
+	step = gtk_progress_bar_get_fraction(GTK_PROGRESS_BAR(o));
+
+
+	new_val = ((double)x / (double)WIDTH);
+	g_print("pbar pulse %f\n", new_val);
+*/
 	return (0);
 }
 
@@ -222,6 +219,7 @@ int		draw_scene(t_env *env, t_scene *scene)
 	///////////////////////
 	double	**tab_noise;
 
+	ft_putendl("start draw");
 	y = 0;
 	tab_noise = (double **)malloc(sizeof(double *) * HEIGHT);
 	while (y < HEIGHT)
@@ -236,6 +234,8 @@ int		draw_scene(t_env *env, t_scene *scene)
 		y++;
 	}
 	////////////////////////////
+
+//	write_scene(scene);
 	x = -1;
 	while (++x < WIDTH)
 	{
@@ -247,23 +247,19 @@ int		draw_scene(t_env *env, t_scene *scene)
 			start.pos = scene->cam.ray.pos;
 			start.dir = normalize(calc_vec_dir(x, y, scene->cam, scene->cam.look_at));
 
-			final_color = color_render(scene, &start, noise, &(scene->blur_array[x * HEIGHT + y]));
+			final_color = color_render(scene, &start, noise);
 
+			//put_pixel_on_image(env->img, x, y, final_color);
 			put_pixel_on_buffer(env->buf, x, y, final_color);
 		}
 		env->x = x;
-		//pulse_pbar(env);
+		pulse_pbar(env);
 	}
-//	if (scene->is_dof)
-//	{
-//		if (!(env->img = apply_depth_of_field(env, scene->blur_array, scene->dof)))
-//		return (0);
-//	}
-
 //	if (!(env->img = apply_blur(env, scene->blur)))
 //		return (0);
 //	if (!(env->img = sepia_filter(env->mlx, env->img, scene->filter)))
 //		return (0);
 //	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+	ft_putendl("end draw");
 	return (0);
 }

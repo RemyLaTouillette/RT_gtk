@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_closest_object.h                              :+:      :+:    :+:   */
+/*   cyco_internal_struct.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/13 03:06:03 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/23 14:15:26 by nbelouni         ###   ########.fr       */
+/*   Created: 2016/08/23 13:38:44 by tlepeche          #+#    #+#             */
+/*   Updated: 2016/08/23 13:48:19 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FIND_CLOSEST_OBJECT
-# define FIND_CLOSEST_OBJECT
+#ifndef _CYCO_INTERNAL_STRUCT_
+# define _CYCO_INTERNAL_STRUCT_
 
-int			neg_exists(t_node *tmp);
-t_hit		find_closest_object(t_node *nodes, t_ray *ray);
-t_hit		init_hit(void);
-t_hit		get_hit(t_ray *ray, t_node *tmp, int is_neg);
+typedef struct		s_intern
+{
+	t_vec			aa;
+	t_vec			ab;
+	double			ab2;
+	t_vec			oxb;
+	t_vec			v;
+	t_vec			delta;
+	double			x;
+	double			y;
+}					t_intern;
 
 #endif

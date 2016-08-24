@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/16 16:24:25 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/23 18:49:54 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,40 @@ t_hit		init_hit(void)
 	return (hit);
 }
 
-t_hit		get_hit(t_ray *ray, t_node *tmp)
+t_hit		get_hit(t_ray *ray, t_node *tmp, int is_neg)
 {
 	t_hit		tmp_content;
 
 	tmp_content = init_hit();
-	if (tmp->type == SPHERE)
+	if (tmp->type == SPHERE && ((t_sphere *)(tmp->data))->is_negativ == is_neg)
 		tmp_content = is_sphere_hit(ray, (t_sphere *)tmp->data);
-	else if (tmp->type == CYLINDER)
+	else if (tmp->type == CYLINDER && ((t_cylinder *)(tmp->data))->is_negativ == is_neg)
 		tmp_content = is_cylinder_hit(ray, (t_cylinder *)tmp->data);
-	else if (tmp->type == PLANE)
+	else if (tmp->type == PLANE && ((t_plane *)(tmp->data))->is_negativ == is_neg)
 		tmp_content = is_plane_hit(ray, (t_plane *)tmp->data);
-	else if (tmp->type == CONE)
+	else if (tmp->type == CONE && ((t_cone *)(tmp->data))->is_negativ == is_neg)
 		tmp_content = is_cone_hit(ray, (t_cone *)tmp->data);
-	else if (tmp->type == ELIPS)
+	else if (tmp->type == ELIPS && ((t_elips *)(tmp->data))->is_negativ == is_neg)
 		tmp_content = is_elips_hit(ray, (t_elips *)tmp->data);
+	else if (tmp->type == TRIAN && ((t_triangle *)(tmp->data))->is_negativ == is_neg)
+		tmp_content = is_trian_hit(ray, (t_triangle *)tmp->data);
+	else if (tmp->type == PARA && ((t_parallelo *)(tmp->data))->is_negativ == is_neg)
+		tmp_content = is_parallelo_hit(ray, (t_parallelo *)tmp->data);
 	return (tmp_content);
 }
 
+int			neg_exists(t_node *tmp)
+{
+	if ((tmp->type == SPHERE && ((t_sphere *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == CYLINDER && ((t_cylinder *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == PLANE && ((t_plane *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == CONE && ((t_cone *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == ELIPS && ((t_elips *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == TRIAN && ((t_triangle *)(tmp->data))->is_negativ == 1) ||
+		(tmp->type == PARA && ((t_parallelo *)(tmp->data))->is_negativ == 1))
+		return (1);
+	return (0);
+}
 #include <stdio.h>
 t_hit		find_closest_object(t_node *nodes, t_ray *ray)
 {
@@ -55,60 +71,85 @@ t_hit		find_closest_object(t_node *nodes, t_ray *ray)
 	t_hit		tmp_content;
 	t_hit		negativ_hit;
 	t_hit		closest_hit;
+	int			is_neg;
 
 
 	closest_hit = init_hit();
 	negativ_hit = init_hit();
 	tmp = nodes;
-//	printf("nouvelle boucle      ");
+	is_neg = 0;
 	while (tmp)
 	{
-		tmp_content = get_hit(ray, tmp);
+		if (is_neg == 0)
+			is_neg = neg_exists(tmp);
+		tmp_content = get_hit(ray, tmp, 0);
 		if (tmp_content.bool == 1)
 		{
-			if (tmp_content.is_negativ == 1)
-			{
-				negativ_hit = tmp_content;
-			}
-			else if ((closest_hit.bool == 0 || tmp_content.t <= closest_hit.t) && tmp_content.t > 0)
+			if ((closest_hit.bool == 0 || tmp_content.t <= closest_hit.t) && tmp_content.t > 0)
 			{
 				closest_hit = tmp_content;
 			}
 		}
 		tmp = tmp->next;
 	}
+
+	tmp = nodes;
+	while (is_neg && tmp)
+	{
+		tmp_content = get_hit(ray, tmp, 1);
+		if (tmp_content.bool == 1 &&
+		((closest_hit.t < tmp_content.t_max && closest_hit.t > tmp_content.t) ||
+		(closest_hit.t_max > tmp_content.t && closest_hit.t_max < tmp_content.t_max) ||
+		(closest_hit.t < tmp_content.t && closest_hit.t_max > tmp_content.t_max)))
+		{
+			if (negativ_hit.bool == 0)
+				negativ_hit = tmp_content;
+			else
+			{
+				if (tmp_content.t < negativ_hit.t && tmp_content.t_max < negativ_hit.t_max)
+				{
+					if (tmp_content.t_max > negativ_hit.t)
+					{	
+						negativ_hit.t = tmp_content.t;
+						negativ_hit.point_norm = tmp_content.point_norm;
+					}
+					else
+						negativ_hit = tmp_content;
+				}
+				else if (negativ_hit.t < tmp_content.t && negativ_hit.t_max < tmp_content.t_max && negativ_hit.t_max >= tmp_content.t)
+				{
+					negativ_hit.t_max = tmp_content.t_max;
+					negativ_hit.point_norm_max = tmp_content.point_norm_max;
+				}
+				else if (tmp_content.t < negativ_hit.t && tmp_content.t_max > negativ_hit.t_max)
+					negativ_hit = tmp_content;
+			}
+		}
+		tmp = tmp->next;
+	}
+
 	if (negativ_hit.bool == 1)
 	{
-			//printf("type : %d\n", closest_hit.type);
-
 		if ((negativ_hit.t < closest_hit.t && negativ_hit.t_max < closest_hit.t_max && closest_hit.t < negativ_hit.t_max))
 		{
-			closest_hit.t = negativ_hit.t_max + 0.01;
-//			printf("1\n");
-			if (negativ_hit.type == SPHERE || negativ_hit.type == ELIPS)
-				closest_hit.point_norm = normalize(vec_sub(vec_add(ray->pos, scalar_product(ray->dir, negativ_hit.t_max)), negativ_hit.pos));
+			if (negativ_hit.type == PLANE)	
+				closest_hit.point_norm = scalar_product(negativ_hit.point_norm, -1);
+			else
+			{
+				closest_hit.t = negativ_hit.t_max;
+				closest_hit.point_norm = scalar_product(negativ_hit.point_norm_max, -1);
+			}
 		}
 		else if (negativ_hit.t > closest_hit.t && negativ_hit.t_max > closest_hit.t_max && closest_hit.t_max > negativ_hit.t)
 		{
-//			printf("2\n");
-			closest_hit.t_max = negativ_hit.t - 0.01;
-			if (negativ_hit.type == SPHERE || negativ_hit.type == ELIPS)
-				closest_hit.point_norm = normalize(vec_sub(vec_add(ray->pos, scalar_product(ray->dir, negativ_hit.t_max)), negativ_hit.pos));
+			closest_hit.t_max = negativ_hit.t;
+			closest_hit.point_norm_max = scalar_product(negativ_hit.point_norm, -1);
 		}
 		else if (negativ_hit.t <= closest_hit.t && negativ_hit.t_max >= closest_hit.t_max)
 		{
-//			printf("3\n");
 			ray->pos = vec_add(ray->pos, scalar_product(ray->dir, closest_hit.t_max));
 			closest_hit = find_closest_object(nodes, ray);
 		}
-		else
-		{
-//			printf("__________4\n");
-//			printf("NEG : bool : %d, t : %f, t_max : %f\n", negativ_hit.bool, negativ_hit.t, negativ_hit.t_max);
-//			printf("CLOSE : bool : %d, t : %f, t_max : %f\n", closest_hit.bool, closest_hit.t, closest_hit.t_max);
-//			sleep(1);
-		}
 	}
-//	printf("final t = %f\n\n", closest_hit.t);
 	return (closest_hit);
 }

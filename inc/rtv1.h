@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/24 13:21:58 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/08/24 17:57:36 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,39 @@
 # include <vector.h>
 # include <elipsoid.h>
 # include <quad.h>
-# include <image_buffer.h>
+# include <triangle.h>
+# include <parallelo.h>
+# include <cyco_internal_struct.h>
 
 # define ESCAPE	53
 # define WIDTH 1920
 # define HEIGHT 1080
 # define PRECISION 10000000
 
+typedef struct	s_iter
+{
+	int			i;
+	int			j;
+}				t_iter;
+
 typedef struct		s_env
 {
-//	void			*mlx;
-//	void			*win;
+	int				x;
+	GtkBuilder		*builder;
+	unsigned char	*buf;
+	void			*mlx;
+	void			*win;
 	void			*img;
-//	t_vec			pos_plan;
-//	t_cam			cam;
-//	int				fd;
-	unsigned char *buf;
+	t_vec			pos_plan;
+	t_cam			cam;
+	int				fd;
 }					t_env;
 
+t_color		mix_color(t_color *mixed_color, int n_color);
+t_color		*new_color_array(int blur_lvl);
+
+void				*apply_depth_of_field(t_env *env, t_blur *array, double dof);
+void				*apply_blur(t_env *env, int  blur_lvl);
 int					key_hook(int keycode, t_env *e);
 int					draw_scene(t_env *env, t_scene *scene);
 double				deg_to_rad(double angle);
@@ -72,6 +87,7 @@ t_color				checkerboard(t_color color, t_vec vec);
 int					is_black_edge(t_hit *hit);
 
 void				*apply_blur(t_env *env, int  blur_lvl);
+void				*apply_depth_of_field(t_env *env, t_blur *array, double dof);
 int					put_pixel_on_image(void *img, int x, int y, t_color color);
-t_color				color_render(t_scene *scene, t_ray *start, double noise);
+t_color				color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur);
 #endif

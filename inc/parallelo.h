@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylinder.h                                         :+:      :+:    :+:   */
+/*   parallelo.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/10 03:30:13 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/23 16:36:50 by tlepeche         ###   ########.fr       */
+/*   Created: 2016/08/08 02:14:57 by bhenne            #+#    #+#             */
+/*   Updated: 2016/08/22 17:06:10 by bhenne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _CYLINDER_H
-# define _CYLINDER_H
+#ifndef _PARALLELO_H
+# define _PARALLELO_H
 
 # include <ray.h>
 # include <objects.h>
-# include <math.h>
 
-typedef struct	s_cylinder
+typedef struct s_parallelo
 {
-	double		radius;
-	t_vec		pos;
-	t_vec		dir;
-	double		length;
-	double		h;
+	t_vec		v0;
+	t_vec		v1;
+	t_vec		v2;
 	t_color		color;
 	int			specular;
 	double		reflection;
@@ -31,9 +28,8 @@ typedef struct	s_cylinder
 	double		ref_index;
 	int			is_negativ;
 	int			texture;
-	int			is_closed;
-}				t_cylinder;
+}				t_parallelo;
 
-t_hit is_cylinder_hit(t_ray *ray, t_cylinder *cylinder);
+t_hit		is_parallelo_hit(t_ray *ray, t_parallelo *para);
 
 #endif
