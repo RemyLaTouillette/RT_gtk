@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:32:08 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/12 01:41:21 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 14:23:35 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		*epur_file(int fd)
 
 	line = NULL;
 	file_content = NULL;
-	while (get_next_line(fd, &line))
+	while (get_next_line(fd, &line) > 0)
 	{
 		if (!ft_strchr(line, '#')) //faire ca bien apres
 		{

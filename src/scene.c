@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:41:15 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/25 12:23:13 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/25 14:22:35 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_scene		*init_scene(void)
 	}
 	if (!(s = (t_scene *)malloc(sizeof(t_scene))))
 		return (NULL);
+	complete_scene(s, tmp);
 	return (s);
 }
 
