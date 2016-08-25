@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:30:13 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/23 16:36:50 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:06:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ typedef struct	s_cylinder
 	int			is_closed;
 }				t_cylinder;
 
-t_hit is_cylinder_hit(t_ray *ray, t_cylinder *cylinder);
+t_hit			is_cylinder_hit(t_ray *ray, t_cylinder *cylinder);
 
 #endif

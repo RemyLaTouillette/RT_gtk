@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 06:18:17 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/24 12:39:13 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 18:21:47 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_scene		*get_scene(t_scene *scene, t_part *part)
 	t_elem	*tmp;
 	int		is_init[6];
 	int		is_cartoon;
+	t_color	*color;
 
 	tmp = part->elems;
 	is_init[0] = 0;
@@ -99,13 +100,18 @@ t_scene		*get_scene(t_scene *scene, t_part *part)
 				ft_putendl("'ambient' redefined");
 				return (NULL);
 			}
-			scene->ambient = (int)get_num(tmp->values);
-			if (scene->ambient < 0.0 || scene->ambient > 10.0)
+			scene->ambient_index = (int)get_num(tmp->values);
+			if (scene->ambient_index < 0.0 || scene->ambient_index > 10.0)
 			{
 				ft_putendl("'ambient' < 0 or > 10");
 				return (NULL);
 			}
 			is_init[3] = 1;
+		}
+		else if (!ft_strcmp(tmp->name, "color"))
+		{
+			if (!(get_new_color(tmp, &color, OBJECT)))
+				return (NULL);
 		}
 		else
 		{
@@ -113,6 +119,11 @@ t_scene		*get_scene(t_scene *scene, t_part *part)
 			return (NULL);
 		}
 		tmp = tmp->next;
+	}
+	if (color)
+	{
+		scene->ambient_color = *color;
+		free(color);
 	}
 	return (scene);
 }

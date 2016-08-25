@@ -6,15 +6,18 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:31:39 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/23 20:00:14 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 18:48:34 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#ifndef _SCENE_H
+# define _SCENE_H
 
 # define REALISTIC		1
 # define CARTOON		2
+
+# include <objects.h>
+# include <node.h>
 
 typedef struct	s_blur
 {
@@ -29,7 +32,8 @@ typedef struct	s_scene
 	int			dof;
 	int			blur;
 	int			filter;
-	double		ambient;
+	double		ambient_index;
+	t_color		ambient_color;
 	t_blur		*blur_array;
 	t_cam		cam;
 	int			w;

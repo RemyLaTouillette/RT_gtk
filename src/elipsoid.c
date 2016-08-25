@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:52:42 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/25 15:59:47 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:21:04 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ void	find_normal(t_ray *ray, t_elips *elips, t_hit *hit)
 {
 	hit->point_norm = vec_add(ray->pos, scalar_product(ray->dir, hit->t));
 	hit->point_norm = vec_sub(elips->center, hit->point_norm);
-	hit->point_norm.x *= 2.0 * (elips->quad.A * elips->quad.A);
-	hit->point_norm.y *= 2.0 * (elips->quad.B * elips->quad.B);
-	hit->point_norm.z *= 2.0 * (elips->quad.C * elips->quad.C);
+	hit->point_norm.x *= 2.0 * (elips->quad.a * elips->quad.a);
+	hit->point_norm.y *= 2.0 * (elips->quad.b * elips->quad.b);
+	hit->point_norm.z *= 2.0 * (elips->quad.c * elips->quad.c);
 	hit->point_norm = normalize(hit->point_norm);
 	hit->point_norm_max = scalar_product(ray->dir, hit->t_max);
 	hit->point_norm_max = vec_add(ray->pos, hit->point_norm_max);
 	hit->point_norm_max = vec_sub(elips->center, hit->point_norm_max);
-	hit->point_norm_max.x *= 2.0 * (elips->quad.A * elips->quad.A);
-	hit->point_norm_max.y *= 2.0 * (elips->quad.B * elips->quad.B);
-	hit->point_norm_max.z *= 2.0 * (elips->quad.C * elips->quad.C);
+	hit->point_norm_max.x *= 2.0 * (elips->quad.a * elips->quad.a);
+	hit->point_norm_max.y *= 2.0 * (elips->quad.b * elips->quad.b);
+	hit->point_norm_max.z *= 2.0 * (elips->quad.c * elips->quad.c);
 	hit->point_norm_max = normalize(hit->point_norm_max);
 }
 
@@ -50,17 +50,17 @@ double	find_elips_det(t_ray *ray, t_elips *elips, double *a, double *b)
 	double	c;
 	t_vec	tmp;
 
-	*a = pow(ray->dir.x, 2) * pow(elips->quad.A, 2);
-	*a += pow(ray->dir.y, 2) * pow(elips->quad.B, 2);
-	*a += pow(ray->dir.z, 2) * pow(elips->quad.C, 2);
+	*a = pow(ray->dir.x, 2) * pow(elips->quad.a, 2);
+	*a += pow(ray->dir.y, 2) * pow(elips->quad.b, 2);
+	*a += pow(ray->dir.z, 2) * pow(elips->quad.c, 2);
 	tmp = vec_sub(elips->center, ray->pos);
-	*b = tmp.x * ray->dir.x * pow(elips->quad.A, 2);
-	*b += tmp.y * ray->dir.y * pow(elips->quad.B, 2);
-	*b += tmp.z * ray->dir.z * pow(elips->quad.C, 2);
+	*b = tmp.x * ray->dir.x * pow(elips->quad.a, 2);
+	*b += tmp.y * ray->dir.y * pow(elips->quad.b, 2);
+	*b += tmp.z * ray->dir.z * pow(elips->quad.c, 2);
 	*b *= 2.0;
-	c = tmp.x * tmp.x * pow(elips->quad.A, 2);
-	c += tmp.y * tmp.y * pow(elips->quad.B, 2);
-	c += tmp.z * tmp.z * pow(elips->quad.C, 2);
+	c = tmp.x * tmp.x * pow(elips->quad.a, 2);
+	c += tmp.y * tmp.y * pow(elips->quad.b, 2);
+	c += tmp.z * tmp.z * pow(elips->quad.c, 2);
 	c -= pow(elips->radius, 2);
 	return (pow(*b, 2) - (4 * (*a) * c));
 }

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 16:44:46 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/22 16:46:00 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:20:00 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ t_quad		*get_quad(char **values)
 	}
 	if (!(quad = (t_quad *)malloc(sizeof(t_quad))))
 		return (NULL);
-	quad->A = ft_atof(values[0]);
-	quad->B = ft_atof(values[1]);
-	quad->C = ft_atof(values[2]);
+	quad->a = ft_atof(values[0]);
+	quad->b = ft_atof(values[1]);
+	quad->c = ft_atof(values[2]);
 	return (quad);
 }

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:13:12 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/14 00:14:35 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:37:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct	s_sphere
 	int			texture;
 }				t_sphere;
 
-double		find_sphere_det(t_ray *ray, t_sphere *sphere, double *a, double *b);
-void		find_sphere_closest_hit(double a, double b, double det, t_hit *hit);
-t_hit		is_sphere_hit(t_ray *ray, t_sphere *sphere);
+double			find_sphere_det(t_ray *ray, t_sphere *sp, double *a, double *b);
+void			find_sphere_closest_hit(double a, double b, double d, t_hit *h);
+t_hit			is_sphere_hit(t_ray *ray, t_sphere *sphere);
 
 #endif

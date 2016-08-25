@@ -6,18 +6,18 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 00:24:46 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/06 03:50:53 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:15:00 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _QUAD_H_
-# define _QUAD_H_
+#ifndef _QUAD_H
+# define _QUAD_H
 
-typedef 	struct s_quad
+typedef struct	s_quad
 {
-	double		A;
-	double		B;
-	double		C;
+	double		a;
+	double		b;
+	double		c;
 }				t_quad;
 
 #endif

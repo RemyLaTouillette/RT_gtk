@@ -6,12 +6,12 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 03:06:03 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/23 14:15:26 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:08:13 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FIND_CLOSEST_OBJECT
-# define FIND_CLOSEST_OBJECT
+#ifndef _FIND_CLOSEST_OBJECT_H
+# define _FIND_CLOSEST_OBJECT_H
 
 int			neg_exists(t_node *tmp);
 t_hit		find_closest_object(t_node *nodes, t_ray *ray);

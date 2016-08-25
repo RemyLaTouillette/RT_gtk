@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/25 17:03:34 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 18:41:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,13 @@ int		is_black_edge(t_hit *hit)
 	return (0);
 }
 
-void	apply_ambient(t_color *color, float index)
+void	apply_ambient(t_color *color, t_scene *scene)
 {
-	if (index >= 0 && index <= 10)
+	if (scene->ambient_index >= 0 && scene->ambient_index <= 10)
 	{
-		color->r *= 255 * index;
-		color->g *= 255 * index;
-		color->b *= 255 * index;
+		color->r *= scene->ambient_color.r * scene->ambient_index;
+		color->g *= scene->ambient_color.g * scene->ambient_index;
+		color->b *= scene->ambient_color.b * scene->ambient_index;
 	}
 }
 
@@ -150,7 +150,7 @@ t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 			reflet = pow(drawn_pixel.reflection, r * 3);
 			drawn_pixel = find_closest_object(scene->objects, start);
 			ambient = drawn_pixel.color;
-			apply_ambient(&ambient, scene->ambient);
+			apply_ambient(&ambient, scene);
 			if (drawn_pixel.bool == 1)
 			{
 				if (scene->is_real == CARTOON && is_black_edge(&drawn_pixel))

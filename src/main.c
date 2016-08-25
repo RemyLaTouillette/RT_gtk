@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/25 14:16:46 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 18:46:19 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,11 +342,11 @@ static void click_draw(GtkApplication *app, gpointer user_data)
 
 	g_print("btn_click_draw()\n");
 	e = user_data;
-	if (!(s = parse("scenes/test_cartoon")))
+	//if (!(s = parse("../test/scenes/scene_bug_transparence")))
+	if (!(s = parse("scenes/scene_cartoon2")))
 		printf("No scene\n");
 	else
 	{
-		write_scene(*s);
 		init_threads(threads, s, e);
 		i = -1;
 		while (++i < N_THREAD)

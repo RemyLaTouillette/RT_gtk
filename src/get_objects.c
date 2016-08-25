@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 02:29:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/25 14:20:03 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 18:47:52 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		get_new_quad(t_elem *elem, t_quad **quad)
 	}
 	if (!(*quad = get_quad(elem->values)))
 		return (0);
-	if ((*quad)->A <= 0 || (*quad)->B <= 0 || (*quad)->C <= 0)
+	if ((*quad)->a <= 0 || (*quad)->b <= 0 || (*quad)->c <= 0)
 	{
 		ft_putendl("'quad' value <= 0\n");
 		return (0);
@@ -883,9 +883,9 @@ t_elips	*init_elips(void)
 		return (NULL);
 	elips->radius = 0;
 	elips->center = init_vector(0, 0, 0);
-	elips->quad.A = 0;
-	elips->quad.B = 0;
-	elips->quad.C = 0;
+	elips->quad.a = 0;
+	elips->quad.b = 0;
+	elips->quad.c = 0;
 	elips->color = init_color(0, 0, 0);
 	elips->specular = 0;
 	elips->reflection = 0;
@@ -1001,7 +1001,6 @@ t_scene		*get_objects(t_scene *scene, t_part *part)
 	}
 	while (tmp)
 	{
-		printf("ok\n");
 		data = NULL;
 		if (tmp->type == SPHERE)
 		{

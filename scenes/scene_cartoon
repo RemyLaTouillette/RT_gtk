@@ -23,30 +23,12 @@
 					options:
 					{
 						{specular: 50}
-#						{ref_index: 1.33}
 						{opacity: 1}
 					}
 				}
 			}
 		}
-#		{
-#			elips:
-#			{
-#				{radius: 0.3}
-#				{pos: 0, 0.4, 1}
-#				{quad : 1, 0.5, 1}
-#				{color: 0.2, 1, 0.2}
-#				{
-#					options:
-#					{
-#						{specular: 50}
-#						{opacity:1}
-#					}
-#				}
-#			}
-#		}
 		{
-#			cone:
 			cylinder:
 			{
 				{radius: 0.5}
@@ -64,23 +46,6 @@
 				}
 			}
 		}
-#		{
-#			cylinder:
-#			{
-#				{radius: 0.1}
-#				{pos : 0, 0.8, -1}
-#				{dir: 1, 0, 0}
-#				{length: 4}
-#				{color: 1, 1, 1}
-#				{
-#					options:
-#					{
-#						{specular: 50}
-#						{opacity:1}
-#					}
-#				}
-#			}
-#		}
 		{
 			plane:
 			{

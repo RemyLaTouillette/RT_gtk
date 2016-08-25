@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:14:57 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/22 14:57:56 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/08/25 16:33:03 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <ray.h>
 # include <objects.h>
 
-typedef struct s_triangle
+typedef struct	s_triangle
 {
 	t_vec		v0;
 	t_vec		v1;
@@ -30,6 +30,6 @@ typedef struct s_triangle
 	int			texture;
 }				t_triangle;
 
-t_hit		is_trian_hit(t_ray *ray, t_triangle*triangle);
+t_hit			is_trian_hit(t_ray *ray, t_triangle*triangle);
 
 #endif

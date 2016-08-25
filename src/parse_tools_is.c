@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 16:47:26 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/22 16:51:05 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 18:00:21 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ int			is_initialized(int *is_init, t_scene *scene)
 		ft_putendl("No Camera");
 		return (0);
 	}
-	if (is_init[2] == 0 && scene->ambient <= 0.0)
+	if (is_init[2] == 0 && scene->ambient_index <= 0.0)
 	{
 		ft_putendl("No Lights");
-		scene->ambient = 0.5;
+		scene->ambient_index = 0.5;
 	}
 	if (is_init[3] == 0)
 	{

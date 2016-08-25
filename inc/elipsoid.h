@@ -6,12 +6,12 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:53:08 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/14 00:26:07 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:38:03 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _elips_H
-# define _elips_H
+#ifndef _ELIPSOID_H
+# define _ELIPSOID_H
 
 # include <ray.h>
 # include <objects.h>
@@ -30,17 +30,9 @@ typedef struct	s_elips
 	int			is_negativ;
 	int			texture;
 }				t_elips;
-/*
-typedef struct	s_coord
-{
-	double	t;
-	t_color	color;
-	int	bool;
-}		t_hit;
-*/
 
-double		find_elips_det(t_ray *ray, t_elips *elips, double *a, double *b);
-void		find_elips_closest_hit(double a, double b, double det, t_hit *hit);
-t_hit		is_elips_hit(t_ray *ray, t_elips *elips);
+double			find_elips_det(t_ray *ray, t_elips *eli, double *a, double *b);
+void			find_elips_closest_hit(double a, double b, double d, t_hit *h);
+t_hit			is_elips_hit(t_ray *ray, t_elips *elips);
 
 #endif

@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   thread.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/14 00:35:14 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/25 16:21:43 by tlepeche         ###   ########.fr       */
+/*   Created: 2016/08/25 17:53:36 by tlepeche          #+#    #+#             */
+/*   Updated: 2016/08/25 18:48:47 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _RAY_H
-# define _RAY_H
+#ifndef _THREAD_H
+# define _THREAD_H
 
-# include <vector.h>
+# include <scene.h>
+# include <pthread.h>
 
-typedef struct	s_ray
+typedef struct			s_thread
 {
-	t_vec		pos;
-	t_vec		dir;
-	double		length;
-}				t_ray;
+	t_scene				*scene;
+	unsigned char		*buf;
+	int					y_start;
+	int					y_end;
+	t_pthread			pth;
+	t_mutex				*mutex;
+	t_env				*env;
+}						t_thread;
 
 #endif

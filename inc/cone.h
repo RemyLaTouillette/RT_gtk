@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:25:00 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/23 16:36:23 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:05:06 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ typedef struct	s_cone
 	int			is_closed;
 }				t_cone;
 
-t_hit		is_cone_hit(t_ray *ray, t_cone *cone);
+t_hit			is_cone_hit(t_ray *ray, t_cone *cone);
 
 #endif

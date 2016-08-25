@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:14:57 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/22 17:06:10 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/08/25 16:11:57 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <ray.h>
 # include <objects.h>
 
-typedef struct s_parallelo
+typedef struct	s_parallelo
 {
 	t_vec		v0;
 	t_vec		v1;
@@ -30,6 +30,6 @@ typedef struct s_parallelo
 	int			texture;
 }				t_parallelo;
 
-t_hit		is_parallelo_hit(t_ray *ray, t_parallelo *para);
+t_hit			is_parallelo_hit(t_ray *ray, t_parallelo *para);
 
 #endif
