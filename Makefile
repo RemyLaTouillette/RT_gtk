@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/08/24 17:55:14 by sduprey          ###   ########.fr        #
+#    Updated: 2016/08/25 12:16:53 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC =	main.c \
 		sphere.c \
 		vector.c \
 		vector_math.c \
+		vector_math2.c \
 		cone.c \
 		color.c \
 		perlin.c \

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 06:54:08 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/09 01:31:46 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 12:14:35 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ void		check_color(t_color *color)
 		color->r = 0;
 	else if (color->r > 255)
 		color->r = 255;
-
 	if (color->g < 0)
 		color->g = 0;
 	else if (color->g > 255)
 		color->g = 255;
-
 	if (color->b < 0)
 		color->b = 0;
 	else if (color->b > 255)
@@ -32,13 +30,13 @@ void		check_color(t_color *color)
 
 t_color		sub_color(t_color a, t_color b)
 {
-		t_color res;
+	t_color	res;
 
 	res.r = a.r - b.r;
 	res.g = a.g - b.g;
 	res.b = a.b - b.b;
 	check_color(&res);
-	return res;
+	return (res);
 }
 
 t_color		add_color(t_color a, t_color b)
@@ -49,7 +47,7 @@ t_color		add_color(t_color a, t_color b)
 	res.g = a.g + b.g;
 	res.b = a.b + b.b;
 	check_color(&res);
-	return res;
+	return (res);
 }
 
 t_color		init_color(int r, int g, int b)
@@ -63,7 +61,7 @@ t_color		init_color(int r, int g, int b)
 	return (res);
 }
 
-t_color mult_color(t_color ref, double coef)
+t_color		mult_color(t_color ref, double coef)
 {
 	t_color res;
 
