@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/25 18:41:40 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/25 19:35:41 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,15 +223,23 @@ t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 
 int		pulse_pbar(void *data)
 {
+	static int x = 0;
+	
 	GObject	*o;
-	//double nv;
+	double nv;
 	t_env *e;
 
 	e = (t_env *)data;
 
-	o = gtk_builder_get_object(e->builder, "btn_draw");
-	gtk_widget_set_sensitive(GTK_WIDGET(o), FALSE);
+	nv = (double)x / (double)WIDTH;
+	o = gtk_builder_get_object(e->builder, "pbar");
+	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(o), nv);
+	//printf("nv = %f\n", nv);
 
+	while (gtk_events_pending())
+		gtk_main_iteration();
+
+	x++;
 	return (0);
 }
 
@@ -284,7 +292,8 @@ void	*draw_scene(void *data)
 //			pthread_mutex_unlock(((t_thread *)(data))->mutex);
 		}
 		((t_thread *)(data))->env->x = x;
-		//pulse_pbar(env);
+		//g_idle_add(pulse_pbar, NULL);
+		pulse_pbar(((t_thread *)(data))->env);
 	}
 //	if (scene->is_dof)
 //	{
