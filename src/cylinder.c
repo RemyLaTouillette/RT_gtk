@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 04:42:45 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/23 17:11:59 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:00:29 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	complete_hit(t_hit *hit, t_cylinder *cylinder)
 	hit->color.r = cylinder->color.r;
 	hit->color.g = cylinder->color.g;
 	hit->color.b = cylinder->color.b;
+	hit->dir = cylinder->dir;
 	hit->opacity = cylinder->opacity;
 	hit->ref_index = cylinder->ref_index;
 	hit->specular = cylinder->specular;

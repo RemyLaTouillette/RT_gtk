@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/24 18:47:45 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 17:03:34 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,23 @@ t_color	cartoon(t_color color)
 }
 
 #include <stdio.h>
+int		is_dir(t_vec v)
+{
+	if (v.x == 0 && v.y == 0 && v.z == 0)
+		return (0);
+	return (1);
+}
+
+int		is_same_dir(t_vec v, t_vec ref)
+{
+	if (v.x == ref.x && v.y == ref.y && v.z == ref.z)
+		return (1);
+	v = scalar_product(v, -1);
+	if (v.x == ref.x && v.y == ref.y && v.z == ref.z)
+		return (1);
+	return (0);
+}
+
 int		is_black_edge(t_hit *hit)
 {
 	double	dist_min_max;
@@ -80,17 +97,23 @@ int		is_black_edge(t_hit *hit)
 		else
 			edge_scale = 0;
 	}
-
+	if (hit->type == CYLINDER)
+		hit->length /= 2;
 
 	dist_min_max = hit->t_max - hit->t;
 		
-	if (dist_min_max < edge_scale && dist_min_max > 0.0)
+	if (dist_min_max < edge_scale && dist_min_max > (double)(1 / PRECISION) && 
+		((is_dir(hit->dir) && !is_same_dir(hit->point_norm_max, hit->dir) && !is_same_dir(hit->point_norm, hit->dir))
+		 || !is_dir(hit->dir)))
 		return (1);
+
+
+
 	if (hit->type != PLANE && hit->length > 0)
 	{
 		if (hit->length >= hit->dist_from_center && hit->length - hit->dist_from_center <= hit->length / 100)
 		{
-//			printf("dfc: %f, length : %f\n",hit->length - hit->dist_from_center,hit->length / 100);
+	//		printf("dfc: %f, length : %f\n",hit->length - hit->dist_from_center,hit->length / 100);
 			return (1);
 		}
 	}

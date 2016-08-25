@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:52:42 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/25 12:39:57 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/25 15:59:47 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	complete_elips(t_hit *hit, t_elips *elips)
 	hit->type = ELIPS;
 	hit->radius = elips->radius;
 	hit->length = 0;
-	hit->pos = elips->center;
+//	hit->pos = elips->center;
+	hit->dir = init_vector(0, 0, 0);
 	hit->color = elips->color;
 	hit->specular = elips->specular;
 	hit->reflection = elips->reflection;

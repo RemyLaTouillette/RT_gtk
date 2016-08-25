@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/15 02:30:35 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/25 15:58:59 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ t_hit	is_plane_hit(t_ray *ray, t_plane *plane)
 		hit.t_max = hit.t + 1;
 		hit.bool = (hit.t == 0.0) ? 0 : 1;
 		hit.color = plane->color;
-		hit.pos = plane->pos;
+//		hit.pos = plane->pos;
+		hit.dir = init_vector(0, 0, 0);
 		hit.point_norm.x = -plane->normal.x;
 		hit.point_norm.y = -plane->normal.y;
 		hit.point_norm.z = -plane->normal.z;

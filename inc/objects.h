@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/16 14:14:18 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/08/25 15:58:35 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ typedef struct s_hit
 	double 		t_max;
 	double		dist_from_center;
 	double		radius;
-	t_vec		pos;
+//	t_vec		pos;
 	double		length;
+	t_vec		dir;
 	t_color		color;
 	int			bool;
 	t_vec		point_norm;

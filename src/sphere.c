@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/25 12:43:43 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/25 15:59:48 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	complete_sphere(t_hit *hit, t_sphere *sphere, t_ray *ray)
 	hit->type = SPHERE;
 	hit->radius = sphere->radius;
 	hit->length = 0;
-	hit->pos = sphere->center;
+//	hit->pos = sphere->center;
+	hit->dir = init_vector(0, 0, 0);
 	hit->color = sphere->color;
 	hit->point_norm = vec_add(ray->pos, scalar_product(ray->dir, hit->t));
 	hit->point_norm = normalize(vec_sub(sphere->center, hit->point_norm));

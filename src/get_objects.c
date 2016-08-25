@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 02:29:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/23 16:49:17 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/08/25 14:20:03 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1001,6 +1001,7 @@ t_scene		*get_objects(t_scene *scene, t_part *part)
 	}
 	while (tmp)
 	{
+		printf("ok\n");
 		data = NULL;
 		if (tmp->type == SPHERE)
 		{

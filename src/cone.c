@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cone.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/08/25 14:50:08 by nbelouni          #+#    #+#             */
+/*   Updated: 2016/08/25 16:00:07 by nbelouni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <rtv1.h>
 #include <stdio.h>
 
@@ -5,7 +17,8 @@ static void		complete_hit(t_hit *hit, t_cone *cone)
 {
 	hit->type = CONE;
 	hit->length = cone->len;
-	hit->pos = cone->pos;
+//	hit->pos = cone->pos;
+	hit->dir = cone->dir;
 	hit->radius = cone->r;
 	hit->specular = cone->specular;
 	hit->reflection = cone->reflection;
@@ -76,9 +89,9 @@ double		find_cone_limit(t_ray *ray, t_cone *cone, double t, t_intern intern, t_h
 	proj = intern.ab;
 	proj = vec_sub(cone->pos, proj);
 	tmp = get_length(proj);
+	hit->dist_from_center = (tmp > cone->len) ? 0 : tmp;
 	if (tmp > cone->len)
 		return (0.0);
-	hit->dist_from_center = tmp;
 	(*hit).point_norm = inter;
 	(*hit).point_norm = vec_sub(cone->pos, inter);
 	angle = atan(cone->r / cone->len);
@@ -192,7 +205,7 @@ t_hit		is_cone_hit(t_ray *ray, t_cone *cone)
 			else
 			{
 				hit.t = t;
-				hit.t_max = t_max;
+				hit.t_max = t_max > (double)( 1 / PRECISION) ? t_max : t;
 			}
 			complete_hit(&hit, cone);
 			return (hit);
