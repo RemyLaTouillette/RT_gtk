@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/12 17:08:14 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/12 17:39:38 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,17 @@ static void click_quit(GtkApplication *app, gpointer user_data)
 	g_print("btn_click_quit()\n");
 	gtk_main_quit();
 }
+
+static void	click_save(GtkApplication *app, gpointer user_data)
+{
+	t_env	*e;
+
+	(void)app;
+	g_print("click_save()\n");
+	e = user_data;
+	save_bmp(e->buf);
+}
+
 #include <stdio.h>
 
 void		init_threads(t_thread *threads, t_scene *scene, t_env *e)
@@ -251,6 +262,9 @@ int		main(void)
 	g_signal_connect(o, "clicked", G_CALLBACK(click_draw), &e);
 	o = gtk_builder_get_object(e.builder, "btn_quit");
 	g_signal_connect(o, "clicked", G_CALLBACK(click_quit), &e);
+
+	o = gtk_builder_get_object(e.builder, "btn_save");
+	g_signal_connect(o, "clicked", G_CALLBACK(click_save), &e);
 
 	// VAS CHERCHER LES SCENES
 	

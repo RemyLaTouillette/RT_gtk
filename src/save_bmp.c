@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 06:31:18 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/09 23:54:11 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/12 17:59:28 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_bmpih		init_bmp_info_header(void)
    */
 
 
-void		save_bmp(void *img)
+void		save_bmp(unsigned char *buf)
 {
 	int		i;
 	int		j;
@@ -116,6 +116,12 @@ void		save_bmp(void *img)
 	int w = 1920;
 	int h = 1080;
 	//int	bpp = 
+
+
+(void)i;
+(void)j;
+(void)buf;
+(void)c;
 
 	fd = open("test_img.bmp", O_RDWR | O_CREAT);
 	printf("fd: %d\n", fd);
@@ -150,26 +156,30 @@ void		save_bmp(void *img)
 		x = 0x00000000;
 		write(fd, &x, 4);
 		write(fd, &x, 4);
+
+		c = get_pixel_from_buffer(buf ,0, 0);
+		printf("%f %f %f\n", c.r, c.g, c.b);
+
 		//
-		j = h;
-		while (j)
+		j = h - 1;
+		while (j >= 0)
 		{
 			i = 0;
 			while (i < w)
 			{
-				int xr, xg, xb;
+				//int xr, xg, xb;
 
 				char data[3];
+				c = get_pixel_from_buffer(buf ,i, j);
 
-				c = get_pixel_color(img ,i, j);
-
+			//printf("i: %d\tj: %d\n", i, j);
 				data[2] = (int)c.r;
 				data[1] = (int)c.g;
 				data[0] = (int)c.b;
 
-				xr = (int)c.r | 0x00000000;
-				xg = (int)c.g | xr << 8;
-				xb = (int)c.b | xg << 8;
+				//xr = (int)c.r | 0x00000000;
+				//xg = (int)c.g | xr << 8;
+				//xb = (int)c.b | xg << 8;
 				write(fd, &data, sizeof(data));
 				i++;
 			}

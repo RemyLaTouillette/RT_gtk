@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/25 19:35:39 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/12 17:41:30 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # include <parallelo.h>
 # include <cyco_internal_struct.h>
 # include <thread.h>
+# include <image_buffer.h>
 
 # define ESCAPE		53
 # define WIDTH		1920
@@ -75,4 +76,6 @@ void		*apply_blur(t_env *env, int blur_lvl);
 void		*apply_depth_of_field(t_env *env, t_blur *array, double dof);
 int			put_pixel_on_image(void *img, int x, int y, t_color color);
 t_color		color_render(t_scene *s, t_ray *start, double noise, t_blur *blur);
+
+void		save_bmp(unsigned char *buf);
 #endif

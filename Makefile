@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/08/25 12:16:53 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/09/12 17:39:14 by sduprey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRC =	main.c \
 		triangle.c \
 		parallelo.c \
 		write_scene.c \
-		image_buffer.c 
+		image_buffer.c \
+		save_bmp.c \
 
 SRCDIR = src/
 
