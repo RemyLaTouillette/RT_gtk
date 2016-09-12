@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/25 19:35:37 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/12 17:08:14 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,90 @@ static void click_draw(GtkApplication *app, gpointer user_data)
 	t_thread	threads[N_THREAD];
 	int			i;
 	GObject		*o;
+	gchar		*c;
+	gchar		*sname;
+	gdouble val;
 
 	g_print("btn_click_draw()\n");
 	e = user_data;
+
+	o = gtk_builder_get_object(e->builder, "cmb_scene");
+	sname = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(o));
+	g_print("%s\n", sname);
+
+	// CAM POS
+	o = gtk_builder_get_object(e->builder, "scale_cam_pos_x");
+	val = gtk_range_get_value(GTK_RANGE(o));
+	g_print("cam pos x: %f\n", val);
+	
+	o = gtk_builder_get_object(e->builder, "scale_cam_pos_y");
+	val = gtk_range_get_value(GTK_RANGE(o));
+	g_print("cam pos y: %f\n", val);
+
+	o = gtk_builder_get_object(e->builder, "scale_cam_pos_z");
+	val = gtk_range_get_value(GTK_RANGE(o));
+	g_print("cam pos z: %f\n", val);
+
+	// CAM DIR
+	o = gtk_builder_get_object(e->builder, "scale_cam_dir_x");
+	val = gtk_range_get_value(GTK_RANGE(o));
+	g_print("cam dir x: %f\n", val);
+	
+	o = gtk_builder_get_object(e->builder, "scale_cam_dir_y");
+	val = gtk_range_get_value(GTK_RANGE(o));
+	g_print("cam dir y: %f\n", val);
+
+	o = gtk_builder_get_object(e->builder, "scale_cam_dir_z");
+	val = gtk_range_get_value(GTK_RANGE(o));
+	g_print("cam dir z: %f\n", val);
+
+	// CARTOON
+	o = gtk_builder_get_object(e->builder, "switch_cartoon");
+	gboolean carto;
+	carto = gtk_switch_get_state(GTK_SWITCH(o));
+	g_print("cartoon: %d\n", carto);
+
+
+	// FILTER
+	o = gtk_builder_get_object(e->builder, "cmb_filter");
+	c = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(o));
+	g_print("filter: %s\n", c);
+
+	// DOF
+	o = gtk_builder_get_object(e->builder, "switch_dof");
+	gboolean dof;
+	dof = gtk_switch_get_state(GTK_SWITCH(o));
+	g_print("dof: %d\n", dof);
+	// focus
+	o = gtk_builder_get_object(e->builder, "scale_focus");
+	val = gtk_range_get_value(GTK_RANGE(o));
+	g_print("focus: %f\n", val);
+	// blur
+	o = gtk_builder_get_object(e->builder, "scale_blur");
+	val = gtk_range_get_value(GTK_RANGE(o));
+	g_print("blur: %f\n", val);
+
+	// LIGHTING
+	GdkRGBA *color;
+
+
+	color = (GdkRGBA *)malloc(sizeof(GdkRGBA));
+	o = gtk_builder_get_object(e->builder, "btn_color");
+	gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(o), color);
+	g_print("red: %f\n", color->red);
+	g_print("green: %f\n", color->green);
+	g_print("blue: %f\n", color->blue);
+
+
+
 	//if (!(s = parse("../test/scenes/scene_bug_transparence")))
-	if (!(s = parse("scenes/scene_cartoon2")))
+	
+	char	*hey;
+
+	hey = ft_strjoin("scenes/", sname);
+	g_print("%s\n", hey);
+
+	if (!(s = parse(hey)))
 		printf("No scene\n");
 	else
 	{
@@ -128,10 +207,11 @@ static void click_draw(GtkApplication *app, gpointer user_data)
 		}
 	}
 
-	
+
+/*	
 	o = gtk_builder_get_object(e->builder, "btn_draw");
 	gtk_widget_set_sensitive (GTK_WIDGET(o), FALSE);
-
+*/
 	o = gtk_builder_get_object(e->builder, "lbl_info");
 	gtk_label_set_text (GTK_LABEL(o), "Hey !");
 
@@ -169,6 +249,37 @@ int		main(void)
 
 	o = gtk_builder_get_object(e.builder, "btn_draw");
 	g_signal_connect(o, "clicked", G_CALLBACK(click_draw), &e);
+	o = gtk_builder_get_object(e.builder, "btn_quit");
+	g_signal_connect(o, "clicked", G_CALLBACK(click_quit), &e);
+
+	// VAS CHERCHER LES SCENES
+	
+	DIR	*dir = NULL;
+	struct dirent *pika = NULL;
+
+	o = gtk_builder_get_object(e.builder, "cmb_scene");
+
+
+	//gtk_combo_box_text_append_text
+
+	dir = opendir("/nfs/2014/s/sduprey/42/Projects/RT_gtk.git/scenes");
+	if (dir == NULL)
+	{
+		printf("gros NULL\n");
+	}
+	else
+	{
+		printf("cc\n");
+		while ((pika = readdir(dir)) != NULL)
+		{
+			if (ft_strcmp(pika->d_name, ".") && ft_strcmp(pika->d_name, ".."))
+			{
+				printf("Hello: %s\n", pika->d_name);
+				gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(o), pika->d_name);
+			}
+		}
+	closedir(dir);
+	}
 
 	gtk_main();
 	return (0);
