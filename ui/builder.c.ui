@@ -2,6 +2,29 @@
 <!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <object class="GtkAdjustment" id="adj_blur">
+    <property name="upper">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adj_cam_dir_x">
+    <property name="lower">-10</property>
+    <property name="upper">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adj_cam_dir_y">
+    <property name="lower">-10</property>
+    <property name="upper">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adj_cam_dir_z">
+    <property name="lower">-10</property>
+    <property name="upper">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkAdjustment" id="adj_cam_pos_x">
     <property name="lower">-10</property>
     <property name="upper">10</property>
@@ -63,14 +86,12 @@
                     <property name="can_focus">False</property>
                     <property name="left_padding">12</property>
                     <child>
-                      <object class="GtkComboBoxText">
+                      <object class="GtkComboBoxText" id="cmb_scene">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="active">0</property>
                         <items>
-                          <item translatable="yes">Scene 1</item>
-                          <item translatable="yes">Scene 2</item>
-                          <item translatable="yes">Scene 3</item>
+                          <item translatable="yes">Select a scene</item>
                         </items>
                       </object>
                     </child>
@@ -124,9 +145,10 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkScale">
+                              <object class="GtkScale" id="scale_cam_pos_x">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="adjustment">adj_cam_pos_x</property>
                                 <property name="round_digits">1</property>
                               </object>
                               <packing>
@@ -136,9 +158,10 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkScale">
+                              <object class="GtkScale" id="scale_cam_pos_y">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="adjustment">adj_cam_pos_y</property>
                                 <property name="round_digits">1</property>
                               </object>
                               <packing>
@@ -148,9 +171,10 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkScale">
+                              <object class="GtkScale" id="scale_cam_pos_z">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="adjustment">adj_cam_pos_z</property>
                                 <property name="round_digits">1</property>
                               </object>
                               <packing>
@@ -184,9 +208,10 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkScale">
+                              <object class="GtkScale" id="scale_cam_dir_x">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="adjustment">adj_cam_dir_x</property>
                                 <property name="round_digits">1</property>
                               </object>
                               <packing>
@@ -196,9 +221,10 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkScale">
+                              <object class="GtkScale" id="scale_cam_dir_y">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="adjustment">adj_cam_dir_y</property>
                                 <property name="round_digits">1</property>
                               </object>
                               <packing>
@@ -208,9 +234,10 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkScale">
+                              <object class="GtkScale" id="scale_cam_dir_z">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="adjustment">adj_cam_dir_z</property>
                                 <property name="round_digits">1</property>
                               </object>
                               <packing>
@@ -278,7 +305,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkSwitch">
+                              <object class="GtkSwitch" id="switch_cartoon">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                               </object>
@@ -313,7 +340,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkComboBoxText">
+                              <object class="GtkComboBoxText" id="cmb_filter">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="active">0</property>
@@ -354,7 +381,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkSwitch">
+                              <object class="GtkSwitch" id="switch_dof">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                               </object>
@@ -389,7 +416,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkScale">
+                              <object class="GtkScale" id="scale_focus">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="adjustment">adj_focus</property>
@@ -426,9 +453,10 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkScale">
+                              <object class="GtkScale" id="scale_blur">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="adjustment">adj_blur</property>
                                 <property name="round_digits">1</property>
                               </object>
                               <packing>
@@ -479,7 +507,7 @@
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkColorButton">
+                          <object class="GtkColorButton" id="btn_color">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -670,7 +698,7 @@
                     <property name="layout_style">start</property>
                     <child>
                       <object class="GtkButton" id="btn_save">
-                        <property name="label" translatable="yes">button</property>
+                        <property name="label" translatable="yes">Save</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -683,7 +711,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="btn_quit">
-                        <property name="label" translatable="yes">button</property>
+                        <property name="label" translatable="yes">Quit</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
