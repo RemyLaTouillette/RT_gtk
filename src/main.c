@@ -125,31 +125,19 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	sname = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(o));
 	g_print("%s\n", sname);
 
-	// CAM POS
-	o = gtk_builder_get_object(e->builder, "scale_cam_pos_x");
-	val = gtk_range_get_value(GTK_RANGE(o));
-	g_print("cam pos x: %f\n", val);
-	
-	o = gtk_builder_get_object(e->builder, "scale_cam_pos_y");
-	val = gtk_range_get_value(GTK_RANGE(o));
-	g_print("cam pos y: %f\n", val);
 
-	o = gtk_builder_get_object(e->builder, "scale_cam_pos_z");
-	val = gtk_range_get_value(GTK_RANGE(o));
-	g_print("cam pos z: %f\n", val);
+	/* TODO
+	if get_cam_pos_from_ui return NULL, keep parser values else get ui values
+	if get_cam_dir_from_ui return NULL, keep parser values else get ui values
 
-	// CAM DIR
-	o = gtk_builder_get_object(e->builder, "scale_cam_dir_x");
-	val = gtk_range_get_value(GTK_RANGE(o));
-	g_print("cam dir x: %f\n", val);
-	
-	o = gtk_builder_get_object(e->builder, "scale_cam_dir_y");
-	val = gtk_range_get_value(GTK_RANGE(o));
-	g_print("cam dir y: %f\n", val);
+	get scene name
 
-	o = gtk_builder_get_object(e->builder, "scale_cam_dir_z");
-	val = gtk_range_get_value(GTK_RANGE(o));
-	g_print("cam dir z: %f\n", val);
+	get cartoon mode on/off
+	get filter
+	get dof
+	get light
+	get loop
+	*/
 
 	// CARTOON
 	o = gtk_builder_get_object(e->builder, "switch_cartoon");
