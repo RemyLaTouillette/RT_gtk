@@ -45,6 +45,8 @@ SRC =	main.c \
 		write_scene.c \
 		image_buffer.c \
 		save_bmp.c \
+		scene_finder.c \
+		ui_init.c \
 
 SRCDIR = src/
 

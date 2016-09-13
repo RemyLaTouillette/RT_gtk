@@ -65,7 +65,7 @@ int		gtk_put_image_to_window(GtkImage *image, GdkPixbuf *pixbuf)
 #include <sys/wait.h>
 #define APP_ID "RT.test"
 
-static void click_quit(GtkApplication *app, gpointer user_data)
+void click_quit(GtkApplication *app, gpointer user_data)
 {
 	(void)app;
 	(void)user_data;
@@ -73,7 +73,7 @@ static void click_quit(GtkApplication *app, gpointer user_data)
 	gtk_main_quit();
 }
 
-static void	click_save(GtkApplication *app, gpointer user_data)
+void	click_save(GtkApplication *app, gpointer user_data)
 {
 	t_env	*e;
 
@@ -105,9 +105,7 @@ void		init_threads(t_thread *threads, t_scene *scene, t_env *e)
 	}
 }
 
-int	pulse_pbar(void *data);
-
-static void click_draw(GtkApplication *app, gpointer user_data)
+void click_draw(GtkApplication *app, gpointer user_data)
 {
 
 	t_scene		*s;
@@ -236,65 +234,9 @@ static void click_draw(GtkApplication *app, gpointer user_data)
 
 int		main(void)
 {
-	GObject		*win;
-	GObject		*o;
-	GdkPixbuf		*pixbuf;
 	t_env			e;
-	//t_scene			*s;
 
-	(void)click_draw;
-	(void)click_quit;
-
-	gtk_init(NULL, NULL);
-
-	e.builder = gtk_builder_new_from_file("ui/builder.c.ui");
-
-	win = gtk_builder_get_object(e.builder, "window");
-	g_signal_connect(win, "destroy", G_CALLBACK(gtk_main_quit), NULL);
-
-	e.img = gtk_builder_get_object(e.builder, "img");
-	e.buf = new_image_buffer(WIDTH, HEIGHT);
-	pixbuf = gtk_new_image(e.buf, WIDTH, HEIGHT);
-	gtk_put_image_to_window(GTK_IMAGE(e.img), pixbuf);
-	
-
-	o = gtk_builder_get_object(e.builder, "btn_draw");
-	g_signal_connect(o, "clicked", G_CALLBACK(click_draw), &e);
-	o = gtk_builder_get_object(e.builder, "btn_quit");
-	g_signal_connect(o, "clicked", G_CALLBACK(click_quit), &e);
-
-	o = gtk_builder_get_object(e.builder, "btn_save");
-	g_signal_connect(o, "clicked", G_CALLBACK(click_save), &e);
-
-	// VAS CHERCHER LES SCENES
-	
-	DIR	*dir = NULL;
-	struct dirent *pika = NULL;
-
-	o = gtk_builder_get_object(e.builder, "cmb_scene");
-
-
-	//gtk_combo_box_text_append_text
-
-	dir = opendir("/nfs/2014/s/sduprey/42/Projects/RT_gtk.git/scenes");
-	if (dir == NULL)
-	{
-		printf("gros NULL\n");
-	}
-	else
-	{
-		printf("cc\n");
-		while ((pika = readdir(dir)) != NULL)
-		{
-			if (ft_strcmp(pika->d_name, ".") && ft_strcmp(pika->d_name, ".."))
-			{
-				printf("Hello: %s\n", pika->d_name);
-				gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(o), pika->d_name);
-			}
-		}
-	closedir(dir);
-	}
-
+	ui_init(&e);
 	gtk_main();
 	return (0);
 }

@@ -41,6 +41,7 @@
 # include <cyco_internal_struct.h>
 # include <thread.h>
 # include <image_buffer.h>
+# include <ui.h>
 
 # define ESCAPE		53
 # define WIDTH		1920
