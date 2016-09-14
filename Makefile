@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/11 16:54:11 by nbelouni         ###   ########.fr        #
+#    Updated: 2016/09/14 19:01:24 by sduprey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRC =	main.c \
 		save_bmp.c \
 		scene_finder.c \
 		ui_init.c \
+		ui_get_values.c \
 
 SRCDIR = src/
 
