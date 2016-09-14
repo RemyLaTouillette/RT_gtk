@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:41:15 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/25 18:00:53 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/09 14:54:11 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		complete_scene(t_scene *s, t_blur *tmp)
 	s->lights = NULL;
 	s->is_dof = 0;
 	s->dof = 0;
+	s->reflection = 1;
 	s->blur_array = tmp;
 	s->is_real = 0;
 	s->blur = 0;

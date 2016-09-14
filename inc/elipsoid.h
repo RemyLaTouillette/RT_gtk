@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:53:08 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/25 16:38:03 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/10 17:27:12 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct	s_elips
 	t_vec		center;
 	t_quad		quad;
 	t_color		color;
-	int			specular;
+	double		specular;
 	double		reflection;
 	double		opacity;
 	double		ref_index;

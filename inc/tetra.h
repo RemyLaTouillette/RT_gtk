@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:14:57 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/14 16:13:07 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/14 16:45:20 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct	s_tetra
 	t_vec		v2;
 	t_vec		v3;
 	t_color		color;
-	int			specular;
+	double		specular;
 	double		reflection;
 	double		opacity;
 	double		ref_index;

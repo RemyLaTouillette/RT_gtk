@@ -23,7 +23,7 @@ typedef struct	s_cone
 	double		len;
 	double		r;
 	t_color		color;
-	int			specular;
+	double		specular;
 	double		reflection;
 	double		opacity;
 	double		ref_index;

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 03:17:42 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/25 16:12:43 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/10 17:28:41 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef struct		s_plane
 	t_vec			pos;
 	t_vec			normal;
 	t_color			color;
-	int				specular;
+	double			specular;
 	double			reflection;
 	double			opacity;
 	double			ref_index;

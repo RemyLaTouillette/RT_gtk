@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 19:08:18 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/25 14:18:40 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/10 17:31:21 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		write_sphere(t_sphere *s)
 	printf("\t\t- radius : %f\n", s->radius);
 	write_vector(s->center, "center");
 	printf("\t\t- color : %f, %f, %f\n", s->color.r, s->color.g, s->color.b);
-	printf("\t\t- specular : %d\n", s->specular);
+	printf("\t\t- specular : %f\n", s->specular);
 	printf("\t\t- reflection : %f\n", s->reflection);
 	printf("\t\t- opacity : %f\n", s->opacity);
 	printf("\t\t- ref_index : %f\n", s->ref_index);
@@ -56,7 +56,7 @@ void		write_elips(t_elips *s)
 	printf("\t\t- radius : %f\n", s->radius);
 	write_vector(s->center, "center");
 	printf("\t\t- color : %f, %f, %f\n", s->color.r, s->color.g, s->color.b);
-	printf("\t\t- specular : %d\n", s->specular);
+	printf("\t\t- specular : %f\n", s->specular);
 	printf("\t\t- reflection : %f\n", s->reflection);
 	printf("\t\t- opacity : %f\n", s->opacity);
 	printf("\t\t- ref_index : %f\n", s->ref_index);
@@ -69,7 +69,7 @@ void		write_plane(t_plane *s)
 	write_vector(s->pos, "pos");
 	write_vector(s->normal, "normal");
 	printf("\t\t- color : %f, %f, %f\n", s->color.r, s->color.g, s->color.b);
-	printf("\t\t- specular : %d\n", s->specular);
+	printf("\t\t- specular : %f\n", s->specular);
 	printf("\t\t- reflection : %f\n", s->reflection);
 	printf("\t\t- opacity : %f\n", s->opacity);
 	printf("\t\t- ref_index : %f\n", s->ref_index);
@@ -85,7 +85,7 @@ void		write_cylinder(t_cylinder *s)
 	printf("\t\t- color : %f, %f, %f\n", s->color.r, s->color.g, s->color.b);
 	printf("\t\t- length : %f\n", s->length);
 	printf("\t\t- h : %f\n", s->h);
-	printf("\t\t- specular : %d\n", s->specular);
+	printf("\t\t- specular : %f\n", s->specular);
 	printf("\t\t- reflection : %f\n", s->reflection);
 	printf("\t\t- opacity : %f\n", s->opacity);
 	printf("\t\t- ref_index : %f\n", s->ref_index);
@@ -100,7 +100,7 @@ void		write_cone(t_cone *s)
 	write_vector(s->dir, "dir");
 	printf("\t\t- color : %f, %f, %f\n", s->color.r, s->color.g, s->color.b);
 	printf("\t\t- length : %f\n", s->len);
-	printf("\t\t- specular : %d\n", s->specular);
+	printf("\t\t- specular : %f\n", s->specular);
 	printf("\t\t- reflection : %f\n", s->reflection);
 	printf("\t\t- opacity : %f\n", s->opacity);
 	printf("\t\t- ref_index : %f\n", s->ref_index);

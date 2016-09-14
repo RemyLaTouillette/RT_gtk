@@ -5,118 +5,84 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/08 06:18:17 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/25 18:21:47 by tlepeche         ###   ########.fr       */
+/*   Created: 2016/09/09 16:27:40 by nbelouni          #+#    #+#             */
+/*   Updated: 2016/09/11 16:05:17 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
+int			get_scene_att1(t_scene *scene, t_elem *tmp)
+{
+	if (!ft_strcmp(tmp->name, "cartoon"))
+	{
+		if (!get_secur_is(tmp, &(scene->is_real)))
+			return (-1);
+		scene->is_real = (scene->is_real == 0) ? REALISTIC : CARTOON;
+	}
+	else if (!ft_strcmp(tmp->name, "depth"))
+	{
+		if (!(get_secur_is(tmp, &(scene->is_dof))))
+			return (-1);
+	}
+	else if (!ft_strcmp(tmp->name, "focus"))
+	{
+		if (!get_secur_num(tmp, &(scene->dof), 0, 0))
+			return (-1);
+	}
+	else if (!ft_strcmp(tmp->name, "blur"))
+	{
+		if (!get_secur_num(tmp, &(scene->blur), 0, 100))
+			return (-1);
+	}
+	else
+		return (0);
+	return (1);
+}
+
+int			get_scene_att2(t_scene *scene, t_elem *tmp, t_color *color)
+{
+	if (!ft_strcmp(tmp->name, "filter"))
+	{
+		if (!get_secur_enum(tmp, &(scene->filter)))
+			return (0);
+	}
+	else if (!ft_strcmp(tmp->name, "reflection"))
+	{
+		if (!get_secur_num(tmp, &(scene->reflection), 1, 5))
+			return (0);
+	}
+	else if (!ft_strcmp(tmp->name, "ambient"))
+	{
+		if (!get_secur_num(tmp, &(scene->ambient_index), 0, 10))
+			return (0);
+	}
+	else if (!ft_strcmp(tmp->name, "color"))
+	{
+		if (!(get_new_color(tmp, &color, OBJECT)))
+			return (0);
+	}
+	else
+		return (return_invalid_arg(tmp->name));
+	return (1);
+}
+
 t_scene		*get_scene(t_scene *scene, t_part *part)
 {
 	t_elem	*tmp;
-	int		is_init[6];
-	int		is_cartoon;
 	t_color	*color;
+	int		ref;
 
 	tmp = part->elems;
-	is_init[0] = 0;
-	is_init[1] = 0;
-	is_init[2] = 0;
-	is_init[3] = 0;
-	is_init[4] = 0;
-	is_init[5] = 0;
+	color = NULL;
 	while (tmp)
 	{
-		if (!ft_strcmp(tmp->name, "cartoon"))
-		{
-			if (is_init[0] > 0)
-			{
-				ft_putendl("'cartoon' redefined");
-				return (NULL);
-			}
-			if (!(get_is(tmp, &is_cartoon)))
-				return (NULL);
-			scene->is_real = (is_cartoon == 0) ? REALISTIC : CARTOON;
-			is_init[0] = 1;
-		}
-		else if (!ft_strcmp(tmp->name, "depth"))
-		{
-			if (is_init[4] > 0)
-			{
-				ft_putendl("'depth' redefined");
-				return (NULL);
-			}
-			if (!(get_is(tmp, &(scene->is_dof))))
-				return (NULL);
-			is_init[4] = 1;
-		}
-		else if (!ft_strcmp(tmp->name, "focus"))
-		{
-			if (is_init[5] > 0)
-			{
-				ft_putendl("'focus' redefined");
-				return (NULL);
-			}
-			scene->dof = get_num(tmp->values);
-			is_init[5] = 1;
-		}
-		else if (!ft_strcmp(tmp->name, "blur"))
-		{
-			if (is_init[1] > 0)
-			{
-				ft_putendl("'blur' redefined");
-				return (NULL);
-			}
-			scene->blur = (int)get_num(tmp->values);
-			if (scene->blur < 0 || scene->blur > 100)
-			{
-				ft_putendl("'blur' < 0 or > 100");
-				return (NULL);
-			}
-			is_init[1] = 1;
-		}
-		else if (!ft_strcmp(tmp->name, "filter"))
-		{
-			if (is_init[2] > 0)
-			{
-				ft_putendl("'filter' redefined");
-				return (NULL);
-			}
-			scene->filter = get_enum(tmp->values);
-			if (scene->filter < 0)
-			{
-				ft_putstr("In 'filter': '");
-				ft_putstr(tmp->values[0]);
-				ft_putendl("' does not exist");
-				return (NULL);
-			}
-			is_init[2] = 1;
-		}
-		else if (!ft_strcmp(tmp->name, "ambient"))
-		{
-			if (is_init[3] > 0)
-			{
-				ft_putendl("'ambient' redefined");
-				return (NULL);
-			}
-			scene->ambient_index = (int)get_num(tmp->values);
-			if (scene->ambient_index < 0.0 || scene->ambient_index > 10.0)
-			{
-				ft_putendl("'ambient' < 0 or > 10");
-				return (NULL);
-			}
-			is_init[3] = 1;
-		}
-		else if (!ft_strcmp(tmp->name, "color"))
-		{
-			if (!(get_new_color(tmp, &color, OBJECT)))
-				return (NULL);
-		}
-		else
-		{
-			return_invalid_arg(tmp->name);
+		if ((ref = get_scene_att1(scene, tmp)) == -1)
 			return (NULL);
+		if (ref == 0)
+		{
+			if (!get_scene_att2(scene, tmp, color))
+				return (NULL);
 		}
 		tmp = tmp->next;
 	}
@@ -124,135 +90,6 @@ t_scene		*get_scene(t_scene *scene, t_part *part)
 	{
 		scene->ambient_color = *color;
 		free(color);
-	}
-	return (scene);
-}
-
-t_cam		*get_cam(t_scene *scene, t_part *part)
-{
-	t_cam	cam;
-	t_elem	*tmp;
-	t_vec	*pos;
-	t_vec	*lk;
-
-	pos = NULL;
-	lk = NULL;
-	tmp = part->elems;
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->name, "pos"))
-		{
-			if (!get_new_vec(tmp, &pos))
-				return (NULL);
-		}
-		else if (!ft_strcmp(tmp->name, "look_at"))
-		{
-			if (!get_new_vec(tmp, &lk))
-				return (NULL);
-			lk->x = deg_to_rad(lk->x);
-			lk->y = deg_to_rad(lk->y);
-			lk->z = deg_to_rad(lk->z);
-		}
-		else
-			return (NULL);
-		tmp = tmp->next;
-	}
-	if (!pos || !lk)
-	{
-		if (!pos)
-			ft_putendl("'pos' missing");
-		if (!lk)
-			ft_putendl("'lk' missing");
-		return (NULL);
-	}
-	cam = init_camera(*pos, *lk);
-	add_camera(scene, cam);
-	free(pos);
-	free(lk);
-	return (&(scene->cam));
-}
-
-t_light		*init_light(void)
-{
-	t_light	*light;
-
-	if (!(light = (t_light *)malloc(sizeof(t_light))))
-		return (NULL);
-	light->type = 0;
-	light->pos = init_vector(0, 0, 0);
-	light->look_at = init_vector(0, 0, 0);
-	light->color = init_color(0, 0, 0);
-	light->angle = 0;
-	return (light);
-}
-
-t_scene		*get_lights(t_scene *scene, t_part *part)
-{
-	t_node	*node;
-	t_light	*light;
-	t_part	*tmp;
-	t_elem	*tmp2;
-	t_vec	*pos;
-	t_vec	*lk;
-	t_color	*color;
-
-
-	if (!(tmp = part->sub_parts))
-		return (NULL);
-	while (tmp)
-	{
-		pos = NULL;
-		lk = NULL;
-		color = NULL;
-		if (!(light = init_light()))
-			return (NULL);
-		light->type = tmp->type;
-		tmp2 = tmp->elems;
-		while (tmp2)
-		{
-			if (!ft_strcmp(tmp2->name, "pos"))
-			{
-				if (!get_new_vec(tmp2, &pos))
-					return (NULL);
-			}
-			else if (!ft_strcmp(tmp2->name, "dir"))
-			{
-				if (!get_new_vec(tmp2, &lk))
-					return (NULL);
-			}
-			else if (!ft_strcmp(tmp2->name, "color"))
-			{
-				if (!get_new_color(tmp2, &color, LIGHT))
-					return (NULL);
-			}
-			else if (!ft_strcmp(tmp2->name, "angle"))
-			{
-				light->angle = deg_to_rad(get_num(tmp2->values));
-			}
-			else
-				return (NULL);
-			tmp2 = tmp2->next;
-		}
-		if (!light->type || !pos || !lk || !color)
-		{
-			if (!pos)
-				ft_putendl("'pos' missing");
-			if (!color)
-				ft_putendl("'color' missing");
-			if (!lk)
-				ft_putendl("'lk' missing");
-			return (NULL);
-		}
-		light->pos = *pos;
-		light->look_at = *lk;
-		light->color = *color;
-		if (!(node = init_node(part->type, light, "light", 0)))
-			return (NULL);
-		node_add(&(scene->lights), node);
-		free(pos);
-		free(lk);
-		free(color);
-		tmp = tmp->next;
 	}
 	return (scene);
 }

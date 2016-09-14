@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/14 15:58:08 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/08 18:02:49 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_color		mult_color(t_color ref, double coef);
 t_color		init_color(int r, int g, int b);
 
 int			is_black_edge(t_hit *hit);
+t_color		cartoon(t_color color);
 
 t_color		sub_color(t_color a, t_color b);
 void		write_vector(t_vec v, char *name);

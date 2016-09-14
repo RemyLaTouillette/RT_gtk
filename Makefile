@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/14 16:13:18 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/09/11 16:54:11 by nbelouni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,27 @@ SRC =	main.c \
 		draw_scene.c \
 		find_closest_object.c \
 		find_closest_neg_object.c \
+		get_cam.c \
+		get_cylinder.c \
+		get_cone.c \
+		get_elips.c \
+		get_invalid.c \
+		get_sphere.c \
+		get_plane.c \
 		get_file_content.c \
+		get_light.c \
 		get_objects.c \
+		get_triangle.c \
 		get_scene.c \
 		get_val.c \
 		light.c \
+		light_tool1.c \
+		light_tool2.c \
 		node.c \
 		part.c \
 		parse.c \
+		parse_get.c \
+		parse_get2.c \
 		parse_scop.c \
 		parse_tools.c \
 		parse_tools_is.c \

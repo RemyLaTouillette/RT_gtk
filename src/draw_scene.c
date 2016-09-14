@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/10 14:27:08 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/09 15:21:33 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 	(void)blur;
 	r = 0;
 	final_color = init_color(0, 0, 0);
-	while (r < 3)
+	while (r < 3)//scene->reflection)
 	{		
 		if (r == 0 || drawn_pixel.reflection != 0)
 		{

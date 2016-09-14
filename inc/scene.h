@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:31:39 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/25 18:48:34 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/10 17:54:39 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ typedef struct	s_scene
 {
 	int			is_real;
 	int			is_dof;
-	int			dof;
-	int			blur;
+	double		dof;
+	double		blur;
 	int			filter;
 	double		ambient_index;
 	t_color		ambient_color;
+	double		reflection;
 	t_blur		*blur_array;
 	t_cam		cam;
 	int			w;
