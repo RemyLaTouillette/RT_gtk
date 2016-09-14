@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:46:22 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/22 17:35:56 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/09/12 15:40:00 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int			find_object(char *s)
 		return (TRIAN);
 	if (!ft_strcmp(s, "parallelo:"))
 		return (PARA);
+	if (!ft_strcmp(s, "tetra:"))
+		return (TETRA);
 
 	return (NONE);
 }

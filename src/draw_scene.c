@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/25 19:35:41 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/10 14:27:08 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ t_color	cartoon(t_color color)
 	return (color);
 }
 
-#include <stdio.h>
 int		is_dir(t_vec v)
 {
 	if (v.x == 0 && v.y == 0 && v.z == 0)
@@ -173,20 +172,14 @@ t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
 				{
 					blur->p_obj = 0;
 					t_vec tmp2;
-//					printf("t : %f\n", drawn_pixel.t);
-//					write_vector(start->dir, "cam->dir");
-//					write_vector(start->pos, "start->pos");
-//					write_vector(start->dir, "start->dir");
 					if (drawn_pixel.bool == 1)
 					{
 						tmp2 = (vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)));
-//						write_vector(tmp2, "tmp2");
 						blur->t = tmp2.z;
 						if (blur->t == scene->cam.ray.pos.z)
 							blur->t = 0;
 						if (blur->t > 100)
 							blur->t = 100;
-
 					}
 					else
 						blur->t = 10;
@@ -249,62 +242,23 @@ void	*draw_scene(void *data)
 	int		y;
 	t_ray	start;
 	t_color final_color;
+	double	noise;
 
-	///////////////////////
-	double	**tab_noise;
-
-	y = 0;
-	tab_noise = (double **)malloc(sizeof(double *) * HEIGHT);
-	while (y < HEIGHT)
-	{
-		x = 0;
-		tab_noise[y] = (double *)malloc(sizeof(double) * WIDTH);
-		while (x < WIDTH)
-		{
-			tab_noise[y][x] = (rand() % 32768) / 32768.0;
-			x++;
-		}
-		y++;
-	}
-	////////////////////////////
-
-//	write_scene(scene);
-//	x = -1;
 	x = ((t_thread *)(data))->y_start - 1;
-//	while (++x < WIDTH)
 	while (++x < ((t_thread *)(data))->y_end)
 	{
 		y = -1;
-//		y = ((t_thread *)(data))->y_start - 1;
-//		while (++y < ((t_thread *)(data))->y_end)
 		while (++y < HEIGHT)
 		{
-			double noise;
-			noise = apply_marble_noise(x, y, 50, tab_noise);
+			noise = apply_marble_noise(x, y, 50, ((t_thread *)(data))->env->tab_noise);
 			start.pos = ((t_thread *)(data))->scene->cam.ray.pos;
 			start.dir = normalize(calc_vec_dir(x, y, ((t_thread *)(data))->scene->cam, ((t_thread *)(data))->scene->cam.look_at));
 
 			final_color = color_render(((t_thread *)(data))->scene, &start, noise, &(((t_thread*)(data))->scene->blur_array[x * HEIGHT + y]));
-
-			//put_pixel_on_image(env->img, x, y, final_color);
-//			pthread_mutex_lock(((t_thread *)(data))->mutex);
 			put_pixel_on_buffer(((unsigned char *)(((t_thread *)(data))->buf)), x, y, final_color);
-//			pthread_mutex_unlock(((t_thread *)(data))->mutex);
 		}
 		((t_thread *)(data))->env->x = x;
-		//g_idle_add(pulse_pbar, NULL);
 		pulse_pbar(((t_thread *)(data))->env);
 	}
-//	if (scene->is_dof)
-//	{
-//		if (!(env->img = apply_depth_of_field(env, scene->blur_array, scene->dof)))
-//		return (0);
-//	}
-
-//	if (!(env->img = apply_blur(env, scene->blur)))
-//		return (0);
-//	if (!(env->img = sepia_filter(env->mlx, env->img, scene->filter)))
-//		return (0);
-//	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	return (data);
 }

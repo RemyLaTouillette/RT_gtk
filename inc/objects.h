@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/25 18:41:15 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/10 14:11:38 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ typedef struct			s_env
 	t_vec				pos_plan;
 	t_cam				cam;
 	int					fd;
+	double				**tab_noise;
 }						t_env;
 #endif

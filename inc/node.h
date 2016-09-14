@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:53:34 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/25 16:10:23 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/11 18:24:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define ELIPS		9
 # define TRIAN		10
 # define PARA		11
+# define TETRA		12
 
 typedef struct		s_node
 {

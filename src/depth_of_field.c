@@ -6,13 +6,11 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 14:28:30 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/23 15:43:31 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/10 14:53:05 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-
-#include <stdio.h>
 
 t_color		depth_of_field(t_env *env, int  blur_lvl, t_iter iter, t_blur *blur_array)
 {
@@ -41,8 +39,7 @@ t_color		depth_of_field(t_env *env, int  blur_lvl, t_iter iter, t_blur *blur_arr
 			if (curr_index >= 0 && curr_index < HEIGHT * WIDTH &&
 			ref_t <= blur_array[curr_index].t)
 			{
-				if (curr.i >= 0 || curr.i < WIDTH ||
-					curr.j >= 0 || curr.j < HEIGHT)
+				if (curr.i >= 0 || curr.i < WIDTH || curr.j >= 0 || curr.j < HEIGHT)
 				{
 					mixed_color[n_color] = get_pixel_color(env->img, curr.i, curr.j);
 					if (mixed_color[n_color].r == 0 && mixed_color[n_color].g == 0 && mixed_color[n_color].b == 0)

@@ -6,13 +6,37 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/12 17:39:38 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/14 16:06:30 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include <rtv1.h>
 
 #include <image_buffer.h>
+
+double	**create_tab_noise(void)
+{
+	int		x;
+	int		y;
+	double	**tab;
+
+	y = 0;
+	if (!(tab = (double **)malloc(sizeof(double *) * HEIGHT)))
+		return (NULL);
+	while (y < HEIGHT)
+	{
+		x = 0;
+		if (!(tab[y] = (double *)malloc(sizeof(double) * WIDTH)))
+			return (NULL);
+		while (x < WIDTH)
+		{
+			tab[y][x] = (rand() % 32768) / 32768.0;
+			x++;
+		}
+		y++;
+	}
+	return (tab);
+}
 
 GdkPixbuf			*gtk_new_image(unsigned char *data, int width, int height)
 {
@@ -123,8 +147,9 @@ void click_draw(GtkApplication *app, gpointer user_data)
 
 	o = gtk_builder_get_object(e->builder, "cmb_scene");
 	sname = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(o));
-	g_print("%s\n", sname);
 
+	if (!(e->tab_noise = create_tab_noise()))
+		exit(0);
 
 	/* TODO
 	if get_cam_pos_from_ui return NULL, keep parser values else get ui values
@@ -143,27 +168,22 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	o = gtk_builder_get_object(e->builder, "switch_cartoon");
 	gboolean carto;
 	carto = gtk_switch_get_state(GTK_SWITCH(o));
-	g_print("cartoon: %d\n", carto);
 
 
 	// FILTER
 	o = gtk_builder_get_object(e->builder, "cmb_filter");
 	c = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(o));
-	g_print("filter: %s\n", c);
 
 	// DOF
 	o = gtk_builder_get_object(e->builder, "switch_dof");
 	gboolean dof;
 	dof = gtk_switch_get_state(GTK_SWITCH(o));
-	g_print("dof: %d\n", dof);
 	// focus
 	o = gtk_builder_get_object(e->builder, "scale_focus");
 	val = gtk_range_get_value(GTK_RANGE(o));
-	g_print("focus: %f\n", val);
 	// blur
 	o = gtk_builder_get_object(e->builder, "scale_blur");
 	val = gtk_range_get_value(GTK_RANGE(o));
-	g_print("blur: %f\n", val);
 
 	// LIGHTING
 	GdkRGBA *color;
@@ -172,10 +192,6 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	color = (GdkRGBA *)malloc(sizeof(GdkRGBA));
 	o = gtk_builder_get_object(e->builder, "btn_color");
 	gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(o), color);
-	g_print("red: %f\n", color->red);
-	g_print("green: %f\n", color->green);
-	g_print("blue: %f\n", color->blue);
-
 
 
 	//if (!(s = parse("../test/scenes/scene_bug_transparence")))
@@ -219,7 +235,6 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	(void)app;
 	(void)user_data;
 }
-
 int		main(void)
 {
 	t_env			e;

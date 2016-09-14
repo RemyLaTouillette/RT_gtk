@@ -17,32 +17,41 @@
 
 	objects :
 	{
-#		{
-#			sphere:
-#			{
-#				{radius : 0.5}
-#				{pos : 0.0, 0.5, 0.0}
-#				{color : 0.1, 0.8, 0.2}
-#				{
-#					options: 
-#					{
-#						{specular : 50}
-#					}
-#				}
-#			}#		}
 		{
-			parallelo:
+			cylinder:
 			{
-				{v0 : 1, -1, 0}
-				{v1 : 0, -1, 0}
-				{v2 : 0, 0, 1}
-				{color : 0.1, 0.8, 0.2}
+				{radius:0.2}
+				{pos:0, 0, 3}
+				{dir: 1,0,0}
+				{length: 9}
+				{color : 0.0, 0.1, 1}
+				{
+					options:
+					{
+						{specular: 50}
+					}
+				}
+			}
+		}
+		{
+			tetra:
+#			triangle:
+			{
+				{v0 : -1, -1, 2}
+				{v1 : 1, -1, 2}
+				{v2 : 0, 0, 0}
+				{v3 : 0, 0.5, 2}
+				{color : 1, 0.1, 0.1}
 				{
 					options: 
 					{
 						{specular : 100}
+						{reflection :1}
+#						{opacity : 0.1}
+#						{ref_index: 1.5}
 					}
 				}
+
 			}
 		}
 		{
@@ -60,6 +69,35 @@
 				}
 			}
 		}
+#		{
+#			plane:
+#			{
+#				{pos : 0, 0, 15}
+#				{normal: 0, 0, 1}
+#				{color : 0.0, 1, 0}
+#				{
+#					options: 
+#					{
+#						{specular : 90}
+#					}
+#				}
+#			}
+#		}
+#	{
+#		plane:
+#		{
+#			{pos : 0, -2, 0}
+#			{normal: 0, 1, 0}
+#			{color : 0.8, 0.8, 0.8}
+#			{
+#				options: 
+#				{
+#					{specular : 90}
+#					{texture : marble}
+#				}
+#			}
+#		}
+#	}
 	}
 
 	light:

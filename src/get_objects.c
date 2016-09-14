@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 02:29:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/25 18:47:52 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/14 15:43:18 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -776,6 +776,26 @@ t_triangle *init_triangle(void)
 	return(triangle);
 }
 
+t_tetra *init_tetra(void)
+{
+	t_tetra *tetra;
+
+	if(!(tetra = (t_tetra *)malloc(sizeof(t_tetra))))
+		return(NULL);
+	tetra->v0 = init_vector(0, 0, 0);
+	tetra->v1 = init_vector(0, 0, 0);
+	tetra->v2 = init_vector(0, 0, 0);
+	tetra->v3 = init_vector(0, 0, 0);
+	tetra->color = init_color(0, 0, 0);
+	tetra->specular = 0;
+	tetra->reflection = 0;
+	tetra->opacity = 1;
+	tetra->ref_index = 1;
+	tetra->texture = NONE;
+	tetra->is_negativ = 0;
+	return(tetra);
+}
+
 t_triangle	*get_triangle(t_part *part)
 {
 	t_elem		*tmp2;
@@ -871,6 +891,115 @@ t_triangle	*get_triangle(t_part *part)
 	free(pos3);
 	free(color);
 	return (triangle);
+
+}
+
+t_tetra	*get_tetra(t_part *part)
+{
+	t_elem		*tmp2;
+	t_vec		*pos1;
+	t_vec		*pos2;
+	t_vec		*pos3;
+	t_vec		*pos4;
+	t_color		*color;
+	t_tetra		*tetra;
+
+	pos1 = NULL;
+	pos2 = NULL;
+	pos3 = NULL;
+	pos4 = NULL;
+	color = NULL;
+	if (!(tetra = init_tetra()))
+		return (NULL);
+	tmp2 = part->elems;
+	while (tmp2)
+	{
+		if (!ft_strcmp(tmp2->name, "v0"))
+		{
+			if (!get_new_vec(tmp2, &pos1))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "v1"))
+		{
+			if (!get_new_vec(tmp2, &pos2))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "v2"))
+		{
+			if (!get_new_vec(tmp2, &pos3))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "v3"))
+		{
+			if (!get_new_vec(tmp2, &pos4))
+				return (NULL);
+		}
+
+		else if (!ft_strcmp(tmp2->name, "color"))
+		{
+			if (!get_new_color(tmp2, &color, OBJECT))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "specular"))
+		{
+			if (!get_specular(tmp2, &(tetra->specular)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "reflection"))
+		{
+			if (!get_reflection(tmp2, &(tetra->reflection)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "opacity"))
+		{
+			if (!get_opacity(tmp2, &(tetra->opacity)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "ref_index"))
+		{
+			if (!get_ref_index(tmp2, &(tetra->ref_index)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "is_negativ"))
+		{
+			if (!get_is(tmp2, &(tetra->is_negativ)))
+				return (NULL);
+		}
+		else if (!ft_strcmp(tmp2->name, "texture"))
+		{
+			if (!get_texture(tmp2, &(tetra->texture)))
+				return (NULL);
+		}
+		else
+		{
+			return_invalid_arg(tmp2->name);
+			return (NULL);
+		}
+		tmp2 = tmp2->next;
+	}
+	if (!pos1 || !pos2 || !pos3 || !color || !pos4)
+	{
+		if (!pos1)
+			ft_putendl("'v0' missing");
+		if (!pos2)
+			ft_putendl("'v1' missing");
+		if (!pos3)
+			ft_putendl("'v2' missing");
+		if (!pos4)
+			ft_putendl("'v3' missing");
+		if (!color)
+			ft_putendl("'color' missing");
+	}
+	tetra->v0 = *pos1;
+	tetra->v1 = *pos2;
+	tetra->v2 = *pos3;
+	tetra->v3 = *pos4;
+	tetra->color = *color;
+	free(pos1);
+	free(pos2);
+	free(pos3);
+	free(color);
+	return (tetra);
 
 }
 
@@ -1037,6 +1166,11 @@ t_scene		*get_objects(t_scene *scene, t_part *part)
 		else if (tmp->type ==PARA)
 		{
 			if (!(data = get_triangle(tmp)))
+				return (NULL);
+		}
+		else if (tmp->type == TETRA)
+		{
+			if (!(data = get_tetra(tmp)))
 				return (NULL);
 		}
 		else

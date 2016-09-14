@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/12 17:41:30 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/14 15:58:08 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,31 @@
 # include <libft.h>
 
 # include <objects.h>
-# include <aa.h>
+# include <scene.h>
+# include <vector.h>
 # include <camera.h>
-# include <cone.h>
-# include <cylinder.h>
 # include <node.h>
-# include <find_closest_object.h>
 # include <light.h>
 # include <parse.h>
-# include <plane.h>
 # include <ray.h>
 # include <refraction.h>
-# include <scene.h>
+# include <thread.h>
+
+# include <cyco_internal_struct.h>
+# include <cone.h>
+# include <cylinder.h>
+# include <parallelo.h>
+# include <triangle.h>
+# include <plane.h>
 # include <sphere.h>
-# include <vector.h>
 # include <elipsoid.h>
 # include <quad.h>
-# include <triangle.h>
-# include <parallelo.h>
-# include <cyco_internal_struct.h>
-# include <thread.h>
+# include <tetra.h>
+
+//# include <save_bmp.h>
+# include <aa.h>
 # include <image_buffer.h>
-# include <ui.h>
+//# include <ui.h>
 
 # define ESCAPE		53
 # define WIDTH		1920
@@ -78,5 +81,15 @@ void		*apply_depth_of_field(t_env *env, t_blur *array, double dof);
 int			put_pixel_on_image(void *img, int x, int y, t_color color);
 t_color		color_render(t_scene *s, t_ray *start, double noise, t_blur *blur);
 
+t_hit		find_closest_object(t_node *nodes, t_ray *ray);
+t_hit		init_hit(void);
+t_hit		get_hit(t_ray *ray, t_node *nodes, int is_neg);
+int			neg_exists(t_node *node);
+t_hit		find_neg_hit(t_node *nodes, t_ray *ray, t_hit *c_hit, int is_neg);
+
+void		sort_distance(double *t);
+t_hit		complete_disk_hit(t_hit hit, t_hit hit_size);
+
 void		save_bmp(unsigned char *buf);
+void		ui_init(t_env *e);
 #endif

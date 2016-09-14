@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:44:00 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/25 16:33:37 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/09 15:06:50 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,8 @@ t_vec			vec_rot_z(t_vec a, double angle);
 
 double			dot_product(t_vec a, t_vec b);
 double			get_length(t_vec vec);
+
+double			c2(double x);
+double			s2(double x);
 
 #endif

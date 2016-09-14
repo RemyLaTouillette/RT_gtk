@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/23 13:26:24 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/25 16:01:16 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/10 14:45:50 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct	s_blur
 	int			p_obj;
 	double		t;
 }				t_blur;
+
 t_color			mix_color(t_color *mixed_color, int n_color);
 t_color			*new_color_array(int blur_lvl);
 void			*apply_depth_of_field(t_env *env, t_blur *array, double dof);

@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/12 17:39:14 by sduprey          ###   ########.fr        #
+#    Updated: 2016/09/14 16:13:18 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,15 @@ NAME = rtv1
 SRC =	main.c \
 		camera.c \
 		cylinder.c \
+		cylinder2.c \
+		cone.c \
+		cone2.c \
+		tetra.c \
+		tetra2.c \
+		cyco_common_function.c \
 		draw_scene.c \
 		find_closest_object.c \
+		find_closest_neg_object.c \
 		get_file_content.c \
 		get_objects.c \
 		get_scene.c \
@@ -35,7 +42,6 @@ SRC =	main.c \
 		vector.c \
 		vector_math.c \
 		vector_math2.c \
-		cone.c \
 		color.c \
 		perlin.c \
 		checker.c \

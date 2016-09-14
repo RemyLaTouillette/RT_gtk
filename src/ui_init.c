@@ -6,6 +6,7 @@ int		gtk_put_image_to_window(GtkImage *, GdkPixbuf *);
 void		click_draw(GtkApplication *, gpointer);
 void		click_save(GtkApplication *, gpointer);
 void		click_quit(GtkApplication *, gpointer);
+char		**scene_finder(char *path);
 //
 
 void			ui_init_callback(t_env *e)

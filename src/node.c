@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:50:11 by sduprey           #+#    #+#             */
-/*   Updated: 2016/07/27 14:53:15 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/10 14:30:56 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_node		*init_node(int type, void *data, char *name, int id)
 	return (node);
 }
 
-void		node_add(t_node **node, t_node	*new)
+void		node_add(t_node **node, t_node *new)
 {
 	new->next = *(node);
 	*node = new;
