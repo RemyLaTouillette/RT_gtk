@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 22:39:57 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/10 15:18:10 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/14 16:55:17 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ t_color			*set_color2(t_node *tmp, t_ray *cam, t_ray *ray, t_hit *hit);
 void			init_light_ray(t_node *tmp_light, t_ray *ray);
 void			magic(t_scene *s, t_color *color, t_node **tmp, t_color **c);
 void			free_colors(t_color **c);
-void			set_hit(t_hit *tmp_content, t_hit *hit, t_ray *ray, int *shadow);
+void			set_hit(t_hit *tmp, t_hit *hit, t_ray *ray, int *shadow);
 
 #endif

@@ -4,7 +4,8 @@
 		{
 			options: 
 			{
-				{ambient : 0.9}
+				{ambient : 1}
+				{color : 0, 255, 255}
 			 }
 		}
 	}
@@ -83,21 +84,21 @@
 #				}
 #			}
 #		}
-#	{
-#		plane:
 #		{
-#			{pos : 0, -2, 0}
-#			{normal: 0, 1, 0}
-#			{color : 0.8, 0.8, 0.8}
+#			plane:
 #			{
-#				options: 
+#				{pos : 0, -2, 0}
+#				{normal: 0, 1, 0}
+#				{color : 0.8, 0.8, 0.8}
 #				{
-#					{specular : 90}
-#					{texture : marble}
+#					options: 
+#					{
+#						{specular : 90}
+#						{texture : marble}
+#					}
 #				}
 #			}
 #		}
-#	}
 	}
 
 	light:

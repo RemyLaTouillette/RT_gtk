@@ -6,14 +6,14 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 04:58:48 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/12 18:30:55 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/17 14:33:33 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
 
-t_ray		find_refract_vect(t_ray *start_ray, t_hit pxl, double c_r, int test)
+static inline t_ray		find_refract(t_ray *s, t_hit pxl, double c_r, int test)
 {
 	double	ref_refract;
 	double	new_ref_index;
@@ -21,8 +21,8 @@ t_ray		find_refract_vect(t_ray *start_ray, t_hit pxl, double c_r, int test)
 	t_vec	new_norm;
 	t_vec	inv_dir;
 
-	res.pos = vec_add(start_ray->pos, scalar_product(start_ray->dir, pxl.t));
-	inv_dir = scalar_product(start_ray->dir, -1);
+	res.pos = vec_add(s->pos, scalar_product(s->dir, pxl.t));
+	inv_dir = scalar_product(s->dir, -1);
 	pxl.point_norm = scalar_product(pxl.point_norm, test);
 	ref_refract = dot_product(pxl.point_norm, inv_dir);
 	ref_refract /= (get_length(pxl.point_norm) * get_length(inv_dir));
@@ -57,7 +57,7 @@ t_color		apply_refraction(t_ray *start, t_scene *s, t_hit pxl, double noise)
 		test = 1;
 		refract_indice = 1.0 / pxl.ref_index;
 	}
-	*start = find_refract_vect(start, pxl, refract_indice, test);
+	*start = find_refract(start, pxl, refract_indice, test);
 	if (get_length(start->dir) != 0)
 	{
 		if (s->is_real == CARTOON && is_black_edge(&pxl))

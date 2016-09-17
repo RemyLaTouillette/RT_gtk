@@ -6,18 +6,21 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/14 19:01:24 by sduprey          ###   ########.fr        #
+#    Updated: 2016/09/16 16:36:33 by nbelouni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = rtv1
 
 SRC =	main.c \
+		aa.c \
+		blur.c \
 		camera.c \
 		cylinder.c \
 		cylinder2.c \
 		cone.c \
 		cone2.c \
+		depth_of_field.c \
 		tetra.c \
 		tetra2.c \
 		cyco_common_function.c \
@@ -30,13 +33,17 @@ SRC =	main.c \
 		get_elips.c \
 		get_invalid.c \
 		get_sphere.c \
+		get_para.c \
 		get_plane.c \
 		get_file_content.c \
 		get_light.c \
 		get_objects.c \
+		get_tetra.c \
 		get_triangle.c \
 		get_scene.c \
 		get_val.c \
+		init_objects1.c \
+		init_objects2.c \
 		light.c \
 		light_tool1.c \
 		light_tool2.c \
@@ -52,6 +59,7 @@ SRC =	main.c \
 		refraction.c \
 		scene.c \
 		sphere.c \
+		sepia.c \
 		vector.c \
 		vector_math.c \
 		vector_math2.c \

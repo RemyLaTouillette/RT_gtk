@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ui_init.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/09/15 15:13:37 by nbelouni          #+#    #+#             */
+/*   Updated: 2016/09/16 15:07:38 by nbelouni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <rtv1.h>
 
 // proto tmp
@@ -53,7 +65,7 @@ void			ui_init_scenes(t_env *e, char *path)
 		{
 			printf("%d - %s\n", i, scenes[i]);
 			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(o), scenes[i++]);
-			}
+		}
 	}
 	// T'as pas free, t'as rien compris ... ((char **)scenes)
 }

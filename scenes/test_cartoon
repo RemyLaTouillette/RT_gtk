@@ -5,6 +5,7 @@
 			options: 
 			{
 				{ambient : 0}
+				{cartoon: y}
 			 }
 		}
 	}

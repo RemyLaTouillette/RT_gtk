@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 16:27:40 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/11 16:05:17 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/15 15:49:29 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			get_scene_att1(t_scene *scene, t_elem *tmp)
 	return (1);
 }
 
-int			get_scene_att2(t_scene *scene, t_elem *tmp, t_color *color)
+int			get_scene_att2(t_scene *scene, t_elem *tmp, t_color **color)
 {
 	if (!ft_strcmp(tmp->name, "filter"))
 	{
@@ -59,7 +59,7 @@ int			get_scene_att2(t_scene *scene, t_elem *tmp, t_color *color)
 	}
 	else if (!ft_strcmp(tmp->name, "color"))
 	{
-		if (!(get_new_color(tmp, &color, OBJECT)))
+		if (!(get_new_color(tmp, color, LIGHT)))
 			return (0);
 	}
 	else
@@ -81,7 +81,7 @@ t_scene		*get_scene(t_scene *scene, t_part *part)
 			return (NULL);
 		if (ref == 0)
 		{
-			if (!get_scene_att2(scene, tmp, color))
+			if (!get_scene_att2(scene, tmp, &color))
 				return (NULL);
 		}
 		tmp = tmp->next;

@@ -28,28 +28,13 @@
 				}
 			}
 		}
-		{
-			plane:
-			{
-				{pos : 0, 1, 0}
-				{normal: 0, 1.2, 0}
-				{color: 0.3, 0.3, 0.3}
-				{
-					options:
-					{
-						{specular: 30}
-						{reflection : 1}
-					}
-				}
-			}
-		}
 	}
 	light:
 	{
 		{
 			diffuse:
 			{
-				{pos: 0, 0, -5}
+				{pos: 5, -5, 0}
 				{color : 255, 255, 255}
 				{dir: 0, 0, 0}
 			}

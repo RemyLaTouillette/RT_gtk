@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/13 01:45:04 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/23 13:36:00 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/16 16:21:44 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,26 @@ t_color		*new_color_array(int blur_lvl)
 	return (mixed_color);
 }
 
-t_color		get_mixed_color(t_env *env, int blur, int i, int j)
+t_color		get_mixed_color(void *e, int b, int i, int j)
 {
 	int		x;
 	int		y;
 	int		n;
 	t_color	*tmp;
 
-	if (!(tmp = new_color_array(blur)))
+	if (!(tmp = new_color_array(b)))
 		return (init_color(0, 0, 0));
 	x = -1;
 	n = 0;
-	while (++x < blur * 2 + 1)
+	while (++x < b * 2 + 1)
 	{
 		y = -1;
-		while (++y < blur * 2 + 1)
+		while (++y < b * 2 + 1)
 		{
-			if (i - blur + x >= 0 || i - blur + x < WIDTH ||
-			j - blur + y >= 0 || j - blur + y < HEIGHT)
+			if (i - b + x >= 0 && i - b + x < WIDTH &&
+			j - b + y >= 0 && j - b + y < HEIGHT)
 			{
-				tmp[n] = get_pixel_color(env->img, i - blur + x, j - blur + y);
+				tmp[n] = get_pixel_from_buffer(e, i - b + x, j - b + y);
 				n++;
 			}
 		}
@@ -75,16 +75,16 @@ t_color		get_mixed_color(t_env *env, int blur, int i, int j)
 	return (mix_color(tmp, n));
 }
 
-void		*apply_blur(t_env *env, int blur_lvl)
+void		*apply_blur(void *img, int blur_lvl)
 {
-	int		i;
-	int		j;
-	t_color	new_color;
-	void	*blurred_img;
+	int				i;
+	int				j;
+	t_color			new_color;
+	unsigned char	*blurred_img;
 
 	if (blur_lvl <= 0)
-		return (env->img);
-	if (!(blurred_img = mlx_new_image(env->mlx, WIDTH, HEIGHT)))
+		return (img);
+	if (!(blurred_img = new_image_buffer(WIDTH, HEIGHT)))
 		return (NULL);
 	i = -1;
 	while (++i < WIDTH)
@@ -92,8 +92,8 @@ void		*apply_blur(t_env *env, int blur_lvl)
 		j = -1;
 		while (++j < HEIGHT)
 		{
-			new_color = get_mixed_color(env, blur_lvl, i, j);
-			put_pixel_on_image(blurred_img, i, j, new_color);
+			new_color = get_mixed_color(img, blur_lvl, i, j);
+			put_pixel_on_buffer(blurred_img, i, j, new_color);
 		}
 	}
 	return (blurred_img);

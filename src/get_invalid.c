@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 20:17:52 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/11 17:02:05 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/14 20:01:02 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,35 @@ int		triangle_invalid(t_triangle *triangle, t_vec *v[3], t_color *color)
 	free(v[0]);
 	free(v[1]);
 	free(v[2]);
+	free(color);
+	return (0);
+}
+
+int		tetra_invalid(t_tetra *tetra, t_vec **v, t_color *color)
+{
+	if (!v[0] || !v[1] || !v[2] || !color || !v[3])
+	{
+		if (!v[0])
+			ft_putendl("'v0' missing");
+		if (!v[1])
+			ft_putendl("'v1' missing");
+		if (!v[2])
+			ft_putendl("'v2' missing");
+		if (!v[3])
+			ft_putendl("'v3' missing");
+		if (!color)
+			ft_putendl("'color' missing");
+		return (1);
+	}
+	tetra->v0 = *v[0];
+	tetra->v1 = *v[1];
+	tetra->v2 = *v[2];
+	tetra->v3 = *v[3];
+	tetra->color = *color;
+	free(v[0]);
+	free(v[1]);
+	free(v[2]);
+	free(v[3]);
 	free(color);
 	return (0);
 }
