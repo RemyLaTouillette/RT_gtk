@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/17 14:47:37 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/09/17 18:42:57 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC =	main.c \
 		tetra2.c \
 		cyco_common_function.c \
 		draw_scene.c \
+		color_render.c \
 		find_closest_object.c \
 		find_closest_neg_object.c \
 		get_cam.c \

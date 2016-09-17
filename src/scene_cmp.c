@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/16 13:17:21 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/16 16:46:18 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/17 14:57:16 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,5 @@ int		scene_cmp(t_scene *new_scene, t_scene *old_scene)
 		return (0);
 	if (lights_cmp(new_scene->lights, old_scene->lights) == 0)
 		return (0);
-//	if (compare_blur(new_scene, old_scene) == 0)
-//		return (0);
 	return (1);
 }

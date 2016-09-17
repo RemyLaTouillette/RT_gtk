@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/16 16:15:13 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/17 18:50:18 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ t_color		*new_color_array(int blur_lvl);
 void		*apply_depth_of_field(void *img, t_blur *array, double dof);
 void		*apply_blur(void *img, int blur_lvl);
 int			key_hook(int keycode, t_env *e);
-void		*draw_scene(void *data);
-double		deg_to_rad(double angle);
 
+void		*draw_scene(void *data);
+t_color		color_render(t_scene *s, t_ray *start, double noise, t_blur *blur);
+
+double		deg_to_rad(double angle);
 t_color		add_color(t_color a, t_color b);
 void		check_color(t_color *color);
 t_color		mult_color(t_color ref, double coef);

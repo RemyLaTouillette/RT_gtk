@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:31:39 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/10 17:54:39 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/17 17:48:19 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_scene
 	double		ambient_index;
 	t_color		ambient_color;
 	double		reflection;
+	int			r;
 	t_blur		*blur_array;
 	t_cam		cam;
 	int			w;
