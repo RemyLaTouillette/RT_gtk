@@ -5,20 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/15 15:34:59 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/15 15:44:13 by nbelouni         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_objects.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 02:29:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/15 15:34:50 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/16 14:55:30 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +93,7 @@ t_scene		*get_objects(t_scene *scene, t_part *part)
 		data = NULL;
 		if (!get_data(&data, tmp))
 			return (NULL);
-		if (!(node = init_node(tmp->type, data, "obj", 0)))
+		if (!(node = init_node(tmp->type, data, "obj")))
 			return (NULL);
 		node_add(&(scene->objects), node);
 		tmp = tmp->next;

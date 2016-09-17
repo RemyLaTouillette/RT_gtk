@@ -6,11 +6,28 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/06 17:49:23 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/12 16:38:46 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/14 17:57:42 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+
+t_hit		init_hit(void)
+{
+	t_hit		hit;
+
+	hit.t = 1000000;
+	hit.t_max = 1000000;
+	hit.color.r = 0;
+	hit.color.g = 0;
+	hit.color.b = 0;
+	hit.bool = 0;
+	hit.dist_from_center = -1.0;
+	hit.length = -1.0;
+	hit.opacity = 1;
+	hit.is_negativ = 0;
+	return (hit);
+}
 
 int			neg_exists(t_node *node)
 {

@@ -6,13 +6,14 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/14 19:00:55 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/16 16:54:56 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
 #include <image_buffer.h>
+#include <stdio.h>
 
 int	get_switch_state(t_env *, char *);
 
@@ -110,8 +111,6 @@ void	click_save(GtkApplication *app, gpointer user_data)
 	save_bmp(e->buf);
 }
 
-#include <stdio.h>
-
 void		init_threads(t_thread *threads, t_scene *scene, t_env *e)
 {
 	int			i;
@@ -144,8 +143,11 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	gchar		*c;
 	gchar		*sname;
 	gdouble val;
+	char	*hey;
+	gboolean dof;
 
 	g_print("btn_click_draw()\n");
+
 	e = user_data;
 
 	o = gtk_builder_get_object(e->builder, "cmb_scene");
@@ -178,13 +180,12 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	carto = gtk_switch_get_state(GTK_SWITCH(o));
 
 
-	// FILTER
+	// FILTE
 	o = gtk_builder_get_object(e->builder, "cmb_filter");
 	c = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(o));
 
 	// DOF
 	o = gtk_builder_get_object(e->builder, "switch_dof");
-	gboolean dof;
 	dof = gtk_switch_get_state(GTK_SWITCH(o));
 	// focus
 	o = gtk_builder_get_object(e->builder, "scale_focus");
@@ -201,14 +202,10 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	o = gtk_builder_get_object(e->builder, "btn_color");
 	gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(o), color);
 
-
-	//if (!(s = parse("../test/scenes/scene_bug_transparence")))
-	
-	char	*hey;
-
 	hey = ft_strjoin("scenes/", sname);
-	g_print("%s\n", hey);
 
+	t_scene *s2;
+	s2 = parse("scenes/test_cyl");
 	if (!(s = parse(hey)))
 		printf("No scene\n");
 	else
@@ -228,7 +225,6 @@ void click_draw(GtkApplication *app, gpointer user_data)
 		}
 	}
 
-
 /*	
 	o = gtk_builder_get_object(e->builder, "btn_draw");
 	gtk_widget_set_sensitive (GTK_WIDGET(o), FALSE);
@@ -241,8 +237,8 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	gtk_put_image_to_window(e->img, pixbuf);
 
 	(void)app;
-	(void)user_data;
 }
+
 int		main(void)
 {
 	t_env			e;

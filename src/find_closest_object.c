@@ -6,28 +6,11 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/14 16:19:17 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/14 17:57:49 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-
-t_hit		init_hit(void)
-{
-	t_hit		hit;
-
-	hit.t = 1000000;
-	hit.t_max = 1000000;
-	hit.color.r = 0;
-	hit.color.g = 0;
-	hit.color.b = 0;
-	hit.bool = 0;
-	hit.dist_from_center = -1.0;
-	hit.length = -1.0;
-	hit.opacity = 1;
-	hit.is_negativ = 0;
-	return (hit);
-}
 
 t_hit		get_hit_next(t_ray *ray, t_node *node, int is_neg, t_hit tmp)
 {

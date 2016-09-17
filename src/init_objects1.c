@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 14:18:45 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/15 14:19:25 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/17 14:50:01 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_cylinder	*init_cylinder(void)
 	cylinder->dir = init_vector(0, 0, 0);
 	cylinder->color = init_color(0, 0, 0);
 	cylinder->length = 0;
-	cylinder->h = 0;
 	cylinder->specular = 0;
 	cylinder->reflection = 0;
 	cylinder->opacity = 1;

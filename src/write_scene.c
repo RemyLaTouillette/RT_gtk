@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 19:08:18 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/10 17:31:21 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/16 14:56:16 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void		write_cylinder(t_cylinder *s)
 	write_vector(s->dir, "dir");
 	printf("\t\t- color : %f, %f, %f\n", s->color.r, s->color.g, s->color.b);
 	printf("\t\t- length : %f\n", s->length);
-	printf("\t\t- h : %f\n", s->h);
 	printf("\t\t- specular : %f\n", s->specular);
 	printf("\t\t- reflection : %f\n", s->reflection);
 	printf("\t\t- opacity : %f\n", s->opacity);

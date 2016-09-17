@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 17:50:40 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/16 16:32:30 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/16 13:40:35 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_scene		*get_lights(t_scene *scene, t_part *part)
 		light->type = tmp->type;
 		if (!get_light_att(tmp, light))
 			return (NULL);
-		if (!(node = init_node(part->type, light, "light", 0)))
+		if (!(node = init_node(part->type, light, "light")))
 			return (NULL);
 		node_add(&(scene->lights), node);
 		tmp = tmp->next;

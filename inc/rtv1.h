@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/16 16:35:52 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/16 16:15:13 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,21 @@ t_hit		complete_disk_hit(t_hit hit, t_hit hit_size);
 
 void		save_bmp(unsigned char *buf);
 void		ui_init(t_env *e);
+
+int			scene_cmp(t_scene *new_scene, t_scene *old_scene);
+int			objects_cmp(t_node *new_obj, t_node *old_obj);
+int			sphere_cmp(t_sphere *new, t_sphere *old);
+int			cylinder_cmp(t_cylinder *new, t_cylinder *old);
+int			cone_cmp(t_cone *new, t_cone *old);
+int			plane_cmp(t_plane *new, t_plane *old);
+int			elips_cmp(t_elips *new, t_elips *old);
+int			triangle_cmp(t_triangle *new, t_triangle *old);
+int			para_cmp(t_parallelo *new, t_parallelo *old);
+int			tetra_cmp(t_tetra *new, t_tetra *old);
+int			vec_cmp(t_vec v1, t_vec v2);
+int			ray_cmp(t_ray r1, t_ray r2);
+int			color_cmp(t_color c1, t_color vc);
+int			quad_cmp(t_quad q1, t_quad q2);
+int			lights_cmp(t_node *new_lights, t_node *old_lights);
+
 #endif

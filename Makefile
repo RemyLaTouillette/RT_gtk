@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/16 16:36:33 by nbelouni         ###   ########.fr        #
+#    Updated: 2016/09/17 14:47:37 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRC =	main.c \
 		vector.c \
 		vector_math.c \
 		vector_math2.c \
+		math.c \
 		color.c \
 		perlin.c \
 		checker.c \
@@ -75,6 +76,13 @@ SRC =	main.c \
 		scene_finder.c \
 		ui_init.c \
 		ui_get_values.c \
+		cartoon.c \
+		scene_cmp.c \
+		objects_cmp.c \
+		objects_cmp2.c \
+		objects_cmp3.c \
+		tools_cmp.c \
+		lights_cmp.c \
 
 SRCDIR = src/
 

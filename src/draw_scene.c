@@ -6,118 +6,13 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/09 15:21:33 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/15 18:20:57 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
 #include <image_buffer.h>
-
-double		deg_to_rad(double angle)
-{
-	double res;
-
-	res = angle * M_PI / 180;
-	return res;
-}
-/*
-int         put_pixel_on_image(void *img, int x, int y, t_color color)
-{
-	char    *data;
-	int     i;
-	int     bpp;
-	int     sl;
-	int     endian;
-
-	if (x >= WIDTH || y >= HEIGHT)
-		return (0);
-	data = mlx_get_data_addr(img, &bpp, &sl, &endian);
-	bpp /= 8;
-	i = x * bpp + y * sl;
-	data[i] = (int)(color.b);
-	data[i + 1] = (int)(color.g);
-	data[i + 2] = (int)(color.r);
-	return (0);
-}
-*/
-double	define_color(double color)
-{
-	int		color_ref;
-
-	color_ref = 256 / 4;
-	if (color < color_ref)
-		color = 0;
-	if (color <= color_ref * 2 && color > color_ref)
-		color = 256 / 3;
-	if (color <=color_ref * 3 && color > color_ref * 2)
-		color = 256 / 3 * 2;
-	else if (color > color_ref * 3)
-		color = 255;
-	return (color);
-}
-
-t_color	cartoon(t_color color)
-{
-	color.r = define_color(color.r);
-	color.g = define_color(color.g);
-	color.b = define_color(color.b);
-	return (color);
-}
-
-int		is_dir(t_vec v)
-{
-	if (v.x == 0 && v.y == 0 && v.z == 0)
-		return (0);
-	return (1);
-}
-
-int		is_same_dir(t_vec v, t_vec ref)
-{
-	if (v.x == ref.x && v.y == ref.y && v.z == ref.z)
-		return (1);
-	v = scalar_product(v, -1);
-	if (v.x == ref.x && v.y == ref.y && v.z == ref.z)
-		return (1);
-	return (0);
-}
-
-int		is_black_edge(t_hit *hit)
-{
-	double	dist_min_max;
-	double	edge_scale;
-
-	if (hit->type == CONE)
-		edge_scale = (hit->radius * hit->dist_from_center / hit->length) / 2;
-	else
-	{
-		if (hit->radius > 0.0)
-			edge_scale = hit->radius / 2;
-		else
-			edge_scale = 0;
-	}
-	if (hit->type == CYLINDER)
-		hit->length /= 2;
-
-	dist_min_max = hit->t_max - hit->t;
-		
-	if (dist_min_max < edge_scale && dist_min_max > (double)(1 / PRECISION) && 
-		((is_dir(hit->dir) && !is_same_dir(hit->point_norm_max, hit->dir) && !is_same_dir(hit->point_norm, hit->dir))
-		 || !is_dir(hit->dir)))
-		return (1);
-
-
-
-	if (hit->type != PLANE && hit->length > 0)
-	{
-		if (hit->length >= hit->dist_from_center && hit->length - hit->dist_from_center <= hit->length / 100)
-		{
-	//		printf("dfc: %f, length : %f\n",hit->length - hit->dist_from_center,hit->length / 100);
-			return (1);
-		}
-	}
-	return (0);
-}
 
 void	apply_ambient(t_color *color, t_scene *scene)
 {
@@ -129,111 +24,106 @@ void	apply_ambient(t_color *color, t_scene *scene)
 	}
 }
 
+void	find_new_start(t_ray *start, t_hit hit)
+{
+	double	tmp;
 
-t_color color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
+	start->pos = vec_add(start->pos, scalar_product(start->dir, hit.t));
+	tmp = dot_product(start->dir, hit.point_norm) * 2.0;
+	start->dir = vec_sub(scalar_product(hit.point_norm, tmp), start->dir);
+	start->dir = normalize(start->dir);
+}
+
+t_color	ray_tracing(t_ray *start, t_scene *scene, double noise, t_hit drawn_pixel, double r)
 {
 	double	reflet;
-	t_color final_color;
-	t_color white;
+	t_vec	tmp;
+
+	reflet = pow(drawn_pixel.reflection, r * 3);
+	drawn_pixel.color = apply_light(scene, drawn_pixel, start);
+	drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
+	if (drawn_pixel.opacity < 1.0)
+		drawn_pixel.color = add_color(drawn_pixel.color,
+				apply_refraction(start, scene, drawn_pixel, noise));
+	if (drawn_pixel.texture == MARBLE)
+		drawn_pixel.color = mult_color(drawn_pixel.color, noise / 255);
+	if (drawn_pixel.texture == CHECKER)
+	{
+		tmp = vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t));
+		drawn_pixel.color = checkerboard(drawn_pixel.color, tmp);
+	}
+	return (drawn_pixel.color);
+}
+
+void	find_blur_dist(t_ray *start, t_hit drawn_pixel, t_cam cam, t_blur *blur)
+{
+	t_vec	tmp2;
+
+	blur->p_obj = 0;
+	if (drawn_pixel.bool == 1)
+	{
+		tmp2 = scalar_product(start->dir, drawn_pixel.t);
+		tmp2 = vec_add(start->pos, tmp2);
+		blur->t = tmp2.z;
+		if (blur->t == cam.ray.pos.z)
+			blur->t = 0;
+		if (blur->t > 100)
+			blur->t = 100;
+	}
+	else
+		blur->t = 10;
+}
+
+t_color	color_render(t_scene *scene, t_ray *start, double noise, t_blur *blur)
+{
+	t_color	final_color;
 	t_hit	drawn_pixel;
 	t_color	ambient;
 	int		r;
 
-	(void)blur;
 	r = 0;
 	final_color = init_color(0, 0, 0);
-	while (r < 3)//scene->reflection)
-	{		
+	while (r < 3)
+	{
 		if (r == 0 || drawn_pixel.reflection != 0)
 		{
-			reflet = pow(drawn_pixel.reflection, r * 3);
 			drawn_pixel = find_closest_object(scene->objects, start);
-			ambient = drawn_pixel.color;
 			apply_ambient(&ambient, scene);
 			if (drawn_pixel.bool == 1)
 			{
 				if (scene->is_real == CARTOON && is_black_edge(&drawn_pixel))
 					drawn_pixel.color = init_color(0, 0, 0);
 				else
-				{
-					drawn_pixel.color = apply_light(scene, drawn_pixel, start);
-					drawn_pixel.color = mult_color(drawn_pixel.color, reflet);
-					if (drawn_pixel.opacity < 1.0)
-						drawn_pixel.color = add_color(drawn_pixel.color, apply_refraction(start, scene, drawn_pixel, noise));
-					if (drawn_pixel.texture == MARBLE)
-						drawn_pixel.color = mult_color(drawn_pixel.color, noise / 255);
-					if (drawn_pixel.texture == CHECKER)
-					{
-						t_vec tmp = vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t));
-						drawn_pixel.color = checkerboard(drawn_pixel.color, tmp);
-					}	
-				}
+					drawn_pixel.color = ray_tracing(start, scene, noise, drawn_pixel, r);
 				if (blur && r == 0)
-				{
-					blur->p_obj = 0;
-					t_vec tmp2;
-					if (drawn_pixel.bool == 1)
-					{
-						tmp2 = (vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)));
-						blur->t = tmp2.z;
-						if (blur->t == scene->cam.ray.pos.z)
-							blur->t = 0;
-						if (blur->t > 100)
-							blur->t = 100;
-					}
-					else
-						blur->t = 10;
-				}
+					find_blur_dist(start, drawn_pixel, scene->cam, blur);
 			}
 			else
 			{
 				if (blur)
 					blur->t = 100;
-				break;
+				break ;
 			}
-			start->pos = vec_add(start->pos, scalar_product(start->dir, drawn_pixel.t)); 
-			reflet = dot_product(start->dir, drawn_pixel.point_norm) * 2.0;
-			start->dir = normalize(vec_sub(scalar_product(drawn_pixel.point_norm, reflet), start->dir));
+			find_new_start(start, drawn_pixel);
 			if (!(scene->is_real == CARTOON && is_black_edge(&drawn_pixel)))
 				drawn_pixel.color = add_color(drawn_pixel.color, ambient);
 			final_color = add_color(final_color, drawn_pixel.color);
 		}
 		if (scene->is_real == CARTOON)
-		{
-//			printf("CARTOON\n");
-  			final_color = cartoon(final_color);
-		}
-
+			final_color = cartoon(final_color);
 		r++;
-	}
-	if (drawn_pixel.is_negativ == 1)
-	{
-		white = init_color(255, 255, 255);
-		final_color = sub_color(white, final_color);
 	}
 	return (final_color);
 }
 
-int		pulse_pbar(void *data)
+t_ray	init_start_ray(t_cam cam, int x, int y)
 {
-	static int x = 0;
-	
-	GObject	*o;
-	double nv;
-	t_env *e;
+	t_ray ray;
 
-	e = (t_env *)data;
-
-	nv = (double)x / (double)WIDTH;
-	o = gtk_builder_get_object(e->builder, "pbar");
-	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(o), nv);
-	//printf("nv = %f\n", nv);
-
-	while (gtk_events_pending())
-		gtk_main_iteration();
-
-	x++;
-	return (0);
+	ray.pos = cam.ray.pos;
+	ray.dir = calc_vec_dir(x, y, cam, cam.look_at);
+	ray.dir = normalize(ray.dir);
+	return (ray);
 }
 
 void	*draw_scene(void *data)
@@ -250,15 +140,16 @@ void	*draw_scene(void *data)
 		y = -1;
 		while (++y < HEIGHT)
 		{
-			noise = apply_marble_noise(x, y, 50, ((t_thread *)(data))->env->tab_noise);
-			start.pos = ((t_thread *)(data))->scene->cam.ray.pos;
-			start.dir = normalize(calc_vec_dir(x, y, ((t_thread *)(data))->scene->cam, ((t_thread *)(data))->scene->cam.look_at));
-
-			final_color = color_render(((t_thread *)(data))->scene, &start, noise, &(((t_thread*)(data))->scene->blur_array[x * HEIGHT + y]));
-			put_pixel_on_buffer(((unsigned char *)(((t_thread *)(data))->buf)), x, y, final_color);
+			noise = apply_marble_noise(x, y, 50,
+					((t_thread *)(data))->env->tab_noise);
+			start = init_start_ray(((t_thread *)(data))->scene->cam, x, y);
+			final_color = color_render(((t_thread *)(data))->scene, &start,
+					noise,
+					&(((t_thread*)(data))->scene->blur_array[x * HEIGHT + y]));
+			put_pixel_on_buffer(((unsigned char *)(((t_thread *)(data))->buf)),
+					x, y, final_color);
 		}
 		((t_thread *)(data))->env->x = x;
-		pulse_pbar(((t_thread *)(data))->env);
 	}
 	return (data);
 }

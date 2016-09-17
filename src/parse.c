@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 12:49:33 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/14 16:26:10 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/14 17:58:43 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,21 +113,8 @@ t_scene		*parse(char *file_name)
 		return (NULL);
 	if (!(part = parse_content(file_content, part)))
 		return (NULL);
-//	t_part *tmp = part;
-//	while (tmp)
-//	{
-//		printf("%d\n", tmp->type);
-//		t_elem *tmp2 = tmp->elems;
-//		while (tmp2)
-//		{
-//			ft_putendl(tmp2->name);
-//			tmp2 = tmp2->next;
-//		}
-//		tmp = tmp->next;
-//	}
 	if (!(scene = config(part)))
 		return (NULL);
-//	write_scene(*scene);
 	free_part(&part);
 	free(file_content);
 	return (scene);

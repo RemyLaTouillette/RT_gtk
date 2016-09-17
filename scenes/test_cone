@@ -1,0 +1,173 @@
+{
+	scene :
+	{
+		{
+			options: 
+			{
+				{ambient : 0}
+				{cartoon : n}
+			 }
+		}
+	}
+
+	camera :
+	{
+		{pos : 0, 0.0 , -10}
+		{look_at : 0, 0, 0}
+	}
+
+	objects :
+	{
+		{
+			cylinder:
+			{
+				{radius : 0.2}
+				{pos : 0, 0.5, 5}
+				{dir : 1, 0, 0}
+				{color : 1, 0.4, 0.2}
+				{length : 9}
+				{
+					options: 
+					{
+						{is_closed : n}
+						{specular : 50}
+					}
+				}
+			}
+		}
+		{
+			cylinder:
+			{
+				{radius : 0.2}
+				{pos : 0, -0.5, 5}
+				{dir : 1, 0, 0}
+				{color : 1, 0.4, 0.2}
+				{length : 9}
+				{
+					options: 
+					{
+						{is_closed : n}
+						{specular : 50}
+					}
+				}
+			}
+		}
+
+		{
+			cylinder:
+			{
+				{radius : 0.3}
+				{pos : -2, 0.0, 0.0}
+				{dir : 0, 0, 1}
+				{color : 0.3, 0.6, 0.8}
+				{length : 0.5}
+				{
+					options: 
+					{
+						{is_closed : n}
+						{specular : 50}
+					}
+				}
+			}
+		}
+		{
+			cylinder:
+			{
+				{radius : 0.2}
+				{pos : 2, 0.0, 0.0}
+				{dir : 0, 1, 0}
+				{color : 0.3, 0.6, 0.8}
+				{length : 0.5}
+				{
+					options: 
+					{
+						{is_closed : n}
+						{specular : 50}
+					}
+				}
+			}
+		}
+		{
+			cylinder:
+			{
+				{radius : 0.2}
+				{pos : 0, 0.0, 0.0}
+				{dir : 0, 1, 0}
+				{color : 0.3, 0.6, 0.8}
+				{length : 0.5}
+				{
+					options: 
+					{
+						{is_closed : n}
+						{specular : 50}
+						{opacity : 0.5}
+					}
+				}
+			}
+		}
+		{
+			cylinder:
+			{
+				{radius : 0.3}
+				{pos : 1, 0.0, 0.0}
+				{dir : 0, 0.5, 0.5}
+				{color : 0.3, 0.6, 0.8}
+				{length : 0.5}
+				{
+					options: 
+					{
+						{is_closed : y}
+						{specular : 50}
+						{opacity : 0.5}
+						{reflection : 0}
+					}
+				}
+			}
+		}
+		{
+			cylinder:
+			{
+				{radius : 0.3}
+				{pos : -1, 0.0, 0.0}
+				{dir : 0, 0.5, 0.5}
+				{color : 0.3, 0.6, 0.8}
+				{length : 0.5}
+				{
+					options: 
+					{
+						{is_closed : n}
+						{specular : 50}
+						{opacity : 0.5}
+						{reflection : 0}
+					}
+				}
+			}
+		}
+		{
+   			plane:
+			{
+				{pos : 0, 0, 5}
+				{normal: 0, 0, 1}
+				{color: 0.2, 0.2, 0.8}
+				{
+					option:
+					{
+						{specular: 90}
+					}
+				}
+			}
+		}
+	}
+
+	light:
+	{
+		{
+			diffuse: 
+			{
+				{pos : 0, 0, -10}
+				{color : 255, 255, 255}
+				{dir : 0.0, 0.0, 0.0}
+			}
+		}
+	}
+}

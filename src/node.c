@@ -6,21 +6,20 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:50:11 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/10 14:30:56 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/16 13:41:01 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
 
-t_node		*init_node(int type, void *data, char *name, int id)
+t_node		*init_node(int type, void *data, char *name)
 {
 	t_node	*node;
 
 	if (!(node = (t_node *)malloc(sizeof(t_node))))
 		return (NULL);
 	node->type = type;
-	node->id = id;
 	node->data = data;
 	node->name = name;
 	node->next = NULL;
