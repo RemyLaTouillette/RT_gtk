@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/17 18:50:18 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 19:11:07 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			is_black_edge(t_hit *hit);
 
 int			put_pixel_on_image(void *img, int x, int y, t_color color);
 t_color		color_render(t_scene *s, t_ray *start, double noise, t_blur *blur);
+void		test_blur(int r, t_hit *pxl, t_blur *blur);
 
 t_hit		find_closest_object(t_node *nodes, t_ray *ray);
 t_hit		init_hit(void);
