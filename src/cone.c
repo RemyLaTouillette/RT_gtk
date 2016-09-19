@@ -6,39 +6,37 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 15:10:51 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/10 20:22:33 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:45:11 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-t_hit	create_cone_disk(t_ray *ray, t_cone *cone, double side)
+static inline t_hit		create_cone_disk(t_ray *ray, t_cone *cone, double side)
 {
 	t_hit	hit;
-	t_plane	*plane;
+	t_plane	plane;
 	t_vec	new_dir;
 	t_vec	inter;
 
-	plane = (t_plane *)malloc(sizeof(t_plane));
 	new_dir = scalar_product(cone->dir, side);
-	plane->pos = vec_add(cone->pos, scalar_product(new_dir, cone->len));
-	plane->normal = scalar_product(new_dir, -1);
-	hit.t = find_plane_hit(ray, plane);
+	plane.pos = vec_add(cone->pos, scalar_product(new_dir, cone->len));
+	plane.normal = scalar_product(new_dir, -1);
+	hit.t = find_plane_hit(ray, &plane);
 	hit.bool = 0;
-	if (hit.t > (double)(1.0 / PRECISION))
+	if (hit.t > PRECISION)
 	{
 		inter = vec_add(ray->pos, scalar_product(ray->dir, hit.t));
-		if (get_length(vec_sub(plane->pos, inter)) <= cone->r)
+		if (get_length(vec_sub(plane.pos, inter)) <= cone->r)
 		{
 			hit.bool = 1;
-			hit.point_norm = new_dir;
+			hit.nml = new_dir;
 		}
 	}
-	free(plane);
 	return (hit);
 }
 
-double	find_cone_det(t_intern intern, double angle, double *t)
+static inline double	find_cone_det(t_intern intern, double angle, double *t)
 {
 	double	a;
 	double	b;
@@ -57,7 +55,7 @@ double	find_cone_det(t_intern intern, double angle, double *t)
 	return (det);
 }
 
-int		find_cone_disk_hit(t_cone *cone, t_ray *ray, t_hit *final_hit)
+static inline int		disk_hit(t_cone *cone, t_ray *ray, t_hit *final_hit)
 {
 	t_hit	hit_size;
 	t_hit	hit;
@@ -73,7 +71,7 @@ int		find_cone_disk_hit(t_cone *cone, t_ray *ray, t_hit *final_hit)
 			{
 				hit_size.bool = 1;
 				hit_size.t = hit.t;
-				hit_size.point_norm = hit.point_norm;
+				hit_size.nml = hit.nml;
 			}
 			else
 			{
@@ -86,7 +84,7 @@ int		find_cone_disk_hit(t_cone *cone, t_ray *ray, t_hit *final_hit)
 	return (0);
 }
 
-t_hit	cone_hit(t_cone *cone, t_ray *ray, t_intern intern, double *t)
+static inline t_hit		cone_hit(t_cone *cone, t_ray *r, t_intern i, double *t)
 {
 	t_hit	hit_size;
 	t_hit	hit_max;
@@ -94,47 +92,43 @@ t_hit	cone_hit(t_cone *cone, t_ray *ray, t_intern intern, double *t)
 
 	hit = init_hit();
 	hit_max = init_hit();
-	if (find_cone_disk_hit(cone, ray, &hit_size) == 1)
+	if (disk_hit(cone, r, &hit_size) == 1)
 		return (hit_size);
 	sort_distance(t);
 	hit.t = t[0];
 	hit_max.t = t[1];
-	t[1] = find_cone_limit(ray, cone, intern, &hit_max);
-	hit.point_norm_max = hit_max.point_norm;
-	t[0] = find_cone_limit(ray, cone, intern, &hit);
-	hit_max.point_norm_max = hit.point_norm;
-	if (t[0] > (double)(1.0 / PRECISION))
+	t[1] = find_cone_limit(r, cone, i, &hit_max);
+	hit.nml_max = hit_max.nml;
+	t[0] = find_cone_limit(r, cone, i, &hit);
+	hit_max.nml_max = hit.nml;
+	if (t[0] > PRECISION)
 		return (cone_first_try(cone, hit_size, hit, t));
 	else
 	{
 		hit = hit_max;
-		if (t[1] > (double)(1.0 / PRECISION))
+		if (t[1] > PRECISION)
 			return (cone_second_try(cone, hit_size, hit, t));
 	}
 	return (cone_third_try(cone, hit_size, hit));
 }
 
-t_hit	is_cone_hit(t_ray *ray, t_cone *cone)
+t_hit					is_cone_hit(t_ray *ray, t_cone *cone)
 {
 	t_hit		hit;
 	t_intern	intern;
-	double		*t;
+	double		t[2];
 	double		angle;
 
 	hit = init_hit();
-	if (!(t = (double *)malloc(sizeof(double) * (2))))
-		return (hit);
-	cone->dir = normalize(cone->dir);
 	angle = atan(cone->r / cone->len);
 	create_cone_intern_struct(ray, cone, &intern);
 	if (find_cone_det(intern, angle, t) >= 0)
 	{
 		hit = cone_hit(cone, ray, intern, t);
-		if (cone->is_closed == 0 && dot_product(ray->dir, hit.point_norm) > 0 &&
+		if (cone->is_closed == 0 && dot_product(ray->dir, hit.nml) > 0 &&
 			cone->opacity == 1)
-			hit.point_norm = scalar_product(hit.point_norm, -1);
+			hit.nml = scalar_product(hit.nml, -1);
 		complete_cone_hit(&hit, cone);
 	}
-	free(t);
 	return (hit);
 }

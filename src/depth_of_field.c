@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 14:28:30 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/17 13:34:30 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:13:49 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		*apply_depth_of_field(void *img, t_blur *array, double dof)
 	t_color	new_color;
 	t_iter	i;
 
-	if (!(blurred_img = new_image_buffer(WIDTH, HEIGHT)))
+	if (!(blurred_img = new_image_buffer()))
 		return (NULL);
 	i.i = -1;
 	while (++i.i < WIDTH)

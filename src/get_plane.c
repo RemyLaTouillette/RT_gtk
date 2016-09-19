@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 18:22:33 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/10 19:49:27 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/19 20:52:35 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		get_plane_att1(t_elem *tmp, t_vec **pos, t_vec **n, t_color **color)
 	{
 		if (!get_new_vec(tmp, n))
 			return (-1);
+		**n = normalize(**n);
 	}
 	else if (!ft_strcmp(tmp->name, "color"))
 	{

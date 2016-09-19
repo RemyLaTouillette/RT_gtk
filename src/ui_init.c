@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:22 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/19 15:45:54 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:17:09 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ void	ui_init_img(t_env *e)
 
 	ft_putendl("ui_init_img()");
 	e->img = gtk_builder_get_object(e->builder, "img");
-	e->buf = new_image_buffer(WIDTH, HEIGHT);
-	pixbuf = gtk_new_image(e->buf, WIDTH, HEIGHT);
+	e->buf = new_image_buffer();
+	pixbuf = gtk_new_image(e->buf);
 	gtk_put_image_to_window(GTK_IMAGE(e->img), pixbuf);
 }
 

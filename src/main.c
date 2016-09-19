@@ -6,17 +6,12 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/16 16:54:56 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:52:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-
 #include <image_buffer.h>
-#include <stdio.h>
-
-int	get_switch_state(t_env *, char *);
-
 
 double	**create_tab_noise(void)
 {
@@ -42,7 +37,7 @@ double	**create_tab_noise(void)
 	return (tab);
 }
 
-GdkPixbuf			*gtk_new_image(unsigned char *data, int width, int height)
+GdkPixbuf			*gtk_new_image(unsigned char *data)
 {
 	GdkPixbuf		*pixbuf;
 	GBytes			*buffer;
@@ -54,33 +49,13 @@ GdkPixbuf			*gtk_new_image(unsigned char *data, int width, int height)
 	{
 		i++;
 	}
-	buffer = g_bytes_new(data, width * height * 3);
-	pixbuf = gdk_pixbuf_new_from_bytes(buffer, GDK_COLORSPACE_RGB, 0, 8, width, height, 3 * width);
+	buffer = g_bytes_new(data, WIDTH * HEIGHT * 3);
+	pixbuf = gdk_pixbuf_new_from_bytes(buffer, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, 3 * WIDTH);
 	if (!pixbuf)
 		return (NULL);
 	g_bytes_unref(buffer);
 	buffer = NULL;
 	return (pixbuf);
-}
-
-void				gtk_put_pixel(GdkPixbuf *pixbuf, int x, int y, int color)
-{
-	int				width;
-	int				height;
-	int				rowstride;
-	int				n_channels;
-	unsigned char	*buffer;
-	unsigned char	*p;
-
-	n_channels = gdk_pixbuf_get_n_channels(pixbuf);
-	width = gdk_pixbuf_get_width(pixbuf);
-	height = gdk_pixbuf_get_height(pixbuf);
-	rowstride = gdk_pixbuf_get_rowstride(pixbuf);
-	buffer = gdk_pixbuf_get_pixels(pixbuf);
-	p = buffer + y * rowstride + x * n_channels;
-	p[0] = (color & 0xFF0000) >> 16;
-	p[1] = (color & 0x00FF00) >> 8;
-	p[2] = (color & 0xFF);
 }
 
 int		gtk_put_image_to_window(GtkImage *image, GdkPixbuf *pixbuf)
@@ -90,8 +65,6 @@ int		gtk_put_image_to_window(GtkImage *image, GdkPixbuf *pixbuf)
 	return (1);
 }
 
-#include <sys/wait.h>
-#define APP_ID "RT.test"
 
 void click_quit(GtkApplication *app, gpointer user_data)
 {
@@ -232,10 +205,10 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	o = gtk_builder_get_object(e->builder, "lbl_info");
 	gtk_label_set_text (GTK_LABEL(o), "Hey !");
 
-	gtk_new_image(e->buf, WIDTH, HEIGHT);
-	pixbuf = gtk_new_image(e->buf, WIDTH, HEIGHT);
+	gtk_new_image(e->buf);
+	pixbuf = gtk_new_image(e->buf);
 	gtk_put_image_to_window(e->img, pixbuf);
-
+free(s);
 	(void)app;
 }
 

@@ -21,13 +21,13 @@ t_hit	complete_disk_hit(t_hit hit, t_hit hit_size)
 	{
 		final_hit.t_max = final_hit.t;
 		final_hit.t = hit_size.t;
-		final_hit.point_norm_max = final_hit.point_norm;
-		final_hit.point_norm = hit_size.point_norm;
+		final_hit.nml_max = final_hit.nml;
+		final_hit.nml = hit_size.nml;
 	}
 	else
 	{
 		final_hit.t_max = hit_size.t;
-		final_hit.point_norm_max = hit_size.point_norm;
+		final_hit.nml_max = hit_size.nml;
 	}
 	return (final_hit);
 }

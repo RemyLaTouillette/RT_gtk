@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 17:36:50 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/16 17:00:47 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:23:34 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,62 +41,13 @@ t_color		get_median_value(t_color *av, int max)
 	return (av[4]);
 }
 
-//t_color		get_av_color(unsigned char *img, int x, int y, int mode)
-//{
-//	t_color	*av;
-//	t_color	c;
-//	int		i;
-//	int		j;
-//	int		k;
-//
-//	av = (t_color *)malloc(sizeof(t_color) * 9);
-//	j = y - 1;
-//	k = 0;
-//	while (j <= y + 1)
-//	{
-//		i = x - 1;
-//		while (i <= x + 1)
-//		{
-//			if (i >= 0 && j >= 0 && i < WIDTH && j < HEIGHT)
-//				av[k] = get_pixel_from_buffer(img, i, j);
-//			k++;
-//			i++;
-//		}
-//		j++;
-//	}
-//	if (mode == 1)
-//	{
-//		return (get_median_value(av, 9));
-//	}
-//	else
-//	{
-//		i = 0;
-//		c.r = 0;
-//		c.g = 0;
-//		c.b = 0;
-//		while (i < 9)
-//		{
-//			c.r += av[i].r;
-//			c.g += av[i].g;
-//			c.b += av[i].b;
-//			i++;
-//		}
-//		c.r /= 9;
-//		c.g /= 9;
-//		c.b /= 9;
-//		return (c);
-//	}
-//}
-t_color		get_av_color(unsigned char *img, int x, int y, int mode)
+t_color		get_av_color(unsigned char *img, int x, int y, t_color *av)
 {
-	t_color	*av;
-//	t_color	c;
 	int		i;
 	int		j;
 	int		k;
+	t_color	c;
 
-	(void)mode;
-	av = (t_color *)malloc(sizeof(t_color) * 9);
 	j = y - 1;
 	k = 0;
 	while (j <= y + 1)
@@ -111,27 +62,27 @@ t_color		get_av_color(unsigned char *img, int x, int y, int mode)
 		}
 		j++;
 	}
-	return (get_median_value(av, 9));
+	c = get_median_value(av, 9);
+	return (c);
 }
 
-void	*aa(void *img, int mode)
+void		*aa(void *img)
 {
 	unsigned char	*aa;
+	t_color			av[9];
 	int				i;
 	int				j;
 	t_color			c;
 
-	if (!(aa = new_image_buffer(WIDTH, HEIGHT)))
+	if (!(aa = new_image_buffer()))
 		return (NULL);
 	j = 0;
-//	c = init_color(0, 0, 0);
-//	(void)mode;
 	while (j < HEIGHT)
 	{
 		i = 0;
 		while (i < WIDTH)
 		{
-			c = get_av_color(img, i, j, mode);
+			c = get_av_color(img, i, j, av);
 			put_pixel_on_buffer(aa, i, j, c);
 			i++;
 		}

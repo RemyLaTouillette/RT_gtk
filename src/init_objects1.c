@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 14:18:45 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/17 14:50:01 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:01:12 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_sphere	*init_sphere(void)
 	return (sphere);
 }
 
-t_plane	*init_plane(void)
+t_plane		*init_plane(void)
 {
 	t_plane	*plane;
 
@@ -69,7 +69,7 @@ t_cylinder	*init_cylinder(void)
 	return (cylinder);
 }
 
-t_cone	*init_cone(void)
+t_cone		*init_cone(void)
 {
 	t_cone	*cone;
 

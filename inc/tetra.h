@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:14:57 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/14 18:46:39 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:50:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct	s_tetra
 }				t_tetra;
 
 t_hit			is_tetra_hit(t_ray *ray, t_tetra*tetra);
-void			complete_tetra_hit(t_tetra *tetra, t_hit *hit);
-void			complete_triangle(t_triangle *tri, t_tetra *tetra);
+void			tetra_hit(t_tetra *tetra, t_hit *hit);
+void			triangle(t_triangle *tri, t_tetra *tetra);
 void			get_face_hit(t_hit face, t_hit *hit);
 
 #endif

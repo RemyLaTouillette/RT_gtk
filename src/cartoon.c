@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/02 12:10:14 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/02 12:21:34 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:55:36 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int		is_black_edge(t_hit *hit)
 	if (hit->type == CYLINDER)
 		hit->length /= 2;
 	dist_min_max = hit->t_max - hit->t;
-	if (dist_min_max < edge_scale && dist_min_max > (double)(1 / PRECISION) &&
-	((is_dir(hit->dir) && !is_same_dir(hit->point_norm_max, hit->dir) &&
-	!is_same_dir(hit->point_norm, hit->dir)) || !is_dir(hit->dir)))
+	if (dist_min_max < edge_scale && dist_min_max > PRECISION &&
+	((is_dir(hit->dir) && !is_same_dir(hit->nml_max, hit->dir) &&
+	!is_same_dir(hit->nml, hit->dir)) || !is_dir(hit->dir)))
 		return (1);
 	if (hit->type != PLANE && hit->length > 0)
 	{

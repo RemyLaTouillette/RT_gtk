@@ -83,18 +83,18 @@ void		choose_c_hit(t_node *nodes, t_ray *ray, t_hit n_hit, t_hit *c_hit)
 		c_hit->t < n_hit.t_max))
 	{
 		if (n_hit.type == PLANE)
-			c_hit->point_norm = scalar_product(n_hit.point_norm, -1);
+			c_hit->nml = scalar_product(n_hit.nml, -1);
 		else
 		{
 			c_hit->t = n_hit.t_max;
-			c_hit->point_norm = scalar_product(n_hit.point_norm_max, -1);
+			c_hit->nml = scalar_product(n_hit.nml_max, -1);
 		}
 	}
 	else if (n_hit.t > c_hit->t && n_hit.t_max > c_hit->t_max &&
 			c_hit->t_max > n_hit.t)
 	{
 		c_hit->t_max = n_hit.t;
-		c_hit->point_norm_max = scalar_product(n_hit.point_norm, -1);
+		c_hit->nml_max = scalar_product(n_hit.nml, -1);
 	}
 	else if (n_hit.t <= c_hit->t && n_hit.t_max >= c_hit->t_max)
 	{

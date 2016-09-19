@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/24 03:33:26 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/09 16:55:50 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:27:51 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,10 @@ double	smooth_noise(double x, double y, double **tab_noise)
 {
 	double	fract_x;
 	double	fract_y;
-	int		*n_x;
-	int		*n_y;
+	int		n_x[2];
+	int		n_y[2];
 	double	value;
 
-	if (!(n_x = (int *)malloc(sizeof(int) * (2))))
-		return (0.0);
-	if (!(n_y = (int *)malloc(sizeof(int) * (2))))
-		return (0.0);
 	fract_x = x - (int)x;
 	fract_y = y - (int)y;
 	n_x[0] = ((int)x + WIDTH) % WIDTH;
@@ -34,8 +30,6 @@ double	smooth_noise(double x, double y, double **tab_noise)
 	value += (1 - fract_x) * fract_y * tab_noise[n_y[0]][n_x[1]];
 	value += fract_x * (1 - fract_y) * tab_noise[n_y[1]][n_x[0]];
 	value += (1 - fract_x) * (1 - fract_y) * tab_noise[n_y[1]][n_x[1]];
-	free(n_x);
-	free(n_y);
 	return (value);
 }
 

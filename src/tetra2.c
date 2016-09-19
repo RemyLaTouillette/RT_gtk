@@ -6,13 +6,13 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/11 18:08:12 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/14 16:13:01 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:50:23 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-void	complete_tetra_hit(t_tetra *tetra, t_hit *hit)
+void	tetra_hit(t_tetra *tetra, t_hit *hit)
 {
 	hit->type = TETRA;
 	hit->color = tetra->color;
@@ -24,7 +24,7 @@ void	complete_tetra_hit(t_tetra *tetra, t_hit *hit)
 	hit->texture = tetra->texture;
 }
 
-void	complete_triangle(t_triangle *tri, t_tetra *tetra)
+void	triangle(t_triangle *tri, t_tetra *tetra)
 {
 	tri->color = tetra->color;
 	tri->reflection = tetra->reflection;
@@ -41,11 +41,11 @@ void	get_face_hit(t_hit face, t_hit *hit)
 	if (hit->t == 0.0)
 	{
 		hit->t = face.t;
-		hit->point_norm = face.point_norm;
+		hit->nml = face.nml;
 	}
 	else
 	{
 		hit->t_max = face.t;
-		hit->point_norm_max = face.point_norm;
+		hit->nml_max = face.nml;
 	}
 }

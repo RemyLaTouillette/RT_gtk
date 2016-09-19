@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 14:19:35 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/15 14:20:21 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:00:25 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ t_triangle	*init_triangle(void)
 	return (triangle);
 }
 
-t_tetra *init_tetra(void)
+t_tetra		*init_tetra(void)
 {
 	t_tetra *tetra;
 
-	if(!(tetra = (t_tetra *)malloc(sizeof(t_tetra))))
-		return(NULL);
+	if (!(tetra = (t_tetra *)malloc(sizeof(t_tetra))))
+		return (NULL);
 	tetra->v0 = init_vector(0, 0, 0);
 	tetra->v1 = init_vector(0, 0, 0);
 	tetra->v2 = init_vector(0, 0, 0);
@@ -48,10 +48,10 @@ t_tetra *init_tetra(void)
 	tetra->ref_index = 1;
 	tetra->texture = NONE;
 	tetra->is_negativ = 0;
-	return(tetra);
+	return (tetra);
 }
 
-t_elips	*init_elips(void)
+t_elips		*init_elips(void)
 {
 	t_elips	*elips;
 

@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 06:31:18 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/15 12:30:46 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:26:45 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int			find_file_name(void)
 		i++;
 		fd = open(file_name, O_WRONLY | O_CREAT | O_EXCL, 0777);
 	}
+	free(file_name);
 	return (fd);
 }
 

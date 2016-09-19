@@ -52,8 +52,8 @@ void	finish_loop(t_scene *s, t_ray *start, t_hit *hit, t_color *fnl_clr)
 	if (hit->reflection != 0)
 	{
 		start->pos = vec_add(start->pos, scalar_product(start->dir, hit->t));
-		tmp = dot_product(start->dir, hit->point_norm) * 2.0;
-		start->dir = vec_sub(scalar_product(hit->point_norm, tmp), start->dir);
+		tmp = dot_product(start->dir, hit->nml) * 2.0;
+		start->dir = vec_sub(scalar_product(hit->nml, tmp), start->dir);
 		start->dir = normalize(start->dir);
 	}
 	fnl_clr[1].r *= s->ambient_color.r * s->ambient_index;

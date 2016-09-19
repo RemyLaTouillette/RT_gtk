@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/13 01:45:04 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/16 16:21:44 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:16:06 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		*apply_blur(void *img, int blur_lvl)
 
 	if (blur_lvl <= 0)
 		return (img);
-	if (!(blurred_img = new_image_buffer(WIDTH, HEIGHT)))
+	if (!(blurred_img = new_image_buffer()))
 		return (NULL);
 	i = -1;
 	while (++i < WIDTH)

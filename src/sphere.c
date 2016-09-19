@@ -6,63 +6,63 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/10 17:33:02 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:39:53 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-void	complete_sphere(t_hit *hit, t_sphere *sphere, t_ray *ray)
+static inline void		complete_sphere(t_hit *hit, t_sphere *s, t_ray *ray)
 {
 	hit->type = SPHERE;
-	hit->radius = sphere->radius;
+	hit->radius = s->radius;
 	hit->length = 0;
 	hit->dir = init_vector(0, 0, 0);
-	hit->color = sphere->color;
-	hit->point_norm = vec_add(ray->pos, scalar_product(ray->dir, hit->t));
-	hit->point_norm = normalize(vec_sub(sphere->center, hit->point_norm));
-	hit->point_norm_max = scalar_product(ray->dir, hit->t_max);
-	hit->point_norm_max = vec_add(ray->pos, hit->point_norm_max);
-	hit->point_norm_max = vec_sub(sphere->center, hit->point_norm_max);
-	hit->point_norm_max = normalize(hit->point_norm_max);
-	hit->specular = sphere->specular;
-	hit->reflection = sphere->reflection;
-	hit->opacity = sphere->opacity;
-	hit->ref_index = sphere->ref_index;
-	hit->is_negativ = sphere->is_negativ;
-	hit->texture = sphere->texture;
+	hit->color = s->color;
+	hit->nml = vec_add(ray->pos, scalar_product(ray->dir, hit->t));
+	hit->nml = normalize(vec_sub(s->center, hit->nml));
+	hit->nml_max = scalar_product(ray->dir, hit->t_max);
+	hit->nml_max = vec_add(ray->pos, hit->nml_max);
+	hit->nml_max = vec_sub(s->center, hit->nml_max);
+	hit->nml_max = normalize(hit->nml_max);
+	hit->specular = s->specular;
+	hit->reflection = s->reflection;
+	hit->opacity = s->opacity;
+	hit->ref_index = s->ref_index;
+	hit->is_negativ = s->is_negativ;
+	hit->texture = s->texture;
 }
 
-double	find_sphere_det(t_ray *ray, t_sphere *sphere, double *a, double *b)
+static inline double	sphere_det(t_ray *r, t_sphere *s, double *a, double *b)
 {
 	double	c;
 	t_vec	tmp;
 
-	*a = dot_product(ray->dir, ray->dir);
-	tmp = vec_sub(sphere->center, ray->pos);
-	*b = 2.0 * dot_product(ray->dir, tmp);
-	c = dot_product(tmp, tmp) - pow(sphere->radius, 2);
+	*a = dot_product(r->dir, r->dir);
+	tmp = vec_sub(s->center, r->pos);
+	*b = 2.0 * dot_product(r->dir, tmp);
+	c = dot_product(tmp, tmp) - pow(s->radius, 2);
 	return ((*b) * (*b) - 4 * (*a) * c);
 }
 
-void	find_sphere_closest_hit(double a, double b, double det, t_hit *hit)
+static inline void		sphere_hit(double a, double b, double det, t_hit *hit)
 {
 	double t1;
 	double t2;
 
 	t1 = (-b + sqrt(det)) / (2 * a);
 	t2 = (-b - sqrt(det)) / (2 * a);
-	if (t1 <= (double)(1.0 / PRECISION) && t2 <= (double)(1.0 / PRECISION))
+	if (t1 <= PRECISION && t2 <= PRECISION)
 	{
 		hit->t = -1.0;
 		hit->t_max = -1.0;
 	}
-	if (t1 < (double)(1.0 / PRECISION))
+	if (t1 < PRECISION)
 	{
 		hit->t = t2;
 		hit->t_max = t2;
 	}
-	else if (t2 < (double)(1.0 / PRECISION))
+	else if (t2 < PRECISION)
 	{
 		hit->t = t1;
 		hit->t_max = t1;
@@ -74,7 +74,7 @@ void	find_sphere_closest_hit(double a, double b, double det, t_hit *hit)
 	}
 }
 
-t_hit	is_sphere_hit(t_ray *ray, t_sphere *sphere)
+t_hit					is_sphere_hit(t_ray *ray, t_sphere *sphere)
 {
 	t_hit	hit;
 	double	det;
@@ -85,7 +85,7 @@ t_hit	is_sphere_hit(t_ray *ray, t_sphere *sphere)
 	hit.color = init_color(0, 0, 0);
 	if (sphere->radius > 0.0)
 	{
-		det = find_sphere_det(ray, sphere, &a, &b);
+		det = sphere_det(ray, sphere, &a, &b);
 		if (det == 0)
 		{
 			hit.t = (-b / (2 * a));
@@ -94,7 +94,7 @@ t_hit	is_sphere_hit(t_ray *ray, t_sphere *sphere)
 		}
 		else if (det > 0)
 		{
-			find_sphere_closest_hit(a, b, det, &hit);
+			sphere_hit(a, b, det, &hit);
 			hit.bool = hit.t > 0.0 ? 1 : 0;
 		}
 		complete_sphere(&hit, sphere, ray);

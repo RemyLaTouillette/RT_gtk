@@ -6,20 +6,20 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/10 17:33:09 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:38:00 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-void	complete_plane(t_hit *hit, t_plane *plane)
+static inline void		complete_plane(t_hit *hit, t_plane *plane)
 {
 	hit->type = PLANE;
 	hit->radius = 0;
 	hit->color = plane->color;
-	hit->point_norm.x = -plane->normal.x;
-	hit->point_norm.y = -plane->normal.y;
-	hit->point_norm.z = -plane->normal.z;
+	hit->nml.x = -plane->normal.x;
+	hit->nml.y = -plane->normal.y;
+	hit->nml.z = -plane->normal.z;
 	hit->reflection = plane->reflection;
 	hit->specular = plane->specular;
 	hit->opacity = plane->opacity;
@@ -29,7 +29,7 @@ void	complete_plane(t_hit *hit, t_plane *plane)
 	hit->dir = init_vector(0, 0, 0);
 }
 
-double	find_plane_hit(t_ray *ray, t_plane *plane)
+double					find_plane_hit(t_ray *ray, t_plane *plane)
 {
 	double	tmp_magic;
 	double	tmp;
@@ -43,14 +43,14 @@ double	find_plane_hit(t_ray *ray, t_plane *plane)
 	}
 }
 
-t_hit	is_plane_hit(t_ray *ray, t_plane *plane)
+t_hit					is_plane_hit(t_ray *ray, t_plane *plane)
 {
 	t_hit	hit;
 	double	res;
 
 	hit = init_hit();
 	res = find_plane_hit(ray, plane);
-	if (res > (double)(1.0 / PRECISION))
+	if (res > PRECISION)
 	{
 		hit.t = res;
 		hit.t_max = hit.t + 1;

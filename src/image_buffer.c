@@ -6,21 +6,20 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/17 01:51:06 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/19 18:40:26 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:22:45 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-unsigned char		*new_image_buffer(int width, int height)
+unsigned char		*new_image_buffer(void)
 {
 	unsigned char	*buf;
 	int				size;
 	int				i;
 
-	size = width * height * 3;
-	buf = (unsigned char *)malloc(sizeof(unsigned char) * size);
-	if (!buf)
+	size = WIDTH * HEIGHT * 3;
+	if (!(buf = (unsigned char *)malloc(sizeof(unsigned char) * size)))
 		return (NULL);
 	i = 0;
 	while (i < size)

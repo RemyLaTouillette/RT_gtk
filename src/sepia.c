@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 00:20:42 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/16 16:09:27 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:16:19 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		*sepia_filter(void *img, int filter)
 
 	if (filter != SEPIA && filter != NOIR_BLANC)
 		return (img);
-	if (!(new = new_image_buffer(WIDTH, HEIGHT)))
+	if (!(new = new_image_buffer()))
 		return (NULL);
 	j = -1;
 	while (++j < HEIGHT)

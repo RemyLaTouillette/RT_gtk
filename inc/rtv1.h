@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/19 19:11:07 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:15:47 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@
 
 # include <aa.h>
 # include <image_buffer.h>
+# include <ui_init.h>
 
 # define ESCAPE		53
 # define WIDTH		1920
 # define HEIGHT		1080
-# define PRECISION	10000000
+# define PRECISION	0.000001
 
 # define N_THREAD	4
 

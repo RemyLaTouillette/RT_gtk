@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 14:18:37 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/10 15:26:12 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:01:34 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_color	diffuse_shadow(t_hit px, t_ray *ray, t_light *light, t_hit tmp)
 	double	coef;
 	t_color	tmp_color;
 
-	angle = fabs(dot_product(ray->dir, px.point_norm));
+	angle = fabs(dot_product(ray->dir, px.nml));
 	coef = 1 - tmp.opacity;
 	tmp_color.r = px.color.r * angle * light->color.r * coef;
 	tmp_color.g = px.color.g * angle * light->color.g * coef;
@@ -32,9 +32,9 @@ t_color	diffuse_light(t_hit curr_px, t_ray *light_ray, t_light *light)
 	double	coef;
 	t_color	tmp_color;
 
-	angle = dot_product(light_ray->dir, curr_px.point_norm);
+	angle = dot_product(light_ray->dir, curr_px.nml);
 	angle /= get_length(light_ray->dir);
-	angle /= get_length(curr_px.point_norm);
+	angle /= get_length(curr_px.nml);
 	tmp_color = init_color(0, 0, 0);
 	coef = curr_px.opacity;
 	if (angle < 0)
@@ -56,7 +56,7 @@ t_color	specular_light(t_hit px, t_vec ref, t_light *light, t_ray *cam_ray)
 	double	coef;
 	double	tmp;
 
-	tmp = dot_product(normalize(cam_ray->dir), normalize(ref));
+	tmp = dot_product(cam_ray->dir, normalize(ref));
 	if (px.opacity == 1)
 		spec = pow(tmp, px.specular + 1);
 	else
@@ -90,7 +90,7 @@ double	find_spot_angle(t_node *tmp_light, t_ray *ray)
 	return (angle);
 }
 
-void		set_hit(t_hit *tmp_content, t_hit *hit, t_ray *ray, int *shadow)
+void	set_hit(t_hit *tmp_content, t_hit *hit, t_ray *ray, int *shadow)
 {
 	if (tmp_content->t > 0.0 && tmp_content->t <= ray->length)
 	{

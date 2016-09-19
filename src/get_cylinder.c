@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 19:50:27 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/11 15:37:43 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/19 20:48:51 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int			get_c_att1(t_elem *tmp2, t_vec **pos, t_vec **dir, t_color **c)
 	{
 		if (!get_new_vec(tmp2, dir))
 			return (-1);
+		**dir = normalize(**dir);
 	}
 	else if (!ft_strcmp(tmp2->name, "color"))
 	{

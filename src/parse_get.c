@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 14:37:17 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/14 16:27:08 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:01:50 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int		get_secur_num(t_elem *elem, double *n, double min, double max)
 		write(1, "\n", 1);
 		return (0);
 	}
-//	printf("%f\n", *n);
 	return (1);
 }
 

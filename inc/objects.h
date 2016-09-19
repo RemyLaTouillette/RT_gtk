@@ -38,8 +38,8 @@ typedef struct			s_hit
 	double				length;
 	t_color				color;
 	int					bool;
-	t_vec				point_norm;
-	t_vec				point_norm_max;
+	t_vec				nml;
+	t_vec				nml_max;
 	int					specular;
 	double				reflection;
 	double				opacity;

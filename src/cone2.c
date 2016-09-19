@@ -47,12 +47,12 @@ double	find_cone_limit(t_ray *ray, t_cone *cone, t_intern intern, t_hit *hit)
 	hit->dist_from_center = (tmp > cone->len) ? 0 : tmp;
 	if (tmp > cone->len)
 		return (0.0);
-	hit->point_norm = inter;
-	hit->point_norm = vec_sub(cone->pos, inter);
+	hit->nml = inter;
+	hit->nml = vec_sub(cone->pos, inter);
 	angle = atan(cone->r / cone->len);
-	tmp = get_length(hit->point_norm) / cos(angle);
+	tmp = get_length(hit->nml) / cos(angle);
 	proj = scalar_product(normalize(proj), tmp);
-	hit->point_norm = normalize(vec_sub(proj, hit->point_norm));
+	hit->nml = normalize(vec_sub(proj, hit->nml));
 	return (hit->t);
 }
 
@@ -63,8 +63,8 @@ t_hit	cone_first_try(t_cone *cone, t_hit hit_size, t_hit hit, double *t)
 	{
 		hit.t = t[0] < hit_size.t ? t[0] : hit_size.t;
 		hit.t_max = t[0] < hit_size.t ? hit_size.t : t[0];
-		hit.point_norm_max = t[0] < hit_size.t ? hit_size.point_norm : hit.point_norm;
-		hit.point_norm = t[0] < hit_size.t ? hit.point_norm : hit_size.point_norm;
+		hit.nml_max = t[0] < hit_size.t ? hit_size.nml : hit.nml;
+		hit.nml = t[0] < hit_size.t ? hit.nml : hit_size.nml;
 	}
 	else
 	{
@@ -81,8 +81,8 @@ t_hit	cone_second_try(t_cone *cone, t_hit hit_size, t_hit hit, double *t)
 	{
 		hit.t = t[1] < hit_size.t ? t[1] : hit_size.t;
 		hit.t_max = t[1] < hit_size.t ? hit_size.t : t[1];
-		hit.point_norm = t[1] < hit_size.t ? hit.point_norm : hit_size.point_norm;
-		hit.point_norm_max = t[1] < hit_size.t ? hit_size.point_norm : hit.point_norm;
+		hit.nml = t[1] < hit_size.t ? hit.nml : hit_size.nml;
+		hit.nml_max = t[1] < hit_size.t ? hit_size.nml : hit.nml;
 	}
 	else
 	{
@@ -94,8 +94,8 @@ t_hit	cone_second_try(t_cone *cone, t_hit hit_size, t_hit hit, double *t)
 
 t_hit	cone_third_try(t_cone *cone, t_hit hit_size, t_hit hit)
 {
-	if ((hit_size.t_max < (double)(1.0 / PRECISION) ||
-		hit.t_max < (double)(1.0 / PRECISION)) && cone->is_closed == 1)
+	if ((hit_size.t_max < PRECISION ||
+		hit.t_max < PRECISION) && cone->is_closed == 1)
 	{
 		hit = hit_size;
 		hit.t_max = hit.t;

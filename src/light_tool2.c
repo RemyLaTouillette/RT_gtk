@@ -80,8 +80,8 @@ t_color		*set_color2(t_node *tmp, t_ray *cam_ray, t_ray *ray, t_hit *hit)
 
 	if (!(c2 = (t_color *)malloc(sizeof(t_color))))
 		return (NULL);
-	dot = dot_product(ray->dir, hit[0].point_norm);
-	refl = vec_sub(scalar_product(hit[0].point_norm, dot * 2), ray->dir);
+	dot = dot_product(ray->dir, hit[0].nml);
+	refl = vec_sub(scalar_product(hit[0].nml, dot * 2), ray->dir);
 	*c2 = (specular_light(hit[0], refl, ((t_light *)(tmp->data)), cam_ray));
 	return (c2);
 }

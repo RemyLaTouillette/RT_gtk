@@ -6,58 +6,58 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/11 18:08:12 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/14 16:12:44 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/19 21:51:11 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-void	complete_tri_coord(t_triangle *tri, t_vec v0, t_vec v1, t_vec v2)
+static inline void	tri_coord(t_triangle *tri, t_vec v0, t_vec v1, t_vec v2)
 {
 	tri->v0 = v0;
 	tri->v1 = v1;
 	tri->v2 = v2;
 }
 
-void	switch_dist(t_hit *hit)
+static inline void	switch_dist(t_hit *hit)
 {
 	t_vec	tmp_vec;
 	double	tmp;
 
-	hit->point_norm = normalize(hit->point_norm);
-	hit->point_norm_max = normalize(hit->point_norm_max);
+	hit->nml = normalize(hit->nml);
+	hit->nml_max = normalize(hit->nml_max);
 	if (hit->t > hit->t_max)
 	{
 		tmp = hit->t;
 		hit->t = hit->t_max;
 		hit->t_max = tmp;
-		tmp_vec = hit->point_norm;
-		hit->point_norm = hit->point_norm_max;
-		hit->point_norm_max = tmp_vec;
+		tmp_vec = hit->nml;
+		hit->nml = hit->nml_max;
+		hit->nml_max = tmp_vec;
 	}
 }
 
-void	finish_hit(t_hit *hit, t_tetra *tetra, t_ray *ray)
+static inline void	finish_hit(t_hit *hit, t_tetra *tetra, t_ray *ray)
 {
 	switch_dist(hit);
 	if (hit->t_max == 0)
 	{
 		hit->t_max = hit->t;
-		hit->point_norm_max = hit->point_norm;
+		hit->nml_max = hit->nml;
 	}
-	if (dot_product(ray->dir, hit->point_norm) > 0)
-		hit->point_norm = scalar_product(hit->point_norm, -1);
-	if (dot_product(ray->dir, hit->point_norm) < 0 && tetra->opacity != 1 &&
+	if (dot_product(ray->dir, hit->nml) > 0)
+		hit->nml = scalar_product(hit->nml, -1);
+	if (dot_product(ray->dir, hit->nml) < 0 && tetra->opacity != 1 &&
 			hit->t == hit->t_max)
 	{
-		hit->point_norm = scalar_product(hit->point_norm, -1);
-		hit->point_norm_max = hit->point_norm;
+		hit->nml = scalar_product(hit->nml, -1);
+		hit->nml_max = hit->nml;
 	}
-	if (dot_product(ray->dir, hit->point_norm_max) < 0)
-		hit->point_norm_max = scalar_product(hit->point_norm_max, -1);
+	if (dot_product(ray->dir, hit->nml_max) < 0)
+		hit->nml_max = scalar_product(hit->nml_max, -1);
 }
 
-t_hit	find_tetra_hit(t_hit *face, t_ray *ray, t_tetra *tetra)
+static inline t_hit	find_tetra_hit(t_hit *face, t_ray *ray, t_tetra *tetra)
 {
 	t_hit	hit;
 
@@ -78,25 +78,22 @@ t_hit	find_tetra_hit(t_hit *face, t_ray *ray, t_tetra *tetra)
 	return (hit);
 }
 
-t_hit	is_tetra_hit(t_ray *ray, t_tetra *tetra)
+t_hit				is_tetra_hit(t_ray *ray, t_tetra *tetra)
 {
 	t_hit		hit;
-	t_hit		*face;
+	t_hit		face[4];
 	t_triangle	tri;
 
-	if (!(face = (t_hit *)malloc(sizeof(t_hit) * (4))))
-		return (init_hit());
-	complete_triangle(&tri, tetra);
-	complete_tri_coord(&tri, tetra->v0, tetra->v1, tetra->v2);
+	triangle(&tri, tetra);
+	tri_coord(&tri, tetra->v0, tetra->v1, tetra->v2);
 	face[0] = is_trian_hit(ray, &tri);
-	complete_tri_coord(&tri, tetra->v0, tetra->v1, tetra->v3);
+	tri_coord(&tri, tetra->v0, tetra->v1, tetra->v3);
 	face[1] = is_trian_hit(ray, &tri);
-	complete_tri_coord(&tri, tetra->v0, tetra->v3, tetra->v2);
+	tri_coord(&tri, tetra->v0, tetra->v3, tetra->v2);
 	face[2] = is_trian_hit(ray, &tri);
-	complete_tri_coord(&tri, tetra->v1, tetra->v2, tetra->v3);
+	tri_coord(&tri, tetra->v1, tetra->v2, tetra->v3);
 	face[3] = is_trian_hit(ray, &tri);
 	hit = find_tetra_hit(face, ray, tetra);
-	complete_tetra_hit(tetra, &hit);
-	free(face);
+	tetra_hit(tetra, &hit);
 	return (hit);
 }

@@ -44,9 +44,9 @@ double	find_cyl_limit(t_ray *ray, t_cylinder *cyl, t_intern intern, t_hit *hit)
 	hit->dist_from_center = (tmp > cyl->length / 2) ? 0 : tmp;
 	if (tmp > cyl->length / 2)
 		return (0.0);
-	hit->point_norm = inter;
-	hit->point_norm = vec_sub(intern.ab, hit->point_norm);
-	hit->point_norm = normalize(hit->point_norm);
+	hit->nml = inter;
+	hit->nml = vec_sub(intern.ab, hit->nml);
+	hit->nml = normalize(hit->nml);
 	return (hit->t);
 }
 
@@ -57,8 +57,8 @@ t_hit	cyl_first_try(t_cylinder *cyl, t_hit hit_size, t_hit hit, double *t)
 	{
 		hit.t = t[0] < hit_size.t ? t[0] : hit_size.t;
 		hit.t_max = t[0] < hit_size.t ? hit_size.t : t[0];
-		hit.point_norm = t[0] < hit_size.t ? hit.point_norm : hit_size.point_norm;
-		hit.point_norm_max = t[0] < hit_size.t ? hit_size.point_norm : hit.point_norm;
+		hit.nml = t[0] < hit_size.t ? hit.nml : hit_size.nml;
+		hit.nml_max = t[0] < hit_size.t ? hit_size.nml : hit.nml;
 	}
 	else
 	{
@@ -75,23 +75,23 @@ t_hit	cyl_second_try(t_cylinder *cyl, t_hit hit_size, t_hit hit, double *t)
 	{
 		hit.t = t[1] < hit_size.t ? t[1] : hit_size.t;
 		hit.t_max = t[1] < hit_size.t ? hit_size.t : t[1];
-		hit.point_norm = t[1] < hit_size.t ? hit.point_norm : hit_size.point_norm;
-		hit.point_norm_max = t[1] < hit_size.t ? hit_size.point_norm : hit.point_norm;
+		hit.nml = t[1] < hit_size.t ? hit.nml : hit_size.nml;
+		hit.nml_max = t[1] < hit_size.t ? hit_size.nml : hit.nml;
 	}
 	else
 	{
 		hit.t = t[1];
 		hit.t_max = t[1];
 		if (cyl->opacity == 1)
-			hit.point_norm = scalar_product(hit.point_norm, -1);
+			hit.nml = scalar_product(hit.nml, -1);
 	}
 	return (hit);
 }
 
 t_hit	cyl_third_try(t_cylinder *cylinder, t_hit hit_size, t_hit hit)
 {
-	if ((hit_size.t_max < (double)(1.0 / PRECISION) ||
-		hit.t_max < (double)(1.0 / PRECISION)) && cylinder->is_closed == 1)
+	if ((hit_size.t_max < PRECISION ||
+		hit.t_max < PRECISION) && cylinder->is_closed == 1)
 	{
 		hit = hit_size;
 		hit.t_max = hit.t;
