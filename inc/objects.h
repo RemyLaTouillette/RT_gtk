@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/19 19:26:58 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/20 15:06:42 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,14 @@ typedef struct			s_env
 	t_cam				cam;
 	int					fd;
 	double				**tab_noise;
-	// UI values
-	int				mode; // cartoon or not (0, 1)
-	int				filter; // (0, 1, 2)
-	int				dof;
+	int					mode;
+	int					filter;
+	int					dof;
 	double				focus;
 	double				blur;
 	t_color				amblight;
 	double				ambindex;
-	int				loop;
-
+	int					loop;
 }						t_env;
+
 #endif

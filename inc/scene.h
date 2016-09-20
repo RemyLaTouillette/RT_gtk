@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:31:39 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/17 17:48:19 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 15:09:02 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ typedef struct	s_scene
 }				t_scene;
 
 t_scene			*init_scene(void);
-void			print_camera(t_cam *c);
-void			write_scene(t_scene s);
 void			add_camera(t_scene *s, t_cam cam);
 
 #endif

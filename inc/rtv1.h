@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/20 13:39:51 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 15:08:10 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <light.h>
 # include <parse.h>
 # include <ray.h>
-# include <refraction.h>
 # include <thread.h>
 
 # include <cyco_internal_struct.h>
@@ -78,7 +77,6 @@ double		apply_wood_noise(int x, int y, double res, double **tab_noise);
 t_color		checkerboard(t_color color, t_vec vec);
 int			is_black_edge(t_hit *hit);
 
-int			put_pixel_on_image(void *img, int x, int y, t_color color);
 t_color		color_render(t_scene *s, t_ray *start, double noise, t_blur *blur);
 void		test_blur(int r, t_hit *pxl, t_blur *blur);
 
@@ -109,5 +107,7 @@ int			ray_cmp(t_ray r1, t_ray r2);
 int			color_cmp(t_color c1, t_color vc);
 int			quad_cmp(t_quad q1, t_quad q2);
 int			lights_cmp(t_node *new_lights, t_node *old_lights);
+
+t_color		apply_refraction(t_ray *st, t_scene *s, t_hit *hit, double noise);
 
 #endif
