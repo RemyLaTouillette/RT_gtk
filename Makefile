@@ -84,6 +84,7 @@ SRC =	main.c \
 		objects_cmp3.c \
 		tools_cmp.c \
 		lights_cmp.c \
+		error_handler.c \
 
 SRCDIR = src/
 

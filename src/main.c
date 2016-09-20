@@ -74,6 +74,9 @@ void click_quit(GtkApplication *app, gpointer user_data)
 	gtk_main_quit();
 }
 
+// proto tmp qui n'a rien a foutre la
+void	test_error(void);
+
 void	click_save(GtkApplication *app, gpointer user_data)
 {
 	t_env	*e;
@@ -81,7 +84,9 @@ void	click_save(GtkApplication *app, gpointer user_data)
 	(void)app;
 	g_print("click_save()\n");
 	e = user_data;
-	save_bmp(e->buf);
+//	save_bmp(e->buf);
+// FONCTION TEST POUR POPUP ERROR
+	test_error();
 }
 
 void		init_threads(t_thread *threads, t_scene *scene, t_env *e)
