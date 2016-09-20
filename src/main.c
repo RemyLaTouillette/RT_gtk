@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/20 19:21:05 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/20 20:28:17 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,10 @@ void	click_save(GtkApplication *app, gpointer user_data)
 
 	(void)app;
 	e = user_data;
+	save_bmp2(e->buf);
 //	save_bmp(e->buf);
 // FONCTION TEST POUR POPUP ERROR
-	test_error();
+//	test_error();
 }
 
 void		init_threads(t_thread *threads, t_scene *scene, t_env *e)

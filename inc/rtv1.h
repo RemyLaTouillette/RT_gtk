@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/20 18:00:51 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 20:24:21 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void		sort_distance(double *t);
 void		complete_disk_hit(t_hit *hit, t_hit *hit_size, t_hit *final_hit);
 
 void		save_bmp(unsigned char *buf);
+void		save_bmp2(unsigned char *buf);
 void		ui_init(t_env *e);
 
 int			scene_cmp(t_scene *new_scene, t_scene *old_scene);
