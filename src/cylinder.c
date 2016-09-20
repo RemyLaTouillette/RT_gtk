@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/08 20:00:35 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/19 21:45:45 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:16:06 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static inline t_hit		create_cyl_disk(t_ray *ray, t_cylinder *c, double side)
 	t_vec	inter;
 
 	new_dir = scalar_product(c->dir, side);
-	plane.pos = scalar_product(new_dir, c->length / 2.0);
+	plane.pos = scalar_product(new_dir, c->length * 0.5);
 	plane.pos = vec_add(c->pos, plane.pos);
 	plane.normal = scalar_product(new_dir, -1);
 	hit.t = find_plane_hit(ray, &plane);

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/19 21:39:53 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:12:37 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static inline double	sphere_det(t_ray *r, t_sphere *s, double *a, double *b)
 	*a = dot_product(r->dir, r->dir);
 	tmp = vec_sub(s->center, r->pos);
 	*b = 2.0 * dot_product(r->dir, tmp);
-	c = dot_product(tmp, tmp) - pow(s->radius, 2);
+	c = dot_product(tmp, tmp) - (s->radius * s->radius);
 	return ((*b) * (*b) - 4 * (*a) * c);
 }
 

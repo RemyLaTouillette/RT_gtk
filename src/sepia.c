@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 00:20:42 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/19 21:16:19 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:16:52 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_color		set_sepia_color(t_color c)
 	s.r = (c.r * .393) + (c.g * .769) + (c.b * .189);
 	s.g = (c.r * .349) + (c.g * .686) + (c.b * .168);
 	s.b = (s.r * .272) + (s.g * .534) + (s.b * .131);
-	s.r = (s.r + sepia.r) / 2;
-	s.g = (s.g + sepia.g) / 2;
-	s.b = (s.b + sepia.b) / 2;
+	s.r = (s.r + sepia.r) * 0.5;
+	s.g = (s.g + sepia.g) * 0.5;
+	s.b = (s.b + sepia.b) * 0.5;
 	check_color(&s);
 	return (s);
 }

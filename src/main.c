@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/19 21:52:40 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 12:37:00 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void click_quit(GtkApplication *app, gpointer user_data)
 {
 	(void)app;
 	(void)user_data;
-	g_print("btn_click_quit()\n");
 	gtk_main_quit();
 }
 
@@ -82,7 +81,6 @@ void	click_save(GtkApplication *app, gpointer user_data)
 	t_env	*e;
 
 	(void)app;
-	g_print("click_save()\n");
 	e = user_data;
 //	save_bmp(e->buf);
 // FONCTION TEST POUR POPUP ERROR
@@ -124,7 +122,6 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	char	*hey;
 	gboolean dof;
 
-	g_print("btn_click_draw()\n");
 
 	e = user_data;
 
@@ -185,7 +182,7 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	t_scene *s2;
 	s2 = parse("scenes/test_cyl");
 	if (!(s = parse(hey)))
-		printf("No scene\n");
+		ft_putendl("No scene\n");
 	else
 	{
 		init_threads(threads, s, e);
@@ -193,13 +190,19 @@ void click_draw(GtkApplication *app, gpointer user_data)
 		while (++i < N_THREAD)
 		{
 			if (pthread_create(&(threads[i].pth), NULL, draw_scene, &threads[i]) != 0)
-				printf("FAIL1\n");
+			{
+				ft_putendl("Creating threads failed\n");
+				exit(0);
+			}
 		}
 		i = -1;
 		while (++i < N_THREAD)
 		{
 			if (pthread_join(threads[i].pth, NULL) != 0)
-				printf("FAIL2\n");
+			{
+				ft_putendl("Joining threads failed\n");
+				exit(0);
+			}
 		}
 	}
 

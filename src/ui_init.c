@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:22 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/19 21:17:09 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 12:33:46 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	ui_init_callback(t_env *e)
 	GObject		*btn_quit;
 //	GObject		*btn_switch;
 
-	ft_putendl("ui_init_callback()");
 	win = gtk_builder_get_object(e->builder, "window");
 	g_signal_connect(win, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 	btn_draw = gtk_builder_get_object(e->builder, "btn_draw");
@@ -118,7 +117,6 @@ void	ui_init_img(t_env *e)
 {
 	GdkPixbuf	*pixbuf;
 
-	ft_putendl("ui_init_img()");
 	e->img = gtk_builder_get_object(e->builder, "img");
 	e->buf = new_image_buffer();
 	pixbuf = gtk_new_image(e->buf);
@@ -146,7 +144,6 @@ void	ui_init_scenes(t_env *e, char *path)
 
 void	ui_init(t_env *e)
 {
-	ft_putendl("ui_init()");
 	gtk_init(NULL, NULL);
 	e->builder = gtk_builder_new_from_file("ui/builder.c.ui");
 	ui_init_img(e);

@@ -6,101 +6,89 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 14:18:37 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/19 21:01:34 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:21:20 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-t_color	diffuse_shadow(t_hit px, t_ray *ray, t_light *light, t_hit tmp)
+static inline void	set_hit(t_hit *tmp, t_hit *hit, t_ray *ray, int *shadow)
 {
-	double	angle;
-	double	coef;
-	t_color	tmp_color;
-
-	angle = fabs(dot_product(ray->dir, px.nml));
-	coef = 1 - tmp.opacity;
-	tmp_color.r = px.color.r * angle * light->color.r * coef;
-	tmp_color.g = px.color.g * angle * light->color.g * coef;
-	tmp_color.b = px.color.b * angle * light->color.b * coef;
-	return (tmp_color);
-}
-
-t_color	diffuse_light(t_hit curr_px, t_ray *light_ray, t_light *light)
-{
-	double	angle;
-	double	coef;
-	t_color	tmp_color;
-
-	angle = dot_product(light_ray->dir, curr_px.nml);
-	angle /= get_length(light_ray->dir);
-	angle /= get_length(curr_px.nml);
-	tmp_color = init_color(0, 0, 0);
-	coef = curr_px.opacity;
-	if (angle < 0)
-	{
-		angle = -angle;
-		if (curr_px.opacity >= 0.5)
-			coef = 1 - curr_px.opacity;
-	}
-	tmp_color.r = curr_px.color.r * angle * light->color.r * coef;
-	tmp_color.g = curr_px.color.g * angle * light->color.g * coef;
-	tmp_color.b = curr_px.color.b * angle * light->color.b * coef;
-	return (tmp_color);
-}
-
-t_color	specular_light(t_hit px, t_vec ref, t_light *light, t_ray *cam_ray)
-{
-	t_color	tmp_color;
-	double	spec;
-	double	coef;
-	double	tmp;
-
-	tmp = dot_product(cam_ray->dir, normalize(ref));
-	if (px.opacity == 1)
-		spec = pow(tmp, px.specular + 1);
-	else
-		spec = pow(tmp, px.specular);
-	if (spec < 0)
-		coef = fabs(spec) * px.opacity;
-	else
-		coef = 1;
-	tmp_color.r = spec * light->color.r * coef;
-	tmp_color.g = spec * light->color.g * coef;
-	tmp_color.b = spec * light->color.b * coef;
-	return (tmp_color);
-}
-
-double	find_spot_angle(t_node *tmp_light, t_ray *ray)
-{
-	t_vec		look;
-	t_light		*light;
-	double		angle;
-
-	light = ((t_light *)(tmp_light->data));
-	if (light->type == DIRECT)
-	{
-		look = vec_sub(light->look_at, light->pos);
-		angle = dot_product(ray->dir, look);
-		angle /= get_length(ray->dir);
-		angle /= get_length(look);
-	}
-	else
-		angle = 1;
-	return (angle);
-}
-
-void	set_hit(t_hit *tmp_content, t_hit *hit, t_ray *ray, int *shadow)
-{
-	if (tmp_content->t > 0.0 && tmp_content->t <= ray->length)
+	if (tmp->t > 0.0 && tmp->t <= ray->length)
 	{
 		*shadow = 1;
-		if (hit->bool == 0 || tmp_content->opacity >= hit->opacity)
+		if (hit->bool == 0 || tmp->opacity >= hit->opacity)
 		{
 			if (hit->bool == 0)
-				*hit = *tmp_content;
-			else if (hit->t > tmp_content->t)
-				*hit = *tmp_content;
+				*hit = *tmp;
+			else if (hit->t > tmp->t)
+				*hit = *tmp;
 		}
 	}
+}
+
+static inline int	find_pos_obj(t_scene *s, t_ray *ray, t_hit *hit, int *n)
+{
+	t_node		*tmp_object;
+	t_hit		tmp_content;
+	int			shadow;
+
+	tmp_object = s->objects;
+	shadow = 0;
+	while (tmp_object)
+	{
+		if (*n == 0)
+			*n = neg_exists(tmp_object);
+		tmp_content = get_hit(ray, tmp_object, 0);
+		if (tmp_content.bool == 1)
+			set_hit(&tmp_content, hit, ray, &shadow);
+		tmp_object = tmp_object->next;
+	}
+	return (shadow);
+}
+
+static inline void	find_neg_obj(t_scene *s, t_ray *ray, t_hit *hit, t_hit *n)
+{
+	t_node		*tmp_object;
+	t_hit		tmp_content;
+
+	tmp_object = s->objects;
+	while (tmp_object)
+	{
+		tmp_content = get_hit(ray, tmp_object, 1);
+		if (tmp_content.bool == 1 &&
+		((tmp_content.t == tmp_content.t_max) ||
+		(tmp_content.t < hit->t && tmp_content.t_max > hit->t_max)))
+		{
+			if (n->bool == 0)
+				*n = tmp_content;
+			else if (n->t_max < tmp_content.t_max)
+				n->t_max = tmp_content.t_max;
+		}
+		tmp_object = tmp_object->next;
+	}
+}
+
+int					is_shadow(t_scene *scene, t_ray *light_ray, t_hit *c)
+{
+	t_hit		neg_hit;
+	int			is_neg;
+	int			shadow;
+
+	*c = init_hit();
+	neg_hit = init_hit();
+	is_neg = 0;
+	shadow = find_pos_obj(scene, light_ray, c, &is_neg);
+	if (shadow == 1 && is_neg)
+	{
+		find_neg_obj(scene, light_ray, c, &neg_hit);
+		if (neg_hit.bool == 1)
+		{
+			if (neg_hit.t_max > 0.0 && neg_hit.t_max <= light_ray->length &&
+			(neg_hit.t_max >= c->t_max))
+				shadow = 0;
+			*c = init_hit();
+		}
+	}
+	return (shadow);
 }

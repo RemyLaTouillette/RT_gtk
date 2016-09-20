@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/04 06:11:33 by bhenne            #+#    #+#             */
-/*   Updated: 2016/08/25 12:12:59 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 13:59:46 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ t_color	checkerboard(t_color color, t_vec coord_hit)
 	test += p1 % 2 == 0 ? 1 : 0;
 	test += p2 % 2 == 0 ? 1 : 0;
 	test += p3 % 2 == 0 ? 1 : 0;
-	return (test % 2 == 0 ? mult_color(color, 0.1) : color);
+	return (test % 2 == 0 ? mult_color(&color, 0.1) : color);
 }

@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/17 18:42:57 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/09/20 12:38:39 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ SRC =	main.c \
 		vector_math2.c \
 		math.c \
 		color.c \
-		perlin.c \
+		marble.c \
 		checker.c \
 		elipsoid.c \
 		triangle.c \

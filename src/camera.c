@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:20:20 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/22 18:27:36 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:14:58 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_vec		calc_vec_dir(int x, int y, t_cam cam, t_vec look)
 
 	x_indent = cam.w / (double)WIDTH;
 	y_indent = cam.h / (double)HEIGHT;
-	res.x = ((x - (double)WIDTH / 2.0) * x_indent);
-	res.y = ((y - (double)HEIGHT / 2.0) * y_indent);
+	res.x = ((x - (double)WIDTH * 0.5) * x_indent);
+	res.y = ((y - (double)HEIGHT * 0.5) * y_indent);
 	res.z = cam.d;
 	tmp = vec_rot_x(res, look.x);
 	tmp = vec_rot_y(tmp, look.y);

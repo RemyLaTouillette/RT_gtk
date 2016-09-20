@@ -6,13 +6,13 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/17 01:51:06 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/19 21:22:45 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 12:23:46 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-unsigned char		*new_image_buffer(void)
+unsigned char	*new_image_buffer(void)
 {
 	unsigned char	*buf;
 	int				size;

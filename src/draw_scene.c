@@ -6,19 +6,19 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/19 19:11:11 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 12:40:25 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-void	test_blur(int r, t_hit *pxl, t_blur *blur)
+void				test_blur(int r, t_hit *pxl, t_blur *blur)
 {
 	if ((r == 0 || pxl->reflection != 0) && pxl->bool == 0 && blur)
 		blur->t = 100;
 }
 
-t_ray	init_start_ray(t_cam cam, int x, int y)
+static inline t_ray	init_start_ray(t_cam cam, int x, int y)
 {
 	t_ray ray;
 
@@ -28,7 +28,7 @@ t_ray	init_start_ray(t_cam cam, int x, int y)
 	return (ray);
 }
 
-void	*draw_scene(void *data)
+void				*draw_scene(void *data)
 {
 	int		x;
 	int		y;

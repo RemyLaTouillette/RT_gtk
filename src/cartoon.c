@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/02 12:10:14 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/19 21:55:36 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:15:38 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ double	define_color(double color)
 {
 	int		color_ref;
 
-	color_ref = 256 / 4;
+	color_ref = 256 * 0.25;
 	if (color < color_ref)
 		color = 0;
 	if (color <= color_ref * 2 && color > color_ref)
@@ -59,11 +59,11 @@ int		is_black_edge(t_hit *hit)
 	double	edge_scale;
 
 	if (hit->type == CONE)
-		edge_scale = (hit->radius * hit->dist_from_center / hit->length) / 2;
+		edge_scale = (hit->radius * hit->dist_from_center / hit->length) * 0.5;
 	else
-		edge_scale = hit->radius > 0.0 ? hit->radius / 2 : 0;
+		edge_scale = hit->radius > 0.0 ? hit->radius * 0.5 : 0;
 	if (hit->type == CYLINDER)
-		hit->length /= 2;
+		hit->length *= 0.5;
 	dist_min_max = hit->t_max - hit->t;
 	if (dist_min_max < edge_scale && dist_min_max > PRECISION &&
 	((is_dir(hit->dir) && !is_same_dir(hit->nml_max, hit->dir) &&

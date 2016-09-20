@@ -6,82 +6,92 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 14:21:37 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/09 14:26:22 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:20:56 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-void		free_colors(t_color **c)
+static inline t_color	diffuse_shadow(t_hit *p, t_ray *r, t_light *l, t_hit *t)
 {
-	if (c[0])
-	{
-		free(c[0]);
-		c[0] = NULL;
-	}
-	if (c[1])
-	{
-		free(c[1]);
-		c[1] = NULL;
-	}
+	double	angle;
+	double	coef;
+	t_color	tmp_color;
+
+	angle = fabs(dot_product(r->dir, p->nml));
+	coef = 1 - t->opacity;
+	tmp_color.r = p->color.r * angle * l->color.r * coef;
+	tmp_color.g = p->color.g * angle * l->color.g * coef;
+	tmp_color.b = p->color.b * angle * l->color.b * coef;
+	return (tmp_color);
 }
 
-void		magic(t_scene *scene, t_color *tmp_color, t_node **tmp, t_color **c)
+static inline t_color	diffuse_light(t_hit *pxl, t_ray *light_ray, t_light *l)
 {
-	*tmp_color = init_color(0, 0, 0);
-	*tmp = scene->lights;
-	c[0] = NULL;
-	c[1] = NULL;
+	double	angle;
+	double	coef;
+	t_color	tmp_color;
+
+	angle = dot_product(light_ray->dir, pxl->nml);
+	angle /= get_length(light_ray->dir);
+	angle /= get_length(pxl->nml);
+	tmp_color = init_color(0, 0, 0);
+	coef = pxl->opacity;
+	if (angle < 0)
+	{
+		angle = -angle;
+		if (pxl->opacity >= 0.5)
+			coef = 1 - pxl->opacity;
+	}
+	tmp_color.r = pxl->color.r * angle * l->color.r * coef;
+	tmp_color.g = pxl->color.g * angle * l->color.g * coef;
+	tmp_color.b = pxl->color.b * angle * l->color.b * coef;
+	return (tmp_color);
 }
 
-void		init_light_ray(t_node *tmp_light, t_ray *ray)
+static inline t_color	specular_light(t_hit *p, t_vec *r, t_light *l, t_ray *c)
 {
-	t_vec		tmp;
-	t_light		*light;
+	t_color	tmp_color;
+	double	spec;
+	double	coef;
+	double	tmp;
 
-	light = ((t_light *)(tmp_light->data));
-	if (light->type == PARALLEL)
-	{
-		tmp = scalar_product(light->pos, -1);
-		ray->dir = normalize(tmp);
-		ray->length = 100;
-	}
+	tmp = dot_product(c->dir, normalize(*r));
+	if (p->opacity == 1)
+		spec = pow(tmp, p->specular + 1);
 	else
-	{
-		tmp = vec_sub(ray->pos, light->pos);
-		ray->length = get_length(tmp);
-		ray->dir = normalize(tmp);
-	}
+		spec = pow(tmp, p->specular);
+	if (spec < 0)
+		coef = fabs(spec) * p->opacity;
+	else
+		coef = 1;
+	tmp_color.r = spec * l->color.r * coef;
+	tmp_color.g = spec * l->color.g * coef;
+	tmp_color.b = spec * l->color.b * coef;
+	return (tmp_color);
 }
 
-t_color		*set_color1(t_node *tmp, t_ray *ray, t_hit *hit, int shadow)
+t_color					set_color1(t_node *tmp, t_ray *r, t_hit *hit, int s)
 {
-	t_color		*c2;
+	t_color		c2;
 
-	if (!(c2 = (t_color *)malloc(sizeof(t_color))))
-		return (NULL);
-	if (shadow == 0 || hit[0].opacity < 1)
-		*c2 = diffuse_light(hit[0], ray, ((t_light *)(tmp->data)));
-	else if (hit[1].opacity < 1 && shadow == 1)
-		*c2 = diffuse_shadow(hit[0], ray, ((t_light *)(tmp->data)), hit[1]);
+	if (s == 0 || hit[0].opacity < 1)
+		c2 = diffuse_light(&hit[0], r, ((t_light *)(tmp->data)));
+	else if (hit[1].opacity < 1 && s == 1)
+		c2 = diffuse_shadow(&hit[0], r, ((t_light *)(tmp->data)), &hit[1]);
 	else
-	{
-		free(c2);
-		return (NULL);
-	}
+		return (init_color(0, 0, 0));
 	return (c2);
 }
 
-t_color		*set_color2(t_node *tmp, t_ray *cam_ray, t_ray *ray, t_hit *hit)
+t_color					set_color2(t_node *tmp, t_ray *c, t_ray *r, t_hit *hit)
 {
-	t_color		*c2;
+	t_color		c2;
 	t_vec		refl;
 	double		dot;
 
-	if (!(c2 = (t_color *)malloc(sizeof(t_color))))
-		return (NULL);
-	dot = dot_product(ray->dir, hit[0].nml);
-	refl = vec_sub(scalar_product(hit[0].nml, dot * 2), ray->dir);
-	*c2 = (specular_light(hit[0], refl, ((t_light *)(tmp->data)), cam_ray));
+	dot = dot_product(r->dir, hit[0].nml);
+	refl = vec_sub(scalar_product(hit[0].nml, dot * 2), r->dir);
+	c2 = (specular_light(&hit[0], &refl, ((t_light *)(tmp->data)), c));
 	return (c2);
 }

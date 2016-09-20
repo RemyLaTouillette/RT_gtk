@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 15:23:50 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/10 18:35:02 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:16:33 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ double	find_cyl_limit(t_ray *ray, t_cylinder *cyl, t_intern intern, t_hit *hit)
 	intern.ab = scalar_product(intern.ab, tmp);
 	intern.ab = vec_add(intern.ab, intern.aa);
 	tmp = get_length(vec_sub(cyl->pos, intern.ab));
-	hit->dist_from_center = (tmp > cyl->length / 2) ? 0 : tmp;
-	if (tmp > cyl->length / 2)
+	hit->dist_from_center = (tmp > cyl->length * 0.5) ? 0 : tmp;
+	if (tmp > cyl->length * 0.5)
 		return (0.0);
 	hit->nml = inter;
 	hit->nml = vec_sub(intern.ab, hit->nml);

@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:31:40 by sduprey           #+#    #+#             */
-/*   Updated: 2016/08/25 12:15:15 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:12:09 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ double		get_length(t_vec vec)
 	double	y;
 	double	z;
 
-	x = pow(vec.x, 2);
-	y = pow(vec.y, 2);
-	z = pow(vec.z, 2);
+	x = vec.x * vec.x;
+	y = vec.y * vec.y;
+	z = vec.z * vec.z;
 	return (sqrt(x + y + z));
 }
 

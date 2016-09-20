@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:52:42 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/19 21:48:00 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:11:10 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,19 @@ static inline double	elips_det(t_ray *r, t_elips *e, double *a, double *b)
 	double	c;
 	t_vec	tmp;
 
-	*a = pow(r->dir.x, 2) * pow(e->quad.a, 2);
-	*a += pow(r->dir.y, 2) * pow(e->quad.b, 2);
-	*a += pow(r->dir.z, 2) * pow(e->quad.c, 2);
+	*a = r->dir.x * r->dir.x * e->quad.a * e->quad.a;
+	*a += r->dir.y * r->dir.y * e->quad.b * e->quad.b;
+	*a += r->dir.z * r->dir.z * e->quad.c * e->quad.c;
 	tmp = vec_sub(e->center, r->pos);
-	*b = tmp.x * r->dir.x * pow(e->quad.a, 2);
-	*b += tmp.y * r->dir.y * pow(e->quad.b, 2);
-	*b += tmp.z * r->dir.z * pow(e->quad.c, 2);
+	*b = tmp.x * r->dir.x * e->quad.a * e->quad.a;
+	*b += tmp.y * r->dir.y * e->quad.b * e->quad.b;
+	*b += tmp.z * r->dir.z * e->quad.c * e->quad.c;
 	*b *= 2.0;
-	c = tmp.x * tmp.x * pow(e->quad.a, 2);
-	c += tmp.y * tmp.y * pow(e->quad.b, 2);
-	c += tmp.z * tmp.z * pow(e->quad.c, 2);
-	c -= pow(e->radius, 2);
-	return (pow(*b, 2) - (4 * (*a) * c));
+	c = tmp.x * tmp.x * e->quad.a * e->quad.a;
+	c += tmp.y * tmp.y * e->quad.b * e->quad.b;
+	c += tmp.z * tmp.z * e->quad.c * e->quad.c;
+	c -= e->radius * e->radius;
+	return ((*b) * (*b) - (4 * (*a) * c));
 }
 
 static inline void		elips_hit(double a, double b, double det, t_hit *hit)
