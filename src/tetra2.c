@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/11 18:08:12 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/19 21:50:23 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:26:45 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ void	triangle(t_triangle *tri, t_tetra *tetra)
 	tri->texture = tetra->texture;
 }
 
-void	get_face_hit(t_hit face, t_hit *hit)
+void	get_face_hit(t_hit *face, t_hit *hit)
 {
 	hit->bool = 1;
 	if (hit->t == 0.0)
 	{
-		hit->t = face.t;
-		hit->nml = face.nml;
+		hit->t = face->t;
+		hit->nml = face->nml;
 	}
 	else
 	{
-		hit->t_max = face.t;
-		hit->nml_max = face.nml;
+		hit->t_max = face->t;
+		hit->nml_max = face->nml;
 	}
 }

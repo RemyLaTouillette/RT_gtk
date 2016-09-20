@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 16:27:06 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/19 21:52:17 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:23:35 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,13 @@ static inline void	para_tmp(t_parallelo *para, t_ray *ray, t_vec *tmp)
 	tmp[3] = vec_sub(para->v0, ray->pos);
 }
 
-t_hit				is_parallelo_hit(t_ray *ray, t_parallelo *para)
+void				is_parallelo_hit(t_ray *ray, t_parallelo *para, t_hit *hit)
 {
-	t_hit	hit;
 	t_vec	tmp[4];
 	double	det;
 	double	u;
 	double	v;
 
-	hit = init_hit();
 	para_tmp(para, ray, tmp);
 	det = dot_product(tmp[0], tmp[2]);
 	u = dot_product(tmp[3], tmp[2]) / det;
@@ -55,12 +53,10 @@ t_hit				is_parallelo_hit(t_ray *ray, t_parallelo *para)
 	if ((dot_product(tmp[1], tmp[2]) / det) > PRECISION)
 	{
 		if (det > -PRECISION && det < PRECISION)
-			hit.bool = 0;
+			hit->bool = 0;
 		else if (u < 0 || u > 1 || v < 0 || v > 1)
-			hit.bool = 0;
+			hit->bool = 0;
 		else
-			para_hit(para, &hit, tmp, det);
+			para_hit(para, hit, tmp, det);
 	}
-	free(tmp);
-	return (hit);
 }

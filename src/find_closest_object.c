@@ -6,71 +6,63 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 14:30:28 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:32:50 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-static inline t_hit		get_hit_next(t_ray *r, t_node *n, int is_neg, t_hit *t)
+static inline void		get_hit_next(t_ray *r, t_node *n, int is_neg, t_hit *t)
 {
-	t_hit	tmp_content;
-
-	tmp_content = *t;
 	if (n->type == ELIPS &&
 		((t_elips *)(n->data))->is_negativ == is_neg)
-		tmp_content = is_elips_hit(r, (t_elips *)n->data);
+		is_elips_hit(r, (t_elips *)n->data, t);
 	else if (n->type == TRIAN &&
 			((t_triangle *)(n->data))->is_negativ == is_neg)
-		tmp_content = is_trian_hit(r, (t_triangle *)n->data);
+		is_trian_hit(r, (t_triangle *)n->data, t);
 	else if (n->type == PARA &&
 			((t_parallelo *)(n->data))->is_negativ == is_neg)
-		tmp_content = is_parallelo_hit(r, (t_parallelo *)n->data);
+		is_parallelo_hit(r, (t_parallelo *)n->data, t);
 	else if (n->type == TETRA &&
 			((t_tetra *)(n->data))->is_negativ == is_neg)
-		tmp_content = is_tetra_hit(r, (t_tetra *)n->data);
-	return (tmp_content);
+		is_tetra_hit(r, (t_tetra *)n->data, t);
 }
 
-t_hit					get_hit(t_ray *ray, t_node *node, int is_neg)
+void					get_hit(t_ray *ray, t_node *node, int is_neg, t_hit *t)
 {
-	t_hit		tmp_content;
-
-	tmp_content = init_hit();
+	init_hit(t);
 	if (node->type == SPHERE &&
 			((t_sphere *)(node->data))->is_negativ == is_neg)
-		tmp_content = is_sphere_hit(ray, (t_sphere *)node->data);
+		is_sphere_hit(ray, (t_sphere *)node->data, t);
 	else if (node->type == CYLINDER &&
 			((t_cylinder *)(node->data))->is_negativ == is_neg)
-		tmp_content = is_cylinder_hit(ray, (t_cylinder *)node->data);
+		is_cylinder_hit(ray, (t_cylinder *)node->data, t);
 	else if (node->type == PLANE &&
 			((t_plane *)(node->data))->is_negativ == is_neg)
-		tmp_content = is_plane_hit(ray, (t_plane *)node->data);
+		is_plane_hit(ray, (t_plane *)node->data, t);
 	else if (node->type == CONE &&
 		((t_cone *)(node->data))->is_negativ == is_neg)
-		tmp_content = is_cone_hit(ray, (t_cone *)node->data);
-	return (get_hit_next(ray, node, is_neg, &tmp_content));
+		is_cone_hit(ray, (t_cone *)node->data, t);
+	get_hit_next(ray, node, is_neg, t);
 }
 
-static inline t_hit		find_hit(t_node *nodes, t_ray *ray, int *is_neg)
+static inline void		find_hit(t_node *nodes, t_ray *r, int *is_neg, t_hit *h)
 {
-	t_hit	c_hit;
 	t_hit	tmp;
 
-	c_hit = init_hit();
+	init_hit(h);
 	while (nodes)
 	{
 		if (*is_neg == 0)
 			*is_neg = neg_exists(nodes);
-		tmp = get_hit(ray, nodes, 0);
+		get_hit(r, nodes, 0, &tmp);
 		if (tmp.bool == 1)
 		{
-			if ((c_hit.bool == 0 || tmp.t <= c_hit.t) && tmp.t > 0)
-				c_hit = tmp;
+			if ((h->bool == 0 || tmp.t <= h->t) && tmp.t > 0)
+				*h = tmp;
 		}
 		nodes = nodes->next;
 	}
-	return (c_hit);
 }
 
 static inline void		choose(t_node *n, t_ray *r, t_hit *n_hit, t_hit *c_hit)
@@ -98,20 +90,18 @@ static inline void		choose(t_node *n, t_ray *r, t_hit *n_hit, t_hit *c_hit)
 	{
 		tmp_pos = scalar_product(r->dir, c_hit->t_max);
 		r->pos = vec_add(r->pos, tmp_pos);
-		*c_hit = find_closest_object(n, r);
+		find_closest_object(n, r, c_hit);
 	}
 }
 
-t_hit					find_closest_object(t_node *nodes, t_ray *ray)
+void					find_closest_object(t_node *nodes, t_ray *ray, t_hit *h)
 {
 	t_hit		n_hit;
-	t_hit		c_hit;
 	int			is_neg;
 
 	is_neg = 0;
-	c_hit = find_hit(nodes, ray, &is_neg);
-	n_hit = find_neg_hit(nodes, ray, &c_hit, is_neg);
+	find_hit(nodes, ray, &is_neg, h);
+	n_hit = find_neg_hit(nodes, ray, h, is_neg);
 	if (n_hit.bool == 1)
-		choose(nodes, ray, &n_hit, &c_hit);
-	return (c_hit);
+		choose(nodes, ray, &n_hit, h);
 }

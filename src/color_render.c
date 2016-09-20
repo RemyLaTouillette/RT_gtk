@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 13:53:22 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 18:00:42 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_color				color_render(t_scene *s, t_ray *st, double n, t_blur *blur)
 	{
 		if ((int)tmp[1] == 0 || pxl.reflection != 0)
 		{
-			pxl = find_closest_object(s->objects, st);
+			find_closest_object(s->objects, st, &pxl);
 			clr[1] = pxl.color;
 			if (pxl.bool == 1)
 				hit_color(s, st, &pxl, tmp);
@@ -104,5 +104,5 @@ t_color				color_render(t_scene *s, t_ray *st, double n, t_blur *blur)
 		}
 		test_blur((int)tmp[1], &pxl, blur);
 	}
-	return ((s->is_real == CARTOON) ? cartoon(clr[0]) : clr[0]);
+	return ((s->is_real == CARTOON) ? cartoon(&clr[0]) : clr[0]);
 }

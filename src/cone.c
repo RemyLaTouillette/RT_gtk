@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 15:10:51 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/19 21:45:11 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:52:09 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static inline int		disk_hit(t_cone *cone, t_ray *ray, t_hit *final_hit)
 	t_hit	hit_size;
 	t_hit	hit;
 
-	hit_size = init_hit();
+	init_hit(&hit_size);
 	if (cone->is_closed == 1)
 	{
 		hit_size = create_cone_disk(ray, cone, -1);
@@ -75,7 +75,7 @@ static inline int		disk_hit(t_cone *cone, t_ray *ray, t_hit *final_hit)
 			}
 			else
 			{
-				*final_hit = complete_disk_hit(hit, hit_size);
+				complete_disk_hit(&hit, &hit_size, final_hit);
 				return (1);
 			}
 		}
@@ -90,8 +90,8 @@ static inline t_hit		cone_hit(t_cone *cone, t_ray *r, t_intern i, double *t)
 	t_hit	hit_max;
 	t_hit	hit;
 
-	hit = init_hit();
-	hit_max = init_hit();
+	init_hit(&hit);
+	init_hit(&hit_max);
 	if (disk_hit(cone, r, &hit_size) == 1)
 		return (hit_size);
 	sort_distance(t);
@@ -102,33 +102,30 @@ static inline t_hit		cone_hit(t_cone *cone, t_ray *r, t_intern i, double *t)
 	t[0] = find_cone_limit(r, cone, i, &hit);
 	hit_max.nml_max = hit.nml;
 	if (t[0] > PRECISION)
-		return (cone_first_try(cone, hit_size, hit, t));
+		return (cone_first_try(cone, &hit_size, &hit, t));
 	else
 	{
 		hit = hit_max;
 		if (t[1] > PRECISION)
-			return (cone_second_try(cone, hit_size, hit, t));
+			return (cone_second_try(cone, &hit_size, &hit, t));
 	}
-	return (cone_third_try(cone, hit_size, hit));
+	return (cone_third_try(cone, &hit_size, &hit));
 }
 
-t_hit					is_cone_hit(t_ray *ray, t_cone *cone)
+void					is_cone_hit(t_ray *ray, t_cone *cone, t_hit *hit)
 {
-	t_hit		hit;
 	t_intern	intern;
 	double		t[2];
 	double		angle;
 
-	hit = init_hit();
 	angle = atan(cone->r / cone->len);
 	create_cone_intern_struct(ray, cone, &intern);
 	if (find_cone_det(intern, angle, t) >= 0)
 	{
-		hit = cone_hit(cone, ray, intern, t);
-		if (cone->is_closed == 0 && dot_product(ray->dir, hit.nml) > 0 &&
+		*hit = cone_hit(cone, ray, intern, t);
+		if (cone->is_closed == 0 && dot_product(ray->dir, hit->nml) > 0 &&
 			cone->opacity == 1)
-			hit.nml = scalar_product(hit.nml, -1);
-		complete_cone_hit(&hit, cone);
+			hit->nml = scalar_product(hit->nml, -1);
+		complete_cone_hit(hit, cone);
 	}
-	return (hit);
 }

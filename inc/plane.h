@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 03:17:42 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/10 17:28:41 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:29:36 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct		s_plane
 	int				texture;
 }					t_plane;
 
-t_hit				is_plane_hit(t_ray *ray, t_plane *plan);
+void				is_plane_hit(t_ray *ray, t_plane *plan, t_hit *hit);
 double				find_plane_hit(t_ray *ray, t_plane *plan);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/08 20:00:35 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/20 14:16:06 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:42:43 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static inline int		disk_hit(t_cylinder *c, t_ray *ray, t_hit *final_hit)
 	t_hit hit_size;
 	t_hit hit;
 
-	hit_size = init_hit();
+	init_hit(&hit_size);
 	if (c->is_closed == 1)
 	{
 		hit_size = create_cyl_disk(ray, c, -1);
@@ -74,7 +74,7 @@ static inline int		disk_hit(t_cylinder *c, t_ray *ray, t_hit *final_hit)
 			}
 			else
 			{
-				*final_hit = complete_disk_hit(hit, hit_size);
+				complete_disk_hit(&hit, &hit_size, final_hit);
 				return (1);
 			}
 		}
@@ -89,8 +89,8 @@ static inline t_hit		cyl_hit(t_cylinder *c, t_ray *r, t_intern i, double *t)
 	t_hit	hit_max;
 	t_hit	hit;
 
-	hit = init_hit();
-	hit_max = init_hit();
+	init_hit(&hit);
+	init_hit(&hit_max);
 	if (disk_hit(c, r, &hit_size) == 1)
 		return (hit_size);
 	sort_distance(t);
@@ -101,31 +101,28 @@ static inline t_hit		cyl_hit(t_cylinder *c, t_ray *r, t_intern i, double *t)
 	t[0] = find_cyl_limit(r, c, i, &hit);
 	hit_max.nml_max = hit.nml;
 	if (t[0] > PRECISION)
-		return (cyl_first_try(c, hit_size, hit, t));
+		return (cyl_first_try(c, &hit_size, &hit, t));
 	else
 	{
 		hit = hit_max;
 		if (t[1] > PRECISION)
-			return (cyl_second_try(c, hit_size, hit, t));
+			return (cyl_second_try(c, &hit_size, &hit, t));
 	}
-	return (cyl_third_try(c, hit_size, hit));
+	return (cyl_third_try(c, &hit_size, &hit));
 }
 
-t_hit					is_cylinder_hit(t_ray *ray, t_cylinder *cylinder)
+void					is_cylinder_hit(t_ray *ray, t_cylinder *c, t_hit *hit)
 {
-	t_hit		hit;
 	t_intern	intern;
 	double		t[2];
 
-	hit = init_hit();
-	create_cyl_intern_struct(ray, cylinder, &intern);
-	if (find_cyl_det(cylinder, intern, t) >= 0)
+	create_cyl_intern_struct(ray, c, &intern);
+	if (find_cyl_det(c, intern, t) >= 0)
 	{
-		hit = cyl_hit(cylinder, ray, intern, t);
-		if (cylinder->is_closed == 0 &&
-			dot_product(ray->dir, hit.nml) > 0 && cylinder->opacity == 1)
-			hit.nml = scalar_product(hit.nml, -1);
-		complete_cyl_hit(&hit, cylinder);
+		*hit = cyl_hit(c, ray, intern, t);
+		if (c->is_closed == 0 &&
+			dot_product(ray->dir, hit->nml) > 0 && c->opacity == 1)
+			hit->nml = scalar_product(hit->nml, -1);
+		complete_cyl_hit(hit, c);
 	}
-	return (hit);
 }

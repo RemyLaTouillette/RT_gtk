@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 14:18:37 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 14:21:20 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:17:56 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static inline int	find_pos_obj(t_scene *s, t_ray *ray, t_hit *hit, int *n)
 	{
 		if (*n == 0)
 			*n = neg_exists(tmp_object);
-		tmp_content = get_hit(ray, tmp_object, 0);
+		get_hit(ray, tmp_object, 0, &tmp_content);
 		if (tmp_content.bool == 1)
 			set_hit(&tmp_content, hit, ray, &shadow);
 		tmp_object = tmp_object->next;
@@ -55,7 +55,7 @@ static inline void	find_neg_obj(t_scene *s, t_ray *ray, t_hit *hit, t_hit *n)
 	tmp_object = s->objects;
 	while (tmp_object)
 	{
-		tmp_content = get_hit(ray, tmp_object, 1);
+		get_hit(ray, tmp_object, 1, &tmp_content);
 		if (tmp_content.bool == 1 &&
 		((tmp_content.t == tmp_content.t_max) ||
 		(tmp_content.t < hit->t && tmp_content.t_max > hit->t_max)))
@@ -75,8 +75,8 @@ int					is_shadow(t_scene *scene, t_ray *light_ray, t_hit *c)
 	int			is_neg;
 	int			shadow;
 
-	*c = init_hit();
-	neg_hit = init_hit();
+	init_hit(c);
+	init_hit(&neg_hit);
 	is_neg = 0;
 	shadow = find_pos_obj(scene, light_ray, c, &is_neg);
 	if (shadow == 1 && is_neg)
@@ -87,7 +87,7 @@ int					is_shadow(t_scene *scene, t_ray *light_ray, t_hit *c)
 			if (neg_hit.t_max > 0.0 && neg_hit.t_max <= light_ray->length &&
 			(neg_hit.t_max >= c->t_max))
 				shadow = 0;
-			*c = init_hit();
+			init_hit(c);
 		}
 	}
 	return (shadow);

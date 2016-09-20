@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/02 12:10:14 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 14:15:38 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 18:02:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,27 @@ double	define_color(double color)
 	return (color);
 }
 
-t_color	cartoon(t_color color)
+t_color	cartoon(t_color *color)
 {
-	color.r = define_color(color.r);
-	color.g = define_color(color.g);
-	color.b = define_color(color.b);
-	return (color);
+	color->r = define_color(color->r);
+	color->g = define_color(color->g);
+	color->b = define_color(color->b);
+	return (*color);
 }
 
-int		is_dir(t_vec v)
+int		is_dir(t_vec *v)
 {
-	if (v.x == 0 && v.y == 0 && v.z == 0)
+	if (v->x == 0 && v->y == 0 && v->z == 0)
 		return (0);
 	return (1);
 }
 
-int		is_same_dir(t_vec v, t_vec ref)
+int		is_same_dir(t_vec *v, t_vec *ref)
 {
-	if (v.x == ref.x && v.y == ref.y && v.z == ref.z)
+	if (v->x == ref->x && v->y == ref->y && v->z == ref->z)
 		return (1);
-	v = scalar_product(v, -1);
-	if (v.x == ref.x && v.y == ref.y && v.z == ref.z)
+	*v = scalar_product(*v, -1);
+	if (v->x == ref->x && v->y == ref->y && v->z == ref->z)
 		return (1);
 	return (0);
 }
@@ -66,8 +66,8 @@ int		is_black_edge(t_hit *hit)
 		hit->length *= 0.5;
 	dist_min_max = hit->t_max - hit->t;
 	if (dist_min_max < edge_scale && dist_min_max > PRECISION &&
-	((is_dir(hit->dir) && !is_same_dir(hit->nml_max, hit->dir) &&
-	!is_same_dir(hit->nml, hit->dir)) || !is_dir(hit->dir)))
+	((is_dir(&hit->dir) && !is_same_dir(&hit->nml_max, &hit->dir) &&
+	!is_same_dir(&hit->nml, &hit->dir)) || !is_dir(&hit->dir)))
 		return (1);
 	if (hit->type != PLANE && hit->length > 0)
 	{

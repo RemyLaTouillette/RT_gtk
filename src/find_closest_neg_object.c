@@ -6,27 +6,22 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/06 17:49:23 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/14 17:57:42 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:33:41 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-t_hit		init_hit(void)
+void		init_hit(t_hit *hit)
 {
-	t_hit		hit;
-
-	hit.t = 1000000;
-	hit.t_max = 1000000;
-	hit.color.r = 0;
-	hit.color.g = 0;
-	hit.color.b = 0;
-	hit.bool = 0;
-	hit.dist_from_center = -1.0;
-	hit.length = -1.0;
-	hit.opacity = 1;
-	hit.is_negativ = 0;
-	return (hit);
+	hit->t = 1000000;
+	hit->t_max = 1000000;
+	hit->color = init_color(0, 0, 0);
+	hit->bool = 0;
+	hit->dist_from_center = -1.0;
+	hit->length = -1.0;
+	hit->opacity = 1;
+	hit->is_negativ = 0;
 }
 
 int			neg_exists(t_node *node)
@@ -78,10 +73,10 @@ t_hit		find_neg_hit(t_node *nodes, t_ray *ray, t_hit *c_hit, int is_neg)
 	t_hit	n_hit;
 	t_hit	tmp;
 
-	n_hit = init_hit();
+	init_hit(&n_hit);
 	while (is_neg && nodes)
 	{
-		tmp = get_hit(ray, nodes, 1);
+		get_hit(ray, nodes, 1, &tmp);
 		if (tmp.bool == 1 && ((c_hit->t < tmp.t_max && c_hit->t > tmp.t) ||
 			(c_hit->t_max > tmp.t && c_hit->t_max < tmp.t_max) ||
 			(c_hit->t < tmp.t && c_hit->t_max > tmp.t_max)))

@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:25:00 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/16 14:58:10 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:51:49 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ typedef struct	s_cone
 	int			is_closed;
 }				t_cone;
 
-t_hit			is_cone_hit(t_ray *ray, t_cone *cone);
+void			is_cone_hit(t_ray *ray, t_cone *cone, t_hit *hit);
 void			create_cone_intern_struct(t_ray *r, t_cone *c, t_intern *inter);
 void			complete_cone_hit(t_hit *hit, t_cone *cone);
 double			find_cone_limit(t_ray *r, t_cone *c, t_intern inte, t_hit *hit);
-t_hit			cone_first_try(t_cone *c, t_hit hit_size, t_hit hit, double *t);
-t_hit			cone_second_try(t_cone *c, t_hit hit_siz, t_hit hit, double *t);
-t_hit			cone_third_try(t_cone *c, t_hit hit_size, t_hit hit);
+t_hit			cone_first_try(t_cone *c, t_hit *hs, t_hit *hit, double *t);
+t_hit			cone_second_try(t_cone *c, t_hit *hs, t_hit *hit, double *t);
+t_hit			cone_third_try(t_cone *c, t_hit *hit_size, t_hit *hit);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:13:12 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/19 21:37:11 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:30:28 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ typedef struct	s_sphere
 	int			texture;
 }				t_sphere;
 
-t_hit			is_sphere_hit(t_ray *ray, t_sphere *sphere);
+void			is_sphere_hit(t_ray *ray, t_sphere *sphere, t_hit *hit);
 
 #endif

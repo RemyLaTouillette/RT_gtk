@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:53:08 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/20 15:04:36 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:30:37 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ typedef struct	s_elips
 	int			texture;
 }				t_elips;
 
-t_hit			is_elips_hit(t_ray *ray, t_elips *elips);
+void			is_elips_hit(t_ray *ray, t_elips *elips, t_hit *hit);
 
 #endif

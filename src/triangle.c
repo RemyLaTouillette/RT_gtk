@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/16 08:42:55 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/19 21:49:03 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:23:20 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,13 @@ static inline void	tri_tmp(t_triangle *triangle, t_ray *ray, t_vec *tmp)
 	tmp[3] = vec_sub(triangle->v0, ray->pos);
 }
 
-t_hit				is_trian_hit(t_ray *ray, t_triangle *triangle)
+void				is_trian_hit(t_ray *ray, t_triangle *triangle, t_hit *hit)
 {
-	t_hit	hit;
 	t_vec	tmp[4];
 	double	det;
 	double	u;
 	double	v;
 
-	hit = init_hit();
 	tri_tmp(triangle, ray, tmp);
 	det = dot_product(tmp[0], tmp[2]);
 	u = dot_product(tmp[3], tmp[2]) / det;
@@ -58,8 +56,7 @@ t_hit				is_trian_hit(t_ray *ray, t_triangle *triangle)
 		if (!((det > -PRECISION &&
 			det < PRECISION) || u < 0 || u > 1 || v < 0 ||
 			u + v > 1))
-			tri_hit(triangle, &hit, tmp, det);
+			tri_hit(triangle, hit, tmp, det);
 	}
-	hit.nml = normalize(hit.nml);
-	return (hit);
+	hit->nml = normalize(hit->nml);
 }

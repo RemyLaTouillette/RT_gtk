@@ -6,30 +6,27 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 16:28:41 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/10 18:17:04 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:10:16 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-t_hit	complete_disk_hit(t_hit hit, t_hit hit_size)
+void	complete_disk_hit(t_hit *hit, t_hit *hit_size, t_hit *final_hit)
 {
-	t_hit	final_hit;
-
-	final_hit = hit;
-	if (hit_size.t < final_hit.t)
+	*final_hit = *hit;
+	if (hit_size->t < final_hit->t)
 	{
-		final_hit.t_max = final_hit.t;
-		final_hit.t = hit_size.t;
-		final_hit.nml_max = final_hit.nml;
-		final_hit.nml = hit_size.nml;
+		final_hit->t_max = final_hit->t;
+		final_hit->t = hit_size->t;
+		final_hit->nml_max = final_hit->nml;
+		final_hit->nml = hit_size->nml;
 	}
 	else
 	{
-		final_hit.t_max = hit_size.t;
-		final_hit.nml_max = hit_size.nml;
+		final_hit->t_max = hit_size->t;
+		final_hit->nml_max = hit_size->nml;
 	}
-	return (final_hit);
 }
 
 void	sort_distance(double *t)

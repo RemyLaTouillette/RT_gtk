@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 03:52:42 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/20 14:11:10 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:34:25 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,31 +93,27 @@ static inline void		elips_hit(double a, double b, double det, t_hit *hit)
 	}
 }
 
-t_hit					is_elips_hit(t_ray *ray, t_elips *elips)
+void					is_elips_hit(t_ray *ray, t_elips *elips, t_hit *hit)
 {
-	t_hit	hit;
 	double	det;
 	double	a;
 	double	b;
 
-	hit.bool = 0;
-	hit.color = init_color(0, 0, 0);
 	if (elips->radius > 0.0)
 	{
 		det = elips_det(ray, elips, &a, &b);
 		if (det == 0)
 		{
-			hit.t = (-b / (2 * a));
-			hit.t_max = (-b / (2 * a));
-			hit.bool = hit.t > 0.0 ? 1 : 0;
+			hit->t = (-b / (2 * a));
+			hit->t_max = (-b / (2 * a));
+			hit->bool = hit->t > 0.0 ? 1 : 0;
 		}
 		else if (det > 0)
 		{
-			elips_hit(a, b, det, &hit);
-			hit.bool = hit.t > 0.0 ? 1 : 0;
+			elips_hit(a, b, det, hit);
+			hit->bool = hit->t > 0.0 ? 1 : 0;
 		}
-		find_normal(ray, elips, &hit);
-		complete_elips(&hit, elips);
+		find_normal(ray, elips, hit);
+		complete_elips(hit, elips);
 	}
-	return (hit);
 }

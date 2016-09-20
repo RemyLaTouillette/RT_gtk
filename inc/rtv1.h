@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/20 15:08:10 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 18:00:51 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_color		sub_color(t_color *a, t_color *b);
 t_color		init_color(int r, int g, int b);
 
 int			is_black_edge(t_hit *hit);
-t_color		cartoon(t_color color);
+t_color		cartoon(t_color *color);
 
 void		write_vector(t_vec v, char *name);
 double		apply_marble_noise(int x, int y, double res, double **tab_noise);
@@ -80,14 +80,14 @@ int			is_black_edge(t_hit *hit);
 t_color		color_render(t_scene *s, t_ray *start, double noise, t_blur *blur);
 void		test_blur(int r, t_hit *pxl, t_blur *blur);
 
-t_hit		find_closest_object(t_node *nodes, t_ray *ray);
-t_hit		init_hit(void);
-t_hit		get_hit(t_ray *ray, t_node *nodes, int is_neg);
+void		find_closest_object(t_node *nodes, t_ray *ray, t_hit *h);
+void		init_hit(t_hit *hit);
+void		get_hit(t_ray *ray, t_node *nodes, int is_neg, t_hit *t);
 int			neg_exists(t_node *node);
 t_hit		find_neg_hit(t_node *nodes, t_ray *ray, t_hit *c_hit, int is_neg);
 
 void		sort_distance(double *t);
-t_hit		complete_disk_hit(t_hit hit, t_hit hit_size);
+void		complete_disk_hit(t_hit *hit, t_hit *hit_size, t_hit *final_hit);
 
 void		save_bmp(unsigned char *buf);
 void		ui_init(t_env *e);

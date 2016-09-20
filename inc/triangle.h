@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:14:57 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/10 17:28:52 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:28:57 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ typedef struct	s_triangle
 	int			texture;
 }				t_triangle;
 
-t_hit			is_trian_hit(t_ray *ray, t_triangle*triangle);
+void			is_trian_hit(t_ray *ray, t_triangle *triangle, t_hit *hit);
 
 #endif

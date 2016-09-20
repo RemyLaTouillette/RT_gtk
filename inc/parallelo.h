@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:14:57 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/10 17:29:32 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:29:08 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ typedef struct	s_parallelo
 	int			texture;
 }				t_parallelo;
 
-t_hit			is_parallelo_hit(t_ray *ray, t_parallelo *para);
+void			is_parallelo_hit(t_ray *ray, t_parallelo *para, t_hit *hit);
 
 #endif

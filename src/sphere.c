@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/20 14:12:37 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:34:07 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,30 +74,26 @@ static inline void		sphere_hit(double a, double b, double det, t_hit *hit)
 	}
 }
 
-t_hit					is_sphere_hit(t_ray *ray, t_sphere *sphere)
+void					is_sphere_hit(t_ray *ray, t_sphere *sphere, t_hit *hit)
 {
-	t_hit	hit;
 	double	det;
 	double	a;
 	double	b;
 
-	hit.bool = 0;
-	hit.color = init_color(0, 0, 0);
 	if (sphere->radius > 0.0)
 	{
 		det = sphere_det(ray, sphere, &a, &b);
 		if (det == 0)
 		{
-			hit.t = (-b / (2 * a));
-			hit.t_max = (-b / (2 * a));
-			hit.bool = hit.t > 0.0 ? 1 : 0;
+			hit->t = (-b / (2 * a));
+			hit->t_max = (-b / (2 * a));
+			hit->bool = hit->t > 0.0 ? 1 : 0;
 		}
 		else if (det > 0)
 		{
-			sphere_hit(a, b, det, &hit);
-			hit.bool = hit.t > 0.0 ? 1 : 0;
+			sphere_hit(a, b, det, hit);
+			hit->bool = hit->t > 0.0 ? 1 : 0;
 		}
-		complete_sphere(&hit, sphere, ray);
+		complete_sphere(hit, sphere, ray);
 	}
-	return (hit);
 }
