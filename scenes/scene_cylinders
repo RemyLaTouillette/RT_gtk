@@ -19,47 +19,47 @@
 	objects :
 	{
 		{
-			cone:
-			{
-				{radius : 0.3}
-				{pos : 0, 0.0, 2.0}
-				{dir : 1, 0, 0}
-				{color : 1, 0.3, 0.3}
-				{length : 8}
-				{
-					options: 
-					{
-						{is_closed : n}
-						{specular : 50}
-					}
-				}
-			}
-		}
-		{
-			cone:
+			cylinder:
 			{
 				{radius : 0.3}
 				{pos : -2, 0.0, 0.0}
-				{dir : 0, 0, 1}
+				{dir : 0.5, 1, -0.5}
 				{color : 0.3, 0.6, 0.8}
-				{length : 1}
+				{length : 0.5}
 				{
 					options: 
 					{
-						{is_closed : n}
+						{is_closed : y}
 						{specular : 50}
 					}
 				}
 			}
 		}
 		{
-			cone:
+			cylinder:
 			{
 				{radius : 0.3}
 				{pos : -1, 0.0, 0.0}
-				{dir : 0.5, 0.5, 0.5}
+				{dir : 0.8, 0.8, -0.8}
 				{color : 0.3, 0.6, 0.8}
-				{length : 1}
+				{length : 0.5}
+				{
+					options: 
+					{
+						{is_closed : n}
+						{specular : 50}
+					}
+				}
+			}
+		}
+		{
+			cylinder:
+			{
+				{radius : 0.3}
+				{pos : 0, 0.0, 0.0}
+				{dir : 0, 1, 1}
+				{color : 0.3, 0.6, 0.8}
+				{length : 0.5}
 				{
 					options: 
 					{
@@ -71,35 +71,17 @@
 			}
 		}
 		{
-			cone:
-			{
-				{radius : 0.3}
-				{pos : 0, 0.0, 0.0}
-				{dir : 0.5, 0.5, 0.5}
-				{color : 0.3, 0.6, 0.8}
-				{length : 1}
-				{
-					options: 
-					{
-						{is_closed : y}
-						{specular : 50}
-						{texture : marble}
-					}
-				}
-			}
-		}
-		{
-			cone:
+			cylinder:
 			{
 				{radius : 0.3}
 				{pos : 1, 0.0, 0.0}
-				{dir : 0.5, 0.5, 0.5}
+				{dir : 0.5, 1, 0.5}
 				{color : 0.3, 0.6, 0.8}
-				{length : 1}
+				{length : 0.5}
 				{
 					options: 
 					{
-						{is_closed : y}
+						{is_closed : n}
 						{specular : 50}
 						{opacity : 0.4}
 					}
@@ -107,17 +89,17 @@
 			}
 		}
 		{
-			cone:
+			cylinder:
 			{
 				{radius : 0.3}
 				{pos : 2, 0.0, 0.0}
-				{dir : 0.5, 0.5, 0.5}
+				{dir : 0.5, 1, 0.8}
 				{color : 0.3, 0.6, 0.8}
-				{length : 1}
+				{length : 0.5}
 				{
 					options: 
 					{
-						{is_closed : y}
+						{is_closed : n}
 						{specular : 50}
 						{opacity : 0.5}
 						{ref_index : 1.33}
@@ -128,7 +110,7 @@
 		{
    			plane:
 			{
-				{pos : 0, 0, 5}
+				{pos : 0, 0, 15}
 				{normal: 0, 0, 1}
 				{color: 0.2, 0.2, 0.2}
 				{
@@ -146,7 +128,7 @@
 		{
 			diffuse: 
 			{
-				{pos : -5, -8, -5}
+				{pos : 0, 0, -20}
 				{color : 255, 255, 255}
 				{dir : 0.0, 0.0, 0.0}
 			}

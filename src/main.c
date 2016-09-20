@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/20 12:37:00 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 15:48:49 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,6 @@ void click_draw(GtkApplication *app, gpointer user_data)
 
 
 	e->mode = get_switch_state(e, "switch_cartoon");
-
-	printf("cartoon : %d\n", e->mode);	
 
 	// CARTOON
 	o = gtk_builder_get_object(e->builder, "switch_cartoon");

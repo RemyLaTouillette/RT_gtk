@@ -74,6 +74,6 @@ CONFIG :
 
 			direct :	-pos : (x, y, z)
 						-angle : (0 - 180)
-						-dir: direction de la lumiere (x, y, z)
-
+						-dir: points que la lumiere "regarde" (x, y, z)
+						 
 - x, y, z (respectivement : horizontal (-1 gauche, 1 droite), vertical (-1 haut, 1 bas), profondeur (-1 vers camera, 1 inverse))

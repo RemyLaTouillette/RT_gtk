@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 17:50:40 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/16 13:40:35 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 16:15:32 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,17 @@ t_light		*init_light(void)
 
 int			light_invalid(t_light *light, t_vec *pos, t_vec *lk, t_color *color)
 {
-	if (!light->type || !pos || !lk || !color)
+	if (!light->type || !pos || !color)
 	{
 		if (!pos)
 			ft_putendl("'pos' missing");
 		if (!color)
 			ft_putendl("'color' missing");
-		if (!lk)
-			ft_putendl("'lk' missing");
+		return (1);
+	}
+	if (light->type == DIRECT && !lk)
+	{
+		ft_putendl("'lk' missing");
 		return (1);
 	}
 	return (0);
@@ -62,6 +65,7 @@ int			get_light_att2(t_elem *tmp2, t_light *light, t_vec **v, t_color **c)
 	{
 		if (!get_secur_num(tmp2, &(light->angle), 0, 180))
 			return (0);
+		light->angle = deg_to_rad(light->angle);
 	}
 	else
 		return (return_invalid_arg(tmp2->name));
@@ -87,11 +91,14 @@ int			get_light_att(t_part *tmp, t_light *light)
 	if (light_invalid(light, v[0], v[1], color))
 		return (0);
 	light->pos = *v[0];
-	light->look_at = *v[1];
 	light->color = *color;
 	free(v[0]);
-	free(v[1]);
 	free(color);
+	if (light->type == DIRECT)
+	{
+		light->look_at = *v[1];
+		free(v[1]);
+	}
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 15:23:31 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/10 20:11:28 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 15:42:48 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ t_hit	cone_first_try(t_cone *cone, t_hit hit_size, t_hit hit, double *t)
 	{
 		hit.t = t[0] < hit_size.t ? t[0] : hit_size.t;
 		hit.t_max = t[0] < hit_size.t ? hit_size.t : t[0];
-		hit.nml_max = t[0] < hit_size.t ? hit_size.nml : hit.nml;
 		hit.nml = t[0] < hit_size.t ? hit.nml : hit_size.nml;
+		hit.nml_max = t[0] < hit_size.t ? hit_size.nml : hit.nml;
 	}
 	else
 	{
@@ -94,8 +94,8 @@ t_hit	cone_second_try(t_cone *cone, t_hit hit_size, t_hit hit, double *t)
 
 t_hit	cone_third_try(t_cone *cone, t_hit hit_size, t_hit hit)
 {
-	if ((hit_size.t_max < PRECISION ||
-		hit.t_max < PRECISION) && cone->is_closed == 1)
+	if ((hit_size.t_max > PRECISION ||
+		hit.t_max > PRECISION) && cone->is_closed == 1)
 	{
 		hit = hit_size;
 		hit.t_max = hit.t;
