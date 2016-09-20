@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/17 01:51:06 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/20 12:23:46 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:52:47 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ unsigned char	*new_image_buffer(void)
 	size = WIDTH * HEIGHT * 3;
 	if (!(buf = (unsigned char *)malloc(sizeof(unsigned char) * size)))
 		return (NULL);
+	//g_print("malloc ok\n");
 	i = 0;
 	while (i < size)
 	{
 		buf[i] = 0;
 		i++;
 	}
+	//g_print("filler ok\n");
 	return (buf);
 }
 

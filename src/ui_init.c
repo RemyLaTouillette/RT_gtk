@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:22 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/20 16:20:52 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 20:12:18 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,22 @@ void			click_switch(GtkApplication *app, gpointer user_data)
 	gchar		*sname;
 	t_scene		*s;
 	GdkRGBA		*color;
+	int			mode;
 
 	(void)app;
 	e = user_data;
-	g_print("click_switch()\n");
 	o = gtk_builder_get_object(e->builder, "btn_modif");
 	state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (o));
-
 	o = gtk_builder_get_object(e->builder, "frm_cam");
 	gtk_widget_set_sensitive (GTK_WIDGET(o), state);
 	o = gtk_builder_get_object(e->builder, "frm_effect");
 	gtk_widget_set_sensitive (GTK_WIDGET(o), state);
 	o = gtk_builder_get_object(e->builder, "frm_light");
 	gtk_widget_set_sensitive (GTK_WIDGET(o), state);
-
 	if (state)
 	{
 		o = gtk_builder_get_object(e->builder, "cmb_scene");
 		sname = gtk_combo_box_text_get_active_text((GTK_COMBO_BOX_TEXT(o)));
-		g_print("get values form %s\n", sname);
 		if ((s = parse(ft_strjoin("scenes/", sname))))
 		{
 			// CAM POS
@@ -73,7 +70,8 @@ void			click_switch(GtkApplication *app, gpointer user_data)
 			gtk_range_set_value(GTK_RANGE(o), s->ambient_index);
 			// CARTOON
 			o = gtk_builder_get_object(e->builder, "switch_cartoon");
-			gtk_switch_set_state (GTK_SWITCH(o), s->is_real);
+			mode = s->is_real == 1 ? 0 : 1;
+			gtk_switch_set_state (GTK_SWITCH(o), mode);
 			// DOF
 			o = gtk_builder_get_object(e->builder, "switch_dof");
 			gtk_switch_set_state (GTK_SWITCH(o), s->is_dof);
@@ -87,28 +85,26 @@ void			click_switch(GtkApplication *app, gpointer user_data)
 	}
 }
 
-void	ui_init_callback(t_env *e)
+int	get_filter_name(t_env *);
+
+void	click_filter(GtkApplication *app, gpointer data)
 {
-	GObject		*win;
-	GObject		*btn_draw;
-	GObject		*btn_save;
-	GObject		*btn_quit;
-	GObject		*btn_switch;
+	t_env		*e;
+	GdkPixbuf	*pixbuf;
+	int			filter;
 
-	win = gtk_builder_get_object(e->builder, "window");
-	g_signal_connect(win, "destroy", G_CALLBACK(gtk_main_quit), NULL);
-	btn_draw = gtk_builder_get_object(e->builder, "btn_draw");
-	g_signal_connect(btn_draw, "clicked", G_CALLBACK(click_draw), e);
-	btn_quit = gtk_builder_get_object(e->builder, "btn_quit");
-	g_signal_connect(btn_quit, "clicked", G_CALLBACK(click_quit), e);
-	btn_save = gtk_builder_get_object(e->builder, "btn_save");
-	g_signal_connect(btn_save, "clicked", G_CALLBACK(click_save), e);
-
-	btn_switch = gtk_builder_get_object(e->builder, "btn_modif");
-	g_signal_connect(btn_switch, "clicked", G_CALLBACK(click_switch), e);
-
-	btn_switch = gtk_builder_get_object(e->builder, "cmb_scene");
-	g_signal_connect(btn_switch, "changed", G_CALLBACK(click_switch), e);
+	(void)app;
+	e = data;
+	e->img = gtk_builder_get_object(e->builder, "img");
+	filter = get_filter_name(e);
+	e->buf_tmp = sepia_filter(e->buf, filter);
+	if (e->buf_tmp == NULL)
+	{
+		g_print("Error\n");
+		return;
+	}
+	pixbuf = gtk_new_image(e->buf_tmp);
+	gtk_put_image_to_window(e->img, pixbuf);
 }
 
 
@@ -139,6 +135,32 @@ void	ui_init_scenes(t_env *e, char *path)
 		}
 	}
 	free_tab(scenes);
+}
+
+void	ui_init_callback(t_env *e)
+{
+	GObject		*win;
+	GObject		*btn_draw;
+	GObject		*btn_save;
+	GObject		*btn_quit;
+	GObject		*btn_switch;
+	GObject		*btn_filter;
+
+	win = gtk_builder_get_object(e->builder, "window");
+	g_signal_connect(win, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	btn_draw = gtk_builder_get_object(e->builder, "btn_draw");
+	g_signal_connect(btn_draw, "clicked", G_CALLBACK(click_draw), e);
+	btn_quit = gtk_builder_get_object(e->builder, "btn_quit");
+	g_signal_connect(btn_quit, "clicked", G_CALLBACK(click_quit), e);
+	btn_save = gtk_builder_get_object(e->builder, "btn_save");
+	g_signal_connect(btn_save, "clicked", G_CALLBACK(click_save), e);
+	btn_switch = gtk_builder_get_object(e->builder, "btn_modif");
+	g_signal_connect(btn_switch, "clicked", G_CALLBACK(click_switch), e);
+	btn_switch = gtk_builder_get_object(e->builder, "cmb_scene");
+	g_signal_connect(btn_switch, "changed", G_CALLBACK(click_switch), e);
+	btn_filter = gtk_builder_get_object(e->builder, "btn_filter");
+	g_signal_connect(btn_filter, "clicked", G_CALLBACK(click_filter), e);
+	
 }
 
 void	ui_init(t_env *e)
