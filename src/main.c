@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/20 15:48:49 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:10:12 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void click_quit(GtkApplication *app, gpointer user_data)
 
 // proto tmp qui n'a rien a foutre la
 void	test_error(void);
+char	*get_scene_name(t_env *);
+void	set_values_from_ui(t_env *, t_scene *);
 
 void	click_save(GtkApplication *app, gpointer user_data)
 {
@@ -109,80 +111,24 @@ void		init_threads(t_thread *threads, t_scene *scene, t_env *e)
 
 void click_draw(GtkApplication *app, gpointer user_data)
 {
-
 	t_scene		*s;
+	t_scene		*s2;
 	GdkPixbuf	*pixbuf;
 	t_env		*e;
 	t_thread	threads[N_THREAD];
 	int			i;
-	GObject		*o;
-	gchar		*c;
-	gchar		*sname;
-	gdouble val;
-	char	*hey;
-	gboolean dof;
-
+	char		*sname;
 
 	e = user_data;
-
-	o = gtk_builder_get_object(e->builder, "cmb_scene");
-	sname = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(o));
-
+	sname = ft_strjoin("scenes/", get_scene_name(e));
 	if (!(e->tab_noise = create_tab_noise()))
 		exit(0);
-
-	/* TODO
-	if get_cam_pos_from_ui return NULL, keep parser values else get ui values
-	if get_cam_dir_from_ui return NULL, keep parser values else get ui values
-
-	get scene name
-
-	get cartoon mode on/off
-	get filter
-	get dof
-	get light
-	get loop
-	*/
-
-
-	e->mode = get_switch_state(e, "switch_cartoon");
-
-	// CARTOON
-	o = gtk_builder_get_object(e->builder, "switch_cartoon");
-	gboolean carto;
-	carto = gtk_switch_get_state(GTK_SWITCH(o));
-
-
-	// FILTE
-	o = gtk_builder_get_object(e->builder, "cmb_filter");
-	c = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(o));
-
-	// DOF
-	o = gtk_builder_get_object(e->builder, "switch_dof");
-	dof = gtk_switch_get_state(GTK_SWITCH(o));
-	// focus
-	o = gtk_builder_get_object(e->builder, "scale_focus");
-	val = gtk_range_get_value(GTK_RANGE(o));
-	// blur
-	o = gtk_builder_get_object(e->builder, "scale_blur");
-	val = gtk_range_get_value(GTK_RANGE(o));
-
-	// LIGHTING
-	GdkRGBA *color;
-
-
-	color = (GdkRGBA *)malloc(sizeof(GdkRGBA));
-	o = gtk_builder_get_object(e->builder, "btn_color");
-	gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(o), color);
-
-	hey = ft_strjoin("scenes/", sname);
-
-	t_scene *s2;
 	s2 = parse("scenes/test_cyl");
-	if (!(s = parse(hey)))
+	if (!(s = parse(sname)))
 		ft_putendl("No scene\n");
 	else
 	{
+		set_values_from_ui(e, s);
 		init_threads(threads, s, e);
 		i = -1;
 		while (++i < N_THREAD)
@@ -203,18 +149,10 @@ void click_draw(GtkApplication *app, gpointer user_data)
 			}
 		}
 	}
-
-/*	
-	o = gtk_builder_get_object(e->builder, "btn_draw");
-	gtk_widget_set_sensitive (GTK_WIDGET(o), FALSE);
-*/
-	o = gtk_builder_get_object(e->builder, "lbl_info");
-	gtk_label_set_text (GTK_LABEL(o), "Hey !");
-
 	gtk_new_image(e->buf);
 	pixbuf = gtk_new_image(e->buf);
 	gtk_put_image_to_window(e->img, pixbuf);
-free(s);
+	free(s);
 	(void)app;
 }
 

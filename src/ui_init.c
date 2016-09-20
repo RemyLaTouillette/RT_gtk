@@ -6,13 +6,13 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:22 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/20 12:33:46 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:10:14 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <ui_init.h>
-/*
+
 void			click_switch(GtkApplication *app, gpointer user_data)
 {
 	t_env		*e;
@@ -86,14 +86,14 @@ void			click_switch(GtkApplication *app, gpointer user_data)
 		}
 	}
 }
-*/
+
 void	ui_init_callback(t_env *e)
 {
 	GObject		*win;
 	GObject		*btn_draw;
 	GObject		*btn_save;
 	GObject		*btn_quit;
-//	GObject		*btn_switch;
+	GObject		*btn_switch;
 
 	win = gtk_builder_get_object(e->builder, "window");
 	g_signal_connect(win, "destroy", G_CALLBACK(gtk_main_quit), NULL);
@@ -104,12 +104,11 @@ void	ui_init_callback(t_env *e)
 	btn_save = gtk_builder_get_object(e->builder, "btn_save");
 	g_signal_connect(btn_save, "clicked", G_CALLBACK(click_save), e);
 
-	/*btn_switch = gtk_builder_get_object(e->builder, "btn_modif");
+	btn_switch = gtk_builder_get_object(e->builder, "btn_modif");
 	g_signal_connect(btn_switch, "clicked", G_CALLBACK(click_switch), e);
 
 	btn_switch = gtk_builder_get_object(e->builder, "cmb_scene");
-	g_signal_connect(btn_switch, "changed", G_CALLBACK(click_switch), e);*/
-
+	g_signal_connect(btn_switch, "changed", G_CALLBACK(click_switch), e);
 }
 
 
@@ -145,7 +144,7 @@ void	ui_init_scenes(t_env *e, char *path)
 void	ui_init(t_env *e)
 {
 	gtk_init(NULL, NULL);
-	e->builder = gtk_builder_new_from_file("ui/builder.c.ui");
+	e->builder = gtk_builder_new_from_file("ui/builder.ui");
 	ui_init_img(e);
 	ui_init_scenes(e, "scenes");
 	ui_init_callback(e);

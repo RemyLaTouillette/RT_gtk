@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/20 12:38:39 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/09/20 17:07:55 by sduprey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRC =	main.c \
 		scene_finder.c \
 		ui_init.c \
 		ui_get_values.c \
+		ui_set_values.c \
 		cartoon.c \
 		scene_cmp.c \
 		objects_cmp.c \
