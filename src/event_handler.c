@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 18:34:19 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/21 19:10:33 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 19:24:42 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,6 @@ void	init_threads(t_thread *t, t_scene *s, t_env *e);
 double	**create_tab_noise(void);
 void	save_jpeg(unsigned char *data);
 
-void			click_quit(GtkApplication *app, gpointer user_data)
-{
-	(void)app;
-	(void)user_data;
-	gtk_main_quit();
-}
-
 void			click_save(GtkApplication *app, gpointer user_data)
 {
 	t_env		*e;
@@ -31,9 +24,15 @@ void			click_save(GtkApplication *app, gpointer user_data)
 	(void)app;
 	e = user_data;
 	save_jpeg(e->buf);
-//	save_bmp(e->buf);
-// FONCTION TEST POUR POPUP ERROR
-//	test_error();
+}
+
+void			click_save2(GtkApplication *app, gpointer data)
+{
+	t_env		*e;
+
+	e = data;
+	(void)app;
+	save_bmp(e->buf);
 }
 
 void			click_draw(GtkApplication *app, gpointer user_data)

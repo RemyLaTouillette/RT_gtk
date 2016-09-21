@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:22 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/21 18:58:26 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 19:19:25 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ void			ui_init_callback(t_env *e)
 	o = gtk_builder_get_object(e->builder, "btn_draw");
 	g_signal_connect(o, "clicked", G_CALLBACK(click_draw), e);
 	o = gtk_builder_get_object(e->builder, "btn_quit");
-	g_signal_connect(o, "clicked", G_CALLBACK(click_quit), e);
+	g_signal_connect(o, "clicked", G_CALLBACK(gtk_main_quit), e);
 	o = gtk_builder_get_object(e->builder, "btn_save");
 	g_signal_connect(o, "clicked", G_CALLBACK(click_save), e);
+	o = gtk_builder_get_object(e->builder, "btn_save2");
+	g_signal_connect(o, "clicked", G_CALLBACK(click_save2), e);
 	o = gtk_builder_get_object(e->builder, "btn_modif");
 	g_signal_connect(o, "clicked", G_CALLBACK(click_switch), e);
 	o = gtk_builder_get_object(e->builder, "cmb_scene");

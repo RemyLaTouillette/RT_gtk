@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:50 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/21 19:10:37 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 19:20:09 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ GdkPixbuf	*gtk_new_image(unsigned char *data);
 int			gtk_put_image_to_window(GtkImage *image, GdkPixbuf *pixbuf);
 void		click_draw(GtkApplication *app, gpointer user_data);
 void		click_save(GtkApplication *app, gpointer user_data);
+void		click_save2(GtkApplication *app, gpointer user_data);
 void		click_quit(GtkApplication *app, gpointer user_data);
 void		click_switch(GtkApplication *app, gpointer user_data);
 void		click_filter(GtkApplication *app, gpointer user_data);
