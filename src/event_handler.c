@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 18:34:19 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/21 18:47:25 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 18:59:15 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 void	init_threads(t_thread *t, t_scene *s, t_env *e);
 double	**create_tab_noise(void);
 
-void click_quit(GtkApplication *app, gpointer user_data)
+void			click_quit(GtkApplication *app, gpointer user_data)
 {
 	(void)app;
 	(void)user_data;
 	gtk_main_quit();
 }
 
-void	click_save(GtkApplication *app, gpointer user_data)
+void			click_save(GtkApplication *app, gpointer user_data)
 {
-	t_env	*e;
+	t_env		*e;
 
 	(void)app;
 	e = user_data;
@@ -35,7 +35,7 @@ void	click_save(GtkApplication *app, gpointer user_data)
 //	test_error();
 }
 
-void click_draw(GtkApplication *app, gpointer user_data)
+void			click_draw(GtkApplication *app, gpointer user_data)
 {
 	t_scene		*s;
 	t_scene		*s2;
@@ -88,4 +88,53 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	gtk_put_image_to_window(e->img, pixbuf);
 	free(s);
 	(void)app;
+}
+
+void			click_switch(GtkApplication *app, gpointer user_data)
+{
+	t_env		*e;
+	GObject		*o;
+	gboolean	state;
+	gchar		*sname;
+	t_scene		*s;
+
+	(void)app;
+	e = user_data;
+	o = gtk_builder_get_object(e->builder, "btn_modif");
+	state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(o));
+	o = gtk_builder_get_object(e->builder, "frm_cam");
+	gtk_widget_set_sensitive(GTK_WIDGET(o), state);
+	o = gtk_builder_get_object(e->builder, "frm_effect");
+	gtk_widget_set_sensitive(GTK_WIDGET(o), state);
+	o = gtk_builder_get_object(e->builder, "frm_light");
+	gtk_widget_set_sensitive(GTK_WIDGET(o), state);
+	if (state)
+	{
+		o = gtk_builder_get_object(e->builder, "cmb_scene");
+		sname = gtk_combo_box_text_get_active_text((GTK_COMBO_BOX_TEXT(o)));
+		if ((s = parse(ft_strjoin("scenes/", sname))))
+		{
+			set_values_from_scene(e, s);
+		}
+	}
+}
+
+void			click_filter(GtkApplication *app, gpointer data)
+{
+	t_env		*e;
+	GdkPixbuf	*pixbuf;
+	int			filter;
+
+	(void)app;
+	e = data;
+	e->img = gtk_builder_get_object(e->builder, "img");
+	filter = get_filter_name(e);
+	e->buf_tmp = sepia_filter(e->buf, filter);
+	if (e->buf_tmp == NULL)
+	{
+		g_print("Error\n");
+		return ;
+	}
+	pixbuf = gtk_new_image(e->buf_tmp);
+	gtk_put_image_to_window(e->img, pixbuf);
 }
