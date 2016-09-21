@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 18:00:42 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/21 16:00:21 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static inline void	ray_tracing(t_ray *start, t_scene *s, double n, t_hit *pxl)
 	if (pxl->opacity < 1.0)
 	{
 		tmp_color = apply_refraction(start, s, pxl, n);
-		pxl->color = add_color(&pxl->color, &tmp_color);
+		add_color(&pxl->color, &tmp_color);
 	}
 	if (pxl->texture == MARBLE)
-		pxl->color = mult_color(&pxl->color, n / 255);
+		mult_color(&pxl->color, n / 255);
 	if (pxl->texture == CHECKER)
 	{
 		tmp = vec_add(start->pos, scalar_product(start->dir, pxl->t));
@@ -60,8 +60,8 @@ static inline void	finish_loop(t_scene *s, t_ray *st, t_hit *hit, t_color *clr)
 	clr[1].g *= s->ambient_color.g * s->ambient_index;
 	clr[1].b *= s->ambient_color.b * s->ambient_index;
 	if (!(s->is_real == CARTOON && is_black_edge(hit)))
-		hit->color = add_color(&hit->color, &clr[1]);
-	clr[0] = add_color(&clr[0], &hit->color);
+		add_color(&hit->color, &clr[1]);
+	add_color(&clr[0], &hit->color);
 }
 
 static inline void	hit_color(t_scene *s, t_ray *st, t_hit *hit, double *tmp)
@@ -69,12 +69,12 @@ static inline void	hit_color(t_scene *s, t_ray *st, t_hit *hit, double *tmp)
 	double	reflet;
 
 	if (s->is_real == CARTOON && is_black_edge(hit))
-		hit->color = init_color(0, 0, 0);
+		init_color(&(hit->color), 0, 0, 0);
 	else
 	{
 		reflet = pow(hit->reflection, (int)tmp[1] * 3);
 		hit->color = apply_light(s, hit, st);
-		hit->color = mult_color(&hit->color, reflet);
+		mult_color(&hit->color, reflet);
 		ray_tracing(st, s, tmp[0], hit);
 	}
 }
@@ -87,7 +87,7 @@ t_color				color_render(t_scene *s, t_ray *st, double n, t_blur *blur)
 
 	tmp[0] = n;
 	tmp[1] = -1;
-	clr[0] = init_color(0, 0, 0);
+	init_color(&clr[0], 0, 0, 0);
 	while (++tmp[1] < (int)(s->reflection))
 	{
 		if ((int)tmp[1] == 0 || pxl.reflection != 0)

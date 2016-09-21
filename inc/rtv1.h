@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/20 20:24:21 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 16:10:58 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,22 @@
 
 # define N_THREAD	4
 
-t_color		mix_color(t_color *mixed_color, int n_color);
 t_color		*new_color_array(int blur_lvl);
 
 void		*apply_depth_of_field(void *img, t_blur *array, double dof);
 void		*apply_blur(void *img, int blur_lvl);
 int			key_hook(int keycode, t_env *e);
 
+void		test_blur(int r, t_hit *pxl, t_blur *blur);
 void		*draw_scene(void *data);
 t_color		color_render(t_scene *s, t_ray *start, double noise, t_blur *blur);
 
 double		deg_to_rad(double angle);
-t_color		add_color(t_color *a, t_color *b);
+t_color		mix_color(t_color *mixed_color, int n_color);
+void		add_color(t_color *a, t_color *b);
 void		check_color(t_color *color);
-t_color		mult_color(t_color *ref, double coef);
-t_color		sub_color(t_color *a, t_color *b);
-t_color		init_color(int r, int g, int b);
+void		mult_color(t_color *ref, double coef);
+void		init_color(t_color *color, int r, int g, int b);
 
 int			is_black_edge(t_hit *hit);
 t_color		cartoon(t_color *color);
@@ -76,9 +76,6 @@ double		apply_marble_noise(int x, int y, double res, double **tab_noise);
 double		apply_wood_noise(int x, int y, double res, double **tab_noise);
 t_color		checkerboard(t_color color, t_vec vec);
 int			is_black_edge(t_hit *hit);
-
-t_color		color_render(t_scene *s, t_ray *start, double noise, t_blur *blur);
-void		test_blur(int r, t_hit *pxl, t_blur *blur);
 
 void		find_closest_object(t_node *nodes, t_ray *ray, t_hit *h);
 void		init_hit(t_hit *hit);

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/06 17:49:23 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/20 17:33:41 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/21 14:36:11 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		init_hit(t_hit *hit)
 {
 	hit->t = 1000000;
 	hit->t_max = 1000000;
-	hit->color = init_color(0, 0, 0);
+	init_color(&(hit->color), 0, 0, 0);
 	hit->bool = 0;
 	hit->dist_from_center = -1.0;
 	hit->length = -1.0;

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 06:54:08 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/20 13:49:35 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/21 16:02:39 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,46 +28,26 @@ void		check_color(t_color *color)
 		color->b = 255;
 }
 
-t_color		sub_color(t_color *a, t_color *b)
+void		add_color(t_color *a, t_color *b)
 {
-	t_color	res;
-
-	res.r = a->r - b->r;
-	res.g = a->g - b->g;
-	res.b = a->b - b->b;
-	check_color(&res);
-	return (res);
+	a->r += b->r;
+	a->g += b->g;
+	a->b += b->b;
+	check_color(a);
 }
 
-t_color		add_color(t_color *a, t_color *b)
+void		init_color(t_color *res, int r, int g, int b)
 {
-	t_color res;
-
-	res.r = a->r + b->r;
-	res.g = a->g + b->g;
-	res.b = a->b + b->b;
-	check_color(&res);
-	return (res);
+	res->r = r;
+	res->g = g;
+	res->b = b;
+	check_color(res);
 }
 
-t_color		init_color(int r, int g, int b)
+void		mult_color(t_color *ref, double coef)
 {
-	t_color res;
-
-	res.r = r;
-	res.g = g;
-	res.b = b;
-	check_color(&res);
-	return (res);
-}
-
-t_color		mult_color(t_color *ref, double coef)
-{
-	t_color res;
-
-	res.r = (ref->r * coef);
-	res.g = (ref->g * coef);
-	res.b = (ref->b * coef);
-	check_color(&res);
-	return (res);
+	ref->r *= coef;
+	ref->g *= coef;
+	ref->b *= coef;
+	check_color(ref);
 }

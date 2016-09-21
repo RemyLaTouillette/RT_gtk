@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 14:28:30 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/19 21:13:49 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/21 14:35:34 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_color		depth_of_field(void *img, int blur_lvl, t_iter iter, t_blur *array)
 	int		n[7];
 
 	if (!magic_init(&mixed_color, blur_lvl, n, iter))
-		return (init_color(0, 0, 0));
+		return (mixed_color[0]);
 	i.i = -1;
 	while (++i.i < blur_lvl * 2 + 1)
 	{
@@ -62,7 +62,7 @@ t_color		depth_of_field(void *img, int blur_lvl, t_iter iter, t_blur *array)
 	if (n[0] == n[1])
 	{
 		free(mixed_color);
-		return (init_color(0, 0, 0));
+		return (mixed_color[0]);
 	}
 	return (mix_color(mixed_color, n[0]));
 }

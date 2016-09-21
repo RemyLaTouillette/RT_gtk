@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 04:58:48 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 15:32:12 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/21 15:54:16 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,14 @@ t_color				apply_refraction(t_ray *st, t_scene *s, t_hit *p, double n)
 	if (get_length(st->dir) != 0)
 	{
 		if (s->is_real == CARTOON && is_black_edge(p))
-			return (init_color(0, 0, 0));
+		{
+			init_color(&tmp, 0, 0, 0);
+			return (tmp);
+		}
 		else
 		{
 			tmp = color_render(s, st, n, NULL);
-			tmp = add_color(&p->color, &tmp);
+			add_color(&tmp, &p->color);
 		}
 	}
 	check_color(&tmp);

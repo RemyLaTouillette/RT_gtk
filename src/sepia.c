@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 00:20:42 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/20 17:52:02 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 14:48:05 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_color		set_black_white_color(t_color c)
 	int		m;
 
 	m = (c.r + c.g + c.b) / 3;
-	s = init_color(m, m, m);
+	init_color(&s, m, m, m);
 	check_color(&s);
 	return (s);
 }
@@ -29,7 +29,7 @@ t_color		set_sepia_color(t_color c)
 	t_color	s;
 	t_color	sepia;
 
-	sepia = init_color(94, 38, 18);
+	init_color(&sepia, 94, 38, 18);
 	s.r = (c.r * .393) + (c.g * .769) + (c.b * .189);
 	s.g = (c.r * .349) + (c.g * .686) + (c.b * .168);
 	s.b = (s.r * .272) + (s.g * .534) + (s.b * .131);

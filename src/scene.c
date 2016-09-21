@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:41:15 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/09 14:54:11 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/21 14:43:10 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		complete_scene(t_scene *s, t_blur *tmp)
 	s->blur = 0;
 	s->filter = NONE;
 	s->ambient_index = 0.0;
-	s->ambient_color = init_color(255, 255, 255);
+	init_color(&(s->ambient_color), 255, 255, 255);
 }
 
 t_scene		*init_scene(void)

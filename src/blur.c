@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/13 01:45:04 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/19 21:16:06 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/21 14:46:36 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_color		*new_color_array(int blur_lvl)
 		return (NULL);
 	x = -1;
 	while (++x < max)
-		mixed_color[x] = init_color(0, 0, 0);
+		init_color(&mixed_color[x], 0, 0, 0);
 	return (mixed_color);
 }
 
@@ -56,7 +56,7 @@ t_color		get_mixed_color(void *e, int b, int i, int j)
 	t_color	*tmp;
 
 	if (!(tmp = new_color_array(b)))
-		return (init_color(0, 0, 0));
+		return (tmp[0]);
 	x = -1;
 	n = 0;
 	while (++x < b * 2 + 1)

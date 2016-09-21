@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/11 18:08:12 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/20 17:32:30 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/21 16:07:54 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static inline void	finish_hit(t_hit *hit, t_tetra *tetra, t_ray *ray)
 
 static inline void	find_hit(t_hit *f, t_ray *ray, t_tetra *tetra, t_hit *hit)
 {
-
 	*hit = f[0];
 	hit->t = 0.0;
 	hit->t_max = 0.0;

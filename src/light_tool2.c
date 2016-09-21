@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 14:21:37 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 15:26:27 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/21 14:41:26 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static inline t_color	diffuse_light(t_hit *pxl, t_ray *light_ray, t_light *l)
 	angle = dot_product(light_ray->dir, pxl->nml);
 	angle /= get_length(light_ray->dir);
 	angle /= get_length(pxl->nml);
-	tmp_color = init_color(0, 0, 0);
+	init_color(&tmp_color, 0, 0, 0);
 	coef = pxl->opacity;
 	if (angle < 0)
 	{
@@ -75,12 +75,11 @@ t_color					set_color1(t_node *tmp, t_ray *r, t_hit *hit, int s)
 {
 	t_color		c2;
 
+	init_color(&c2, 0, 0, 0);
 	if (s == 0 || hit[0].opacity < 1)
 		c2 = diffuse_light(&hit[0], r, ((t_light *)(tmp->data)));
 	else if (hit[1].opacity < 1 && s == 1)
 		c2 = diffuse_shadow(&hit[0], r, ((t_light *)(tmp->data)), &hit[1]);
-	else
-		return (init_color(0, 0, 0));
 	return (c2);
 }
 

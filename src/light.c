@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 01:43:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 14:23:29 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/21 15:53:34 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static inline void		magic(t_scene *s, t_color *t, t_node **tmp, t_color *c)
 {
-	*t = init_color(0, 0, 0);
+	init_color(t, 0, 0, 0);
 	*tmp = s->lights;
-	c[0] = init_color(0, 0, 0);
-	c[1] = init_color(0, 0, 0);
+	init_color(&c[0], 0, 0, 0);
+	init_color(&c[1], 0, 0, 0);
 }
 
 static inline double	find_spot_angle(t_node *tmp_light, t_ray *ray)
@@ -76,11 +76,11 @@ static inline t_color	light_it_up(t_scene *s, t_ray *r, t_hit *h, t_ray *cam)
 		acos(find_spot_angle(tmp, r)) < ((t_light *)(tmp->data))->angle)
 		{
 			c[0] = set_color1(tmp, r, h, shadow);
-			tmp_color = add_color(&tmp_color, &c[0]);
+			add_color(&tmp_color, &c[0]);
 			if ((shadow == 0 || h[1].opacity < 1) && h[0].t != h[0].t_max)
 			{
 				c[1] = set_color2(tmp, cam, r, h);
-				tmp_color = add_color(&tmp_color, &c[1]);
+				add_color(&tmp_color, &c[1]);
 			}
 		}
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 17:50:40 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 16:15:32 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/21 16:07:03 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_light		*init_light(void)
 	light->type = 0;
 	light->pos = init_vector(0, 0, 0);
 	light->look_at = init_vector(0, 0, 0);
-	light->color = init_color(0, 0, 0);
+	init_color(&(light->color), 0, 0, 0);
 	light->angle = 0;
 	return (light);
 }
@@ -94,11 +94,9 @@ int			get_light_att(t_part *tmp, t_light *light)
 	light->color = *color;
 	free(v[0]);
 	free(color);
+	light->look_at = (light->type == DIRECT) ? *v[1] : init_vector(0, 0, 0);
 	if (light->type == DIRECT)
-	{
-		light->look_at = *v[1];
 		free(v[1]);
-	}
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 19:25:04 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/20 20:10:05 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 14:48:30 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ t_color		get_rgba(t_env *e)
 {
 	GObject	*o;
 	GdkRGBA	*rgba;
+	t_color	color;
 
+	init_color(&color, 0, 0, 0);
 	rgba = (GdkRGBA *)malloc(sizeof(GdkRGBA));
 	if (rgba == NULL)
-		return (init_color(0, 0, 0));
+		return (color);
 	o = gtk_builder_get_object(e->builder, "btn_color");
 	gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(o), rgba);
-	return (init_color(rgba->red * 255, rgba->green * 255, rgba->blue * 255));
+	init_color(&color, rgba->red * 255, rgba->green * 255, rgba->blue * 255);
+	return (color);
 }
