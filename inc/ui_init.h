@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:50 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/21 17:01:19 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 19:10:37 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ int			gtk_put_image_to_window(GtkImage *image, GdkPixbuf *pixbuf);
 void		click_draw(GtkApplication *app, gpointer user_data);
 void		click_save(GtkApplication *app, gpointer user_data);
 void		click_quit(GtkApplication *app, gpointer user_data);
+void		click_switch(GtkApplication *app, gpointer user_data);
+void		click_filter(GtkApplication *app, gpointer user_data);
+
 int			get_switch_state(t_env *e, char *str);
 char		**scene_finder(char *path);
-
 
 t_vec		get_cam_pos_from_ui(t_env *e);
 t_vec		get_cam_dir_from_ui(t_env *e);

@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/21 18:38:53 by sduprey          ###   ########.fr        #
+#    Updated: 2016/09/21 19:09:28 by sduprey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ SRC =	main.c \
 		write_scene.c \
 		image_buffer.c \
 		save_bmp.c \
+		save_jpeg.c \
 		scene_finder.c \
 		ui_init.c \
 		ui_get_values.c \

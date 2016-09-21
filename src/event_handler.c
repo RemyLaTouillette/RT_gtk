@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 18:34:19 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/21 18:59:15 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 19:10:33 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 // PROTO QUI N'ONT RIEN A FOUTTRE LA
 void	init_threads(t_thread *t, t_scene *s, t_env *e);
 double	**create_tab_noise(void);
+void	save_jpeg(unsigned char *data);
 
 void			click_quit(GtkApplication *app, gpointer user_data)
 {
@@ -29,7 +30,7 @@ void			click_save(GtkApplication *app, gpointer user_data)
 
 	(void)app;
 	e = user_data;
-	save_bmp2(e->buf);
+	save_jpeg(e->buf);
 //	save_bmp(e->buf);
 // FONCTION TEST POUR POPUP ERROR
 //	test_error();
