@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 06:31:18 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/20 20:28:14 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 19:04:09 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,6 @@ void		complete_pixel_color(char *data, t_color c)
 	data[0] = (int)c.b;
 	data[1] = (int)c.g;
 	data[2] = (int)c.r;
-}
-
-void		save_bmp2(unsigned char *data)
-{
-	GdkPixbuf	*pixbuf;
-
-	pixbuf = gtk_new_image(data);
-	gdk_pixbuf_save (pixbuf, "test_img", "jpeg", NULL, "quality", "100", NULL);
 }
 
 void		save_bmp(unsigned char *buf)
