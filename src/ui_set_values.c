@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/17 17:08:14 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/21 17:01:15 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 18:28:09 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void			set_values_from_ui(t_env *e, t_scene *s)
 		s->is_dof = get_switch_state(e, "switch_dof");
 		s->dof = get_range_value(e, "scale_focus");
 		s->blur = get_range_value(e, "scale_blur");
-		//s->filter = get_filter_name(e);
 	}
+	s->filter = get_filter_name(e);
 }
 
 void			set_values_from_scene(t_env *e, t_scene *s)

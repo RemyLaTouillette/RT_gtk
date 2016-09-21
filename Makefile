@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/21 16:46:31 by sduprey          ###   ########.fr        #
+#    Updated: 2016/09/21 18:38:53 by sduprey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,6 +88,7 @@ SRC =	main.c \
 		tools_cmp.c \
 		lights_cmp.c \
 		error_handler.c \
+		event_handler.c \
 
 SRCDIR = src/
 

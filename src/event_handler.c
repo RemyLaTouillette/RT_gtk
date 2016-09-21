@@ -1,71 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/21 18:47:27 by sduprey          ###   ########.fr       */
+/*   Created: 2016/09/21 18:34:19 by sduprey           #+#    #+#             */
+/*   Updated: 2016/09/21 18:47:25 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-#include <image_buffer.h>
 
-double	**create_tab_noise(void)
-{
-	int		x;
-	int		y;
-	double	**tab;
+// PROTO QUI N'ONT RIEN A FOUTTRE LA
+void	init_threads(t_thread *t, t_scene *s, t_env *e);
+double	**create_tab_noise(void);
 
-	y = 0;
-	if (!(tab = (double **)malloc(sizeof(double *) * HEIGHT)))
-		return (NULL);
-	while (y < HEIGHT)
-	{
-		x = 0;
-		if (!(tab[y] = (double *)malloc(sizeof(double) * WIDTH)))
-			return (NULL);
-		while (x < WIDTH)
-		{
-			tab[y][x] = (rand() % 32768) / 32768.0;
-			x++;
-		}
-		y++;
-	}
-	return (tab);
-}
-
-GdkPixbuf			*gtk_new_image(unsigned char *data)
-{
-	GdkPixbuf		*pixbuf;
-	GBytes			*buffer;
-
-	buffer = NULL;
-	pixbuf = NULL;
-//	int i = 0;
-//	while ((int)(data[i]) < 255 && (int)(data[i]) > 0)
-//	{
-//		i++;
-//	}
-	buffer = g_bytes_new(data, WIDTH * HEIGHT * 3);
-	pixbuf = gdk_pixbuf_new_from_bytes(buffer, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, 3 * WIDTH);
-	if (!pixbuf)
-		return (NULL);
-	g_bytes_unref(buffer);
-	buffer = NULL;
-	return (pixbuf);
-}
-
-int		gtk_put_image_to_window(GtkImage *image, GdkPixbuf *pixbuf)
-{
-	gtk_image_clear(image);
-	gtk_image_set_from_pixbuf(image, pixbuf);
-	return (1);
-}
-
-/*
 void click_quit(GtkApplication *app, gpointer user_data)
 {
 	(void)app;
@@ -84,27 +34,7 @@ void	click_save(GtkApplication *app, gpointer user_data)
 // FONCTION TEST POUR POPUP ERROR
 //	test_error();
 }
-*/
-void		init_threads(t_thread *threads, t_scene *scene, t_env *e)
-{
-	int			i;
-	t_pthread	pth[N_THREAD];
-	t_mutex		mutex;
 
-	pthread_mutex_init(&mutex, NULL);
-	i = -1;
-	while (++i < N_THREAD)
-	{
-		threads[i].scene = scene;
-		threads[i].buf = e->buf;
-		threads[i].env = e;
-		threads[i].y_start = (WIDTH / N_THREAD) * i;
-		threads[i].y_end = (WIDTH / N_THREAD) * (i + 1);
-		threads[i].pth = pth[i];
-		threads[i].mutex = &mutex;
-	}
-}
-/*
 void click_draw(GtkApplication *app, gpointer user_data)
 {
 	t_scene		*s;
@@ -158,13 +88,4 @@ void click_draw(GtkApplication *app, gpointer user_data)
 	gtk_put_image_to_window(e->img, pixbuf);
 	free(s);
 	(void)app;
-}
-*/
-int		main(void)
-{
-	t_env			e;
-
-	ui_init(&e);
-	gtk_main();
-	return (0);
 }
