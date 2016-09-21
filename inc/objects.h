@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/20 17:22:32 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 16:02:36 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct			s_env
 	GtkBuilder			*builder;
 	unsigned char		*buf;
 	unsigned char		*buf_tmp;
-	void				*mlx;
 	void				*win;
 	void				*img;
 	t_vec				pos_plan;

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:50 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/20 20:28:19 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 17:01:19 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,14 @@ double		get_range_value(t_env *e, char *widget);
 t_color		get_rgba(t_env *e);
 
 void		test_error(void);
+
+void		set_values_from_scene(t_env *e, t_scene *s);
+void		set_cam_pos_from_scene(t_env *e, t_scene *s);
+void		set_cam_dir_from_scene(t_env *e, t_scene *s);
+void		set_reflection_from_scene(t_env *e, t_scene *s);
+void		set_ambient_color_from_scene(t_env *e, t_scene *s);
+void		set_effect_from_scene(t_env *e, t_scene *s);
+
+int			get_filter_name(t_env *e);
 
 #endif

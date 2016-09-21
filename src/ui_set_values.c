@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/17 17:08:14 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/20 20:10:47 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 17:01:15 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,13 @@ void			set_values_from_ui(t_env *e, t_scene *s)
 		s->blur = get_range_value(e, "scale_blur");
 		//s->filter = get_filter_name(e);
 	}
+}
+
+void			set_values_from_scene(t_env *e, t_scene *s)
+{
+	set_cam_pos_from_scene(e, s);
+	set_cam_dir_from_scene(e, s);
+	set_reflection_from_scene(e, s);
+	set_ambient_color_from_scene(e, s);
+	set_effect_from_scene(e, s);
 }
