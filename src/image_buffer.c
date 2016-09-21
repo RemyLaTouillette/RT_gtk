@@ -6,13 +6,13 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/17 01:51:06 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/20 17:52:47 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/21 19:01:14 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-unsigned char	*new_image_buffer(void)
+unsigned char		*new_image_buffer(void)
 {
 	unsigned char	*buf;
 	int				size;
@@ -21,20 +21,19 @@ unsigned char	*new_image_buffer(void)
 	size = WIDTH * HEIGHT * 3;
 	if (!(buf = (unsigned char *)malloc(sizeof(unsigned char) * size)))
 		return (NULL);
-	//g_print("malloc ok\n");
 	i = 0;
 	while (i < size)
 	{
 		buf[i] = 0;
 		i++;
 	}
-	//g_print("filler ok\n");
 	return (buf);
 }
 
-void			put_pixel_on_buffer(unsigned char *buf, int x, int y, t_color c)
+void				put_pixel_on_buffer(unsigned char *buf, int x, int y,
+		t_color c)
 {
-	int			i;
+	int				i;
 
 	i = y * WIDTH * 3 + x * 3;
 	buf[i + 0] = c.r;
@@ -42,10 +41,10 @@ void			put_pixel_on_buffer(unsigned char *buf, int x, int y, t_color c)
 	buf[i + 2] = c.b;
 }
 
-t_color			get_pixel_from_buffer(unsigned char *buf, int x, int y)
+t_color				get_pixel_from_buffer(unsigned char *buf, int x, int y)
 {
-	t_color		c;
-	int			i;
+	t_color			c;
+	int				i;
 
 	i = y * WIDTH * 3 + x * 3;
 	c.r = buf[i];
