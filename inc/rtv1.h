@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/22 17:04:43 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/22 19:28:42 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 
 # define N_THREAD	4
 
+void	write_scene(t_scene s);
 t_color		*new_color_array(int blur_lvl);
 
 void		*apply_depth_of_field(void *img, t_blur *array, double dof);
@@ -91,8 +92,11 @@ void		sort_distance(double *t);
 void		complete_disk_hit(t_hit *hit, t_hit *hit_size, t_hit *final_hit);
 
 void		save_bmp(unsigned char *buf);
-void		save_bmp2(unsigned char *buf);
+void		save_jpeg(unsigned char *buf);
 void		ui_init(t_env *e);
+void		check_scene(t_env *e);
+double		**create_tab_noise(void);
+void		init_threads(t_thread *threads, t_scene *scene, t_env *e);
 
 int			scene_cmp(t_scene *new_scene, t_scene *old_scene);
 int			objects_cmp(t_node *new_obj, t_node *old_obj);

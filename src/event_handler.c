@@ -6,17 +6,11 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 18:34:19 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/22 17:04:03 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:05:19 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-
-// PROTO QUI N'ONT RIEN A FOUTRE LA
-void	init_threads(t_thread *t, t_scene *s, t_env *e);
-double	**create_tab_noise(void);
-void	save_jpeg(unsigned char *data);
-void	check_scene(t_env *e);
 
 void			click_save(GtkApplication *app, gpointer user_data)
 {
