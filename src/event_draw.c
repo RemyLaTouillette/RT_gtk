@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 19:20:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/22 16:29:29 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/22 17:07:35 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,7 @@ void			check_scene(t_env *e)
 		exit(0);
 	s2 = parse("scenes/test_cyl");
 	if (!(s = parse(sname)))
-	{
-		ft_putendl("No scene");
-	}
+		print_error("No scene", 0);
 	else
 	{
 		draw_image(e, s);
