@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/22 16:13:24 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 17:04:43 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # include <image_buffer.h>
 # include <ui_init.h>
 
+# include <texture_mapping.h>
+
 # define ESCAPE		53
 # define WIDTH		1920
 # define HEIGHT		1080
@@ -59,8 +61,9 @@ void		*apply_blur(void *img, int blur_lvl);
 int			key_hook(int keycode, t_env *e);
 
 void		test_blur(int r, t_hit *pxl, t_blur *blur);
+void		find_blur_dist(t_ray *st, t_hit *hit, t_cam *cam, t_blur *b);
 void		*draw_scene(void *data);
-t_color		color_render(t_scene *s, t_ray *start, double noise, t_blur *blur);
+t_color		color_render(t_scene *s, t_ray *start, t_text *text, t_blur *blur);
 
 double		deg_to_rad(double angle);
 t_color		mix_color(t_color *mixed_color, int n_color);
@@ -107,6 +110,7 @@ int			color_cmp(t_color c1, t_color vc);
 int			quad_cmp(t_quad q1, t_quad q2);
 int			lights_cmp(t_node *new_lights, t_node *old_lights);
 
-t_color		apply_refraction(t_ray *st, t_scene *s, t_hit *hit, double noise);
+t_color		apply_refraction(t_ray *st, t_scene *s, t_hit *hit, t_text *t);
+GdkPixbuf	*get_texture(void);
 
 #endif

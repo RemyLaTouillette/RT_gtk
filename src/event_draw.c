@@ -6,18 +6,11 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 19:20:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/22 17:07:35 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/22 18:13:47 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-
-// PROTO QUI N'ONT RIEN A FOUTTRE LA
-void	init_threads(t_thread *t, t_scene *s, t_env *e);
-double	**create_tab_noise(void);
-void	save_jpeg(unsigned char *data);
-void	check_scene(t_env *e);
-
 
 void			draw_image(t_env *e, t_scene *s)
 {
@@ -73,7 +66,9 @@ void			check_scene(t_env *e)
 
 	sname = ft_strjoin("scenes/", get_scene_name(e));
 	if (!(e->tab_noise = create_tab_noise()))
-		exit(0);
+		print_error("Noise loading error", 1);
+	if (!(e->texture.picture = get_texture()))
+		print_error("Texture loading error", 1);
 	s2 = parse("scenes/test_cyl");
 	if (!(s = parse(sname)))
 		print_error("No scene", 0);
@@ -83,5 +78,3 @@ void			check_scene(t_env *e)
 		mount_image(e, s);
 	}
 }
-
-

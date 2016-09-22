@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 04:58:48 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/21 15:54:16 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 15:31:06 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static inline void	init(t_hit *p, double *refract_indice, int *test)
 	}
 }
 
-t_color				apply_refraction(t_ray *st, t_scene *s, t_hit *p, double n)
+t_color				apply_refraction(t_ray *st, t_scene *s, t_hit *p, t_text *t)
 {
 	double	refract_indice;
 	int		test;
@@ -73,7 +73,7 @@ t_color				apply_refraction(t_ray *st, t_scene *s, t_hit *p, double n)
 		}
 		else
 		{
-			tmp = color_render(s, st, n, NULL);
+			tmp = color_render(s, st, t, NULL);
 			add_color(&tmp, &p->color);
 		}
 	}

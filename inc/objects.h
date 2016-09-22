@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/21 16:02:36 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/22 16:38:29 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define NONE		0
 # define MARBLE		1
 # define CHECKER	2
+# define TEXTURE	3
 
 typedef struct			s_color
 {
@@ -58,6 +59,20 @@ typedef	struct			s_iter
 	int					j;
 }						t_iter;
 
+typedef	struct			s_texture
+{
+	double				x;
+	double				y;
+	t_color				color;
+	GdkPixbuf			*picture;
+}						t_texture;
+
+typedef	struct			s_text
+{
+	double				noise;
+	t_texture			texture;
+}						t_text;
+
 typedef struct			s_env
 {
 	int					x;
@@ -69,8 +84,9 @@ typedef struct			s_env
 	t_vec				pos_plan;
 	t_cam				cam;
 	int					fd;
-	double				**tab_noise;
 	int					mode;
+	double				**tab_noise;
+	t_texture			texture;
 	int					filter;
 	int					dof;
 	double				focus;

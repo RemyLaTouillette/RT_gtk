@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/24 17:31:33 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/22 15:10:26 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/09/22 17:48:00 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_color		gtk_get_pixel(GdkPixbuf *pixbuf, double x, double y)
 	width = gdk_pixbuf_get_width(pixbuf);
 	height = gdk_pixbuf_get_height(pixbuf);
 	buffer = gdk_pixbuf_get_pixels(pixbuf);
+	printf("width = %d, height = %d\n", width, height);
 	p = ((((int)(x * width) % width) + width *
 				((int)(y * height) % height)) * 3);
 	dst_color.r = buffer[p];

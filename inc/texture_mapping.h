@@ -6,21 +6,14 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/25 16:38:39 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/16 16:57:47 by bhenne           ###   ########.fr       */
+/*   Updated: 2016/09/22 15:27:26 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _TEXTURE__MAPPING_H
-# define _TEXTURE__MAPPING_H
-# include <rtv1.h>
+#ifndef _TEXTURE_MAPPING_H
+# define _TEXTURE_MAPPING_H
 
-typedef	struct		s_texture
-{
-	double x;
-	double y;
-	t_color color;
-	GdkPixbuf *picture;
-}					t_texture;
+# include <objects.h>
 
 t_texture	coord_sphere_to_text(t_texture texture, t_vec coord_hit);
 t_color		colortexture(t_color src_color, t_vec coord_hit, t_texture texture);

@@ -23,6 +23,7 @@
 					options:
 					{
 						{specular: 50}
+						{texture: texture}
 					}
 				}
 			}
@@ -54,6 +55,7 @@
 					options:
 					{
 						{specular: 98}
+						{texture: marble}
 					}
 				}
 			}
@@ -86,6 +88,7 @@
 					options: 
 					{
 						{specular : 100}
+						{texture: marble}
 					}
 				}
 
@@ -101,6 +104,7 @@
 					options:
 					{
 						{specular: 30}
+						{texture: checker}
 					}
 				}
 			}

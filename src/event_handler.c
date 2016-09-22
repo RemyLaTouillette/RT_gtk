@@ -6,13 +6,13 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 18:34:19 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/22 16:29:04 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/22 17:04:03 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-// PROTO QUI N'ONT RIEN A FOUTTRE LA
+// PROTO QUI N'ONT RIEN A FOUTRE LA
 void	init_threads(t_thread *t, t_scene *s, t_env *e);
 double	**create_tab_noise(void);
 void	save_jpeg(unsigned char *data);

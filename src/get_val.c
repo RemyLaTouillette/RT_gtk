@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 16:44:46 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/22 16:14:32 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 14:48:53 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int			get_enum(char **values)
 		return (MARBLE);
 	else if (!strcmp(values[0], "checker"))
 		return (CHECKER);
+	else if (!strcmp(values[0], "texture"))
+		return (TEXTURE);
 	else if (!strcmp(values[0], "none"))
 		return (NONE);
 	else if (!strcmp(values[0], "sepia"))

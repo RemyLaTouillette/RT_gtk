@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/21 18:52:39 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/22 14:19:11 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,6 @@ GdkPixbuf		*gtk_new_image(unsigned char *data)
 
 	buffer = NULL;
 	pixbuf = NULL;
-//	int i = 0;
-//	while ((int)(data[i]) < 255 && (int)(data[i]) > 0)
-//	{
-//		i++;
-//	}
 	buffer = g_bytes_new(data, WIDTH * HEIGHT * 3);
 	pixbuf = gdk_pixbuf_new_from_bytes(buffer, GDK_COLORSPACE_RGB, 0, 8,
 			WIDTH, HEIGHT, 3 * WIDTH);
