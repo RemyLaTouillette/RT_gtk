@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/21 16:00:21 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/21 18:26:32 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,12 @@ static inline void	finish_loop(t_scene *s, t_ray *st, t_hit *hit, t_color *clr)
 
 static inline void	hit_color(t_scene *s, t_ray *st, t_hit *hit, double *tmp)
 {
-	double	reflet;
-
 	if (s->is_real == CARTOON && is_black_edge(hit))
 		init_color(&(hit->color), 0, 0, 0);
 	else
 	{
-		reflet = pow(hit->reflection, (int)tmp[1] * 3);
 		hit->color = apply_light(s, hit, st);
-		mult_color(&hit->color, reflet);
+		mult_color(&hit->color, tmp[2]);
 		ray_tracing(st, s, tmp[0], hit);
 	}
 }
@@ -83,7 +80,7 @@ t_color				color_render(t_scene *s, t_ray *st, double n, t_blur *blur)
 {
 	t_color	clr[2];
 	t_hit	pxl;
-	double	tmp[2];
+	double	tmp[3];
 
 	tmp[0] = n;
 	tmp[1] = -1;
@@ -92,6 +89,7 @@ t_color				color_render(t_scene *s, t_ray *st, double n, t_blur *blur)
 	{
 		if ((int)tmp[1] == 0 || pxl.reflection != 0)
 		{
+			tmp[2] = pow(pxl.reflection, (int)tmp[1] * 3);
 			find_closest_object(s->objects, st, &pxl);
 			clr[1] = pxl.color;
 			if (pxl.bool == 1)

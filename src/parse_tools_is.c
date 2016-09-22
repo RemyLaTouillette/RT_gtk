@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 16:47:26 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/25 18:00:21 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/22 16:21:07 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ int			is_color_initialized(char **values)
 	if ((n = arr_len(values)) != 3)
 	{
 		if (n < 3)
-			ft_putendl("missing value in 'color'");
+			print_error("'color' : missing value\n", 1);
 		else
-			ft_putendl("too many values in 'color'");
+			print_error("'color' : too many values\n", 1);
 		return (0);
 	}
 	if (!is_number(values[0]) ||
 		!is_number(values[1]) ||
 		!is_number(values[2]))
 	{
-		ft_putstr("value != number in 'color'");
+		print_error("'color' : value != number\n", 1);
 		return (0);
 	}
 	return (1);
@@ -64,17 +64,17 @@ int			is_initialized(int *is_init, t_scene *scene)
 {
 	if (is_init[1] == 0)
 	{
-		ft_putendl("No Camera");
+		print_error("No Camera", 1);
 		return (0);
 	}
 	if (is_init[2] == 0 && scene->ambient_index <= 0.0)
 	{
-		ft_putendl("No Lights");
+		print_error("No Lights", 2);
 		scene->ambient_index = 0.5;
 	}
 	if (is_init[3] == 0)
 	{
-		ft_putendl("No Objects");
+		print_error("No Objects", 1);
 	}
 	return (1);
 }
@@ -96,9 +96,7 @@ t_color		*get_color(char **values, int ref)
 		c->g < 0 || c->g > c_max ||
 		c->b < 0 || c->b > c_max)
 	{
-		ft_putstr("value < 0 or > ");
-		ft_putnbr(c_max);
-		ft_putendl("'color'");
+		print_error(join("'color' : value < 0 or > ", ft_itoa(c_max), "\n"), 1);
 		return (NULL);
 	}
 	return (c);

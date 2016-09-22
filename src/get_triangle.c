@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/11 16:42:46 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/11 17:02:39 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 15:08:47 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			get_t_att2(t_elem *tmp2, t_triangle *triangle)
 	}
 	else if (!ft_strcmp(tmp2->name, "ref_index"))
 	{
-		ft_putendl("'triangle' : 'ref_index' always == 1\n\n");
+		print_error("'triangle' : 'ref_index' always == 1\n\n", 2);
 		return (-1);
 	}
 	else

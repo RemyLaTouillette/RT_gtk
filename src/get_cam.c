@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 17:32:27 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/10 17:44:52 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 15:03:15 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int			return_invalid_vec(t_vec *pos, t_vec *lk)
 	if (!pos || !lk)
 	{
 		if (!pos)
-			ft_putendl("'pos' missing");
+			print_error("'pos' missing", 1);
 		if (!lk)
-			ft_putendl("'lk' missing");
+			print_error("'lk' missing", 1);
 		return (1);
 	}
 	return (0);

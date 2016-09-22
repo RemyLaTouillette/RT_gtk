@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/09 02:29:09 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/16 14:55:30 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/22 15:06:40 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_scene		*get_objects(t_scene *scene, t_part *part)
 
 	if (!(tmp = part->sub_parts))
 	{
-		ft_putendl("Empty Object\n");
+		print_error("Empty Object\n", 1);
 		return (NULL);
 	}
 	while (tmp)

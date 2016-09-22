@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 18:22:04 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/10 18:51:32 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 15:08:12 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ int			sphere_invalid(t_vec *pos, t_color *color)
 	if (!pos || !color)
 	{
 		if (!pos)
-			ft_putendl("'pos' missing\n");
+			print_error("'pos' missing\n", 1);
 		if (!color)
-			ft_putendl("'color' missing\n");
+			print_error("'color' missing\n", 1);
 		return (1);
 	}
 	return (0);

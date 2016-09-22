@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/21 16:10:58 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 16:13:24 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # include <elipsoid.h>
 # include <quad.h>
 # include <tetra.h>
+# include <error_handler.h>
 
 # include <aa.h>
 # include <image_buffer.h>

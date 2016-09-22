@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 18:22:33 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/19 20:52:35 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/22 15:07:51 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		get_plane_att2(t_elem *tmp2, t_plane *plane)
 	}
 	else if (!ft_strcmp(tmp2->name, "ref_index"))
 	{
-		ft_putendl("'plane' : 'ref_index' always == 1\n\n");
+		print_error("'plane' : 'ref_index' always == 1\n\n", 2);
 		return (-1);
 	}
 	else
@@ -92,11 +92,11 @@ int		plane_invalid(t_plane *plane, t_vec *pos, t_color *color, t_vec *normal)
 	if (!pos || !color || !normal)
 	{
 		if (!pos)
-			ft_putendl("'pos' missing\n");
+			print_error("'pos' missing\n", 1);
 		if (!color)
-			ft_putendl("'color' missing\n");
+			print_error("'color' missing\n", 1);
 		if (!normal)
-			ft_putendl("'normal' missing\n");
+			print_error("'normal' missing\n", 1);
 		return (1);
 	}
 	plane->pos = *pos;

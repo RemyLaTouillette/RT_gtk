@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:58:44 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/08/22 15:57:45 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 16:05:37 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,7 @@ int			set_part(char **array, t_part *new_part)
 		else if (ft_strchr(tmp, ':'))
 		{
 			if (!init_part(new_part, tmp))
-			{
-				ft_putendl("okok");
 				return (0);
-			}
 		}
 		free(tmp);
 		tmp = NULL;
@@ -106,7 +103,7 @@ t_part		*parse_scop(char *scop)
 
 	if (!ft_strchr(scop, ':'))
 	{
-		ft_putendl("Empty Object");
+		print_error("Empty Object", 1);
 		return (NULL);
 	}
 	if (!(new_part = create_part()))
@@ -119,7 +116,7 @@ t_part		*parse_scop(char *scop)
 	}
 	if (!set_part(array, new_part))
 	{
-		ft_putendl("Empty Object");
+		print_error("Empty Object", 1);
 		return (NULL);
 	}
 	free_tab(array);

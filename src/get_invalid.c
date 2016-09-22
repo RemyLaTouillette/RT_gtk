@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 20:17:52 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/14 20:01:02 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 15:05:37 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int		cyl_invalid(t_cylinder *cyl, t_vec **v, t_color *c)
 	if (!v[0] || !c || !v[1])
 	{
 		if (!v[0])
-			ft_putendl("'pos' missing\n");
+			print_error("'pos' missing\n", 1);
 		if (!c)
-			ft_putendl("'color' missing\n");
+			print_error("'color' missing\n", 1);
 		if (!v[1])
-			ft_putendl("'dir' missing\n");
+			print_error("'dir' missing\n", 1);
 		return (1);
 	}
 	cyl->pos = *v[0];
@@ -29,7 +29,7 @@ int		cyl_invalid(t_cylinder *cyl, t_vec **v, t_color *c)
 	cyl->color = *c;
 	if (cyl->is_closed == 0 && cyl->ref_index != 1)
 	{
-		ft_putendl("'cylinder' : empty object cannot refract\n");
+		print_error("'cylinder' : empty object cannot refract\n", 2);
 		cyl->ref_index = 1;
 	}
 	free(v[0]);
@@ -43,11 +43,11 @@ int		cone_invalid(t_cone *cyl, t_vec **v, t_color *c)
 	if (!v[0] || !c || !v[1])
 	{
 		if (!v[0])
-			ft_putendl("'pos' missing\n");
+			print_error("'pos' missing\n", 1);
 		if (!c)
-			ft_putendl("'color' missing\n");
+			print_error("'color' missing\n", 1);
 		if (!v[1])
-			ft_putendl("'dir' missing\n");
+			print_error("'dir' missing\n", 1);
 		return (1);
 	}
 	cyl->pos = *v[0];
@@ -55,7 +55,7 @@ int		cone_invalid(t_cone *cyl, t_vec **v, t_color *c)
 	cyl->color = *c;
 	if (cyl->is_closed == 0 && cyl->ref_index != 1)
 	{
-		ft_putendl("'cone' : empty object cannot refract\n");
+		print_error("'cone' : empty object cannot refract\n", 2);
 		cyl->ref_index = 1;
 	}
 	free(v[0]);
@@ -69,11 +69,11 @@ int		elips_invalid(t_elips *elips, t_e_tool *tool)
 	if (!tool->vec || !tool->quad || !tool->color)
 	{
 		if (!tool->vec)
-			ft_putendl("'vec' missing\n");
+			print_error("'vec' missing\n", 1);
 		if (!tool->color)
-			ft_putendl("'color' missing\n");
+			print_error("'color' missing\n", 1);
 		if (!tool->quad)
-			ft_putendl("'quad' missing\n");
+			print_error("'quad' missing\n", 1);
 		return (1);
 	}
 	elips->center = *tool->vec;
@@ -90,13 +90,13 @@ int		triangle_invalid(t_triangle *triangle, t_vec *v[3], t_color *color)
 	if (!v[0] || !v[1] || !v[2] || !color)
 	{
 		if (!v[0])
-			ft_putendl("'v0' missing");
+			print_error("'v0' missing", 1);
 		if (!v[1])
-			ft_putendl("'v1' missing");
+			print_error("'v1' missing", 1);
 		if (!v[2])
-			ft_putendl("'v2' missing");
+			print_error("'v2' missing", 1);
 		if (!color)
-			ft_putendl("'color' missing");
+			print_error("'color' missing", 1);
 		return (1);
 	}
 	triangle->v0 = *v[0];
@@ -115,15 +115,15 @@ int		tetra_invalid(t_tetra *tetra, t_vec **v, t_color *color)
 	if (!v[0] || !v[1] || !v[2] || !color || !v[3])
 	{
 		if (!v[0])
-			ft_putendl("'v0' missing");
+			print_error("'v0' missing", 1);
 		if (!v[1])
-			ft_putendl("'v1' missing");
+			print_error("'v1' missing", 1);
 		if (!v[2])
-			ft_putendl("'v2' missing");
+			print_error("'v2' missing", 1);
 		if (!v[3])
-			ft_putendl("'v3' missing");
+			print_error("'v3' missing", 1);
 		if (!color)
-			ft_putendl("'color' missing");
+			print_error("'color' missing", 1);
 		return (1);
 	}
 	tetra->v0 = *v[0];

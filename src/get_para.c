@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 19:59:56 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/15 14:22:18 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 15:07:18 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			get_para_att2(t_elem *tmp2, t_parallelo *para)
 	}
 	else if (!ft_strcmp(tmp2->name, "ref_index"))
 	{
-		ft_putendl("'rectangle' : 'ref_index' always == 1\n\n");
+		print_error("'rectangle' : 'ref_index' always == 1\n\n", 2);
 		return (-1);
 	}
 	else
@@ -97,13 +97,13 @@ int			para_invalid(t_parallelo *para, t_vec **v, t_color *color)
 	if (!v[0] || !v[1] || !v[2] || !color)
 	{
 		if (!v[0])
-			ft_putendl("'v0' missing");
+			print_error("'v0' missing", 1);
 		if (!v[1])
-			ft_putendl("'v1' missing");
+			print_error("'v1' missing", 1);
 		if (!v[2])
-			ft_putendl("'v2' missing");
+			print_error("'v2' missing", 1);
 		if (!color)
-			ft_putendl("'color' missing");
+			print_error("'color' missing", 1);
 		return (1);
 	}
 	para->v0 = *v[0];

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 16:44:46 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/19 19:01:21 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 16:14:32 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,17 @@ int			get_enum(char **values)
 t_vec		*get_vec(char **values, char *name)
 {
 	t_vec	*vec;
-	int		n_values;
+	int		n;
 
-	if ((n_values = arr_len(values)) != 3)
+	if ((n = arr_len(values)) != 3)
 	{
-		ft_putstr(n_values < 3 ? "missing value in '" : "too many values in '");
-		ft_putstr(name);
-		ft_putendl("'");
+		print_error(join(n < 3 ? "missing value in '" : "too many values in '",
+		name, "'"), 1);
 		return (NULL);
 	}
 	if (!is_number(values[0]) || !is_number(values[1]) || !is_number(values[2]))
 	{
-		ft_putstr("value != number in '");
-		ft_putstr(name);
-		ft_putendl("'");
+		print_error(join("value != number in '", name, "'"), 1);
 		return (NULL);
 	}
 	if (!(vec = (t_vec *)malloc(sizeof(t_vec))))
@@ -76,9 +73,9 @@ t_quad		*get_quad(char **values)
 	if ((n_values = arr_len(values)) != 3)
 	{
 		if (n_values < 3)
-			ft_putendl("missing value in 'quad'");
+			print_error("missing value in 'quad'", 1);
 		else
-			ft_putendl("too many values in 'quad'");
+			print_error("too many values in 'quad'", 1);
 		return (NULL);
 	}
 	if (!is_number(values[0]) || !is_number(values[1]) || !is_number(values[2]))

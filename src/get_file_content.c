@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:32:08 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/10 17:45:56 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 15:04:17 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char		*get_file_content(char *file_name)
 		return (NULL);
 	if (check_brace(file_content))
 	{
-		ft_putendl("'{' or '}' missing");
+		print_error("'{' or '}' missing", 1);
 		free(file_content);
 		return (NULL);
 	}

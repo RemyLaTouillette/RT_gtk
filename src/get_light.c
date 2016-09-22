@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 17:50:40 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/21 16:07:03 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/22 15:06:06 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ int			light_invalid(t_light *light, t_vec *pos, t_vec *lk, t_color *color)
 	if (!light->type || !pos || !color)
 	{
 		if (!pos)
-			ft_putendl("'pos' missing");
+			print_error("'pos' missing", 1);
 		if (!color)
-			ft_putendl("'color' missing");
+			print_error("'color' missing", 1);
 		return (1);
 	}
 	if (light->type == DIRECT && !lk)
 	{
-		ft_putendl("'lk' missing");
+		print_error("'lk' missing", 1);
 		return (1);
 	}
 	return (0);
