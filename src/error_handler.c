@@ -60,7 +60,7 @@ void	print_error(char *msg, int crit)
 	err = (t_error *)malloc(sizeof(t_error));
 	err->crit = crit;
 	err->msg = msg;
-	if (crit == 1)
+	if (crit == 0)
 		critical_error(err);
 	else
 		common_error(err);
