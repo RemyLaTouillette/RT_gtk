@@ -12,6 +12,8 @@
 
 #include <rtv1.h>
 
+#include <unistd.h>
+
 char	*join(char *s1, char *s2, char *s3)
 {
 	char	*tmp;
@@ -25,27 +27,14 @@ char	*join(char *s1, char *s2, char *s3)
 	return (new);
 }
 
-void	print_error(char *msg, int crit)
+void	critical_error(t_error *err)
 {
-	t_error *err;
-
-	err = (t_error *)malloc(sizeof(t_error));
-	err->crit = crit;
-	err->msg = msg;
-	test_error(err);
+	// ft_putendl_fd ?
+	ft_putendl(err->msg);
+	exit (0); // :(
 }
 
-void	print_hello(GtkWidget *w, gpointer data)
-{
-	t_error	*err;
-
-	(void)w;
-	err = data;
-	if (err->crit == 1)
-		gtk_main_quit();
-}
-
-void	test_error(t_error *err)
+void	common_error(t_error *err)
 {
 	GtkBuilder	*builder;
 	GObject		*win_err;
@@ -54,14 +43,25 @@ void	test_error(t_error *err)
 
 	builder = gtk_builder_new_from_file("ui/builder.error.ui");
 	win_err = gtk_builder_get_object(builder, "win_err");
-	gtk_window_set_title(GTK_WINDOW(win_err), "Error /_!_\\");
 	gtk_window_set_position(GTK_WINDOW(win_err), GTK_WIN_POS_CENTER);
 	gtk_window_set_default_size(GTK_WINDOW(win_err), 200, 200);
 	msg = gtk_builder_get_object(builder, "lbl_msg");
 	gtk_label_set_text(GTK_LABEL(msg), err->msg);
 	btn_ok = gtk_builder_get_object(builder, "btn_ok");
-	g_signal_connect(btn_ok, "clicked", G_CALLBACK(print_hello), err);
 	g_signal_connect_swapped(btn_ok, "clicked",
 			G_CALLBACK(gtk_widget_destroy), win_err);
 	gtk_widget_show_all(GTK_WIDGET(win_err));
+}
+
+void	print_error(char *msg, int crit)
+{
+	t_error *err;
+
+	err = (t_error *)malloc(sizeof(t_error));
+	err->crit = crit;
+	err->msg = msg;
+	if (crit == 1)
+		critical_error(err);
+	else
+		common_error(err);
 }
