@@ -795,7 +795,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="btn_save2">
-                                <property name="label" translatable="yes">Save BMP (low)</property>
+                                <property name="label" translatable="yes">Save BMP (slow)</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
