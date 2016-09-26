@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/17 17:08:14 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/21 18:28:09 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/26 17:39:24 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void			set_values_from_ui(t_env *e, t_scene *s)
 	if (state)
 	{
 		s->cam.ray.pos = get_cam_pos_from_ui(e);
-		s->cam.ray.dir = get_cam_dir_from_ui(e);
+		s->cam.look_at = get_cam_dir_from_ui(e);
 		s->reflection = get_range_value(e, "scale_loop");
 		s->ambient_color = get_rgba(e);
 		s->ambient_index = get_range_value(e, "scale_color");
@@ -31,6 +31,12 @@ void			set_values_from_ui(t_env *e, t_scene *s)
 		s->is_dof = get_switch_state(e, "switch_dof");
 		s->dof = get_range_value(e, "scale_focus");
 		s->blur = get_range_value(e, "scale_blur");
+
+
+//		g_print("is_dof: %d\n", s->is_dof);
+//		g_print("dof: %f\n", s->dof);
+//		g_print("blur: %f\n", s->blur);
+	
 	}
 	s->filter = get_filter_name(e);
 }

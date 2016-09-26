@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/16 13:17:21 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/22 19:14:46 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/26 18:10:33 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int		scene_cmp(t_scene *new_scene, t_scene *old_scene)
 	if (new_scene == NULL || old_scene == NULL)
 		return (0);
 	if (new_scene->is_real != old_scene->is_real ||
-		new_scene->is_dof != old_scene->is_dof ||
+	/*	new_scene->is_dof != old_scene->is_dof ||
 		new_scene->dof != old_scene->dof ||
-		new_scene->blur != old_scene->blur ||
+		new_scene->blur != old_scene->blur || */
 		new_scene->ambient_index != old_scene->ambient_index ||
 		color_cmp(new_scene->ambient_color, old_scene->ambient_color) == 0 ||
 		new_scene->reflection != old_scene->reflection ||

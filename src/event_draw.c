@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 19:20:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 16:59:31 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/26 18:45:31 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,69 @@ void			draw_image(t_env *e, t_scene *s)
 	}
 }
 
+void			apply_effect(t_env *e, t_scene *s)
+{
+	GdkPixbuf		*pixbuf;
+	unsigned char	*ref;
+	
+	ref = e->buf;
+	pixbuf = NULL;
+	g_print("filter: %d\n", s->filter);
+	if (s->filter != NONE)
+		e->buf_tmp = sepia_filter(ref, s->filter);
+	if (s->blur > 0.0)
+	{
+		if (e->buf_tmp)
+		{
+			ref = apply_blur(e->buf_tmp, s->blur);
+			free(e->buf_tmp);
+			e->buf_tmp = ref;
+		}
+		else
+			e->buf_tmp = apply_blur(ref , s->blur);
+	}
+	if (s->is_dof == 1)
+	{
+		if (e->buf_tmp)
+		{
+			ref = apply_depth_of_field(e->buf_tmp, s->blur_array, s->dof);
+			free(e->buf_tmp);
+			e->buf_tmp = ref;
+		}
+		else
+			e->buf_tmp = apply_depth_of_field(ref , s->blur_array, s->dof);
+	}
+	pixbuf = gtk_new_image(e->buf_tmp);
+	gtk_put_image_to_window(e->img, pixbuf);
+	free(e->buf_tmp);
+	e->buf_tmp = NULL;
+}
+
 void			mount_image(t_env *e, t_scene *s)
 {
 	GdkPixbuf	*pixbuf;
+	//int			effect;
 
 	pixbuf = NULL;
-	gtk_new_image(e->buf);
-	if (s->filter != NONE)
+	if (s->filter == NONE && s->blur == 0.0 && s->is_dof == 0)
 	{
-		e->buf_tmp = sepia_filter(e->buf, s->filter);
-		pixbuf = gtk_new_image(e->buf_tmp);
+		g_print("no effect\n");
+		pixbuf = gtk_new_image(e->buf);
+		gtk_put_image_to_window(e->img, pixbuf);
 	}
 	else
-		pixbuf = gtk_new_image(e->buf);
-	gtk_put_image_to_window(e->img, pixbuf);
+	{
+		g_print("effect\n");
+		apply_effect(e, s);
+		/*
+		   if (s->filter != NONE)
+		   {
+		   e->buf_tmp = sepia_filter(e->buf, s->filter);
+		   pixbuf = gtk_new_image(e->buf_tmp);
+		   }
+		   else
+		   */
+	}
 }
 
 t_scene			*singleton(t_scene *s)
@@ -84,12 +133,30 @@ void			check_scene(t_env *e)
 		set_values_from_ui(e, s);
 		if (scene_cmp(s, s2) == 0)
 		{
+			g_print("(re)draw\n");
 			draw_image(e, s);
 			mount_image(e, s);
 		}
-		else if ((s2 != NULL && s->filter != s2->filter) || s2 == NULL)
-			mount_image(e, s);
-		s2 = singleton(s);
-		free_scene(&s);
-	}
+		else
+		{
+			if ((s2 != NULL && s->filter != s2->filter) || s2 == NULL)
+			{
+				g_print("no redraw (filter)\n");
+				mount_image(e, s);
+			}
+			else if ((s2 != NULL && s->is_dof != s2->is_dof) || s2 == NULL)
+			{
+				g_print("no redraw (dof)\n");
+				mount_image(e, s);
+			}
+			else if ((s2 != NULL && s->blur != s2->blur) || s2 == NULL)
+			{
+				g_print("no redraw (blur)\n");
+				mount_image(e, s);
+			}
+		}
+		g_print("########################\n");
+	s2 = singleton(s);
+	free(s);
+}
 }

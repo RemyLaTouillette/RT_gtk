@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 19:25:04 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/21 14:48:30 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/26 16:23:26 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ t_color		get_rgba(t_env *e)
 	o = gtk_builder_get_object(e->builder, "btn_color");
 	gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(o), rgba);
 	init_color(&color, rgba->red * 255, rgba->green * 255, rgba->blue * 255);
+	gdk_rgba_free(rgba);
 	return (color);
 }

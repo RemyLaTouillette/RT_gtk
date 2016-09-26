@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:07:38 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/21 16:24:07 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/26 15:27:37 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_vec			get_cam_dir_from_ui(t_env *e)
 	y = gtk_range_get_value(GTK_RANGE(o));
 	o = gtk_builder_get_object(e->builder, "scale_cam_dir_z");
 	z = gtk_range_get_value(GTK_RANGE(o));
-	return (init_vector(x, y, z));
+	return (init_vector(deg_to_rad(x), deg_to_rad(y), deg_to_rad(z)));
 }
 
 int				get_switch_state(t_env *e, char *widget)
