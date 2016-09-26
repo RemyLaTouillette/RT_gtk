@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:50:11 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/16 13:41:01 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/26 17:00:11 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,20 @@ void		node_add(t_node **node, t_node *new)
 void		free_node_list(t_node **node_list)
 {
 	t_node	*tmp;
+	t_node	*tmp2;
 
 	tmp = *node_list;
 	while (tmp)
 	{
-		free(tmp->data);
+		if (tmp->data)
+		{
+			free(tmp->data);
+			tmp->data = NULL;
+		}
+		tmp2 = tmp;
+		tmp2 = tmp->next;
 		free(tmp);
-		tmp = tmp->next;
+		tmp = tmp2;
 	}
 	*node_list = NULL;
 }

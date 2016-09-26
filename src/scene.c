@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:41:15 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/21 14:43:10 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/26 17:00:26 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,13 @@ t_scene		*init_scene(void)
 	return (s);
 }
 
-void		add_camera(t_scene *s, t_cam cam)
+void		free_scene(t_scene **scene)
 {
-	s->cam = cam;
+	free((*scene)->blur_array);
+	if (!(*scene)->objects)
+		free_node_list(&((*scene)->objects));
+	if (!(*scene)->lights)
+		free_node_list(&((*scene)->lights));
+	free(*scene);
+	*scene = NULL;
 }

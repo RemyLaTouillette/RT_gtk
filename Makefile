@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/22 15:23:56 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/09/26 16:34:14 by nbelouni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,14 +108,14 @@ LIB = -L libft -lft
 
 RM = rm -rf
 
-C_FLAGS= -Wall -Werror -Wextra -o3 `pkg-config --cflags gtk+-3.0` -fsanitize=address
+C_FLAGS= -Wall -Werror -Wextra -o3 `pkg-config --cflags gtk+-3.0` 
 
-MLX_FLAGS = `pkg-config --libs gtk+-3.0` -fsanitize=address
+GTK_FLAGS = `pkg-config --libs gtk+-3.0` 
 
 all: lft $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(C_FLAGS) $(MLX_FLAGS) -o $(NAME) $(LIB) $^
+	@$(CC) $(C_FLAGS) $(GTK_FLAGS) -o $(NAME) $(LIB) $^
 	@echo ""
 	@echo $(PX_STR) : $(EX_STR)
 	@echo ""

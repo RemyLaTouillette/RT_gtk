@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 17:32:27 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/22 15:03:15 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/26 16:28:08 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int			return_invalid_vec(t_vec *pos, t_vec *lk)
 
 t_cam		*get_cam(t_scene *scene, t_part *part)
 {
-	t_cam	cam;
 	t_elem	*tmp;
 	t_vec	*pos;
 	t_vec	*lk;
@@ -66,8 +65,7 @@ t_cam		*get_cam(t_scene *scene, t_part *part)
 	}
 	if (return_invalid_vec(pos, lk))
 		return (NULL);
-	cam = init_camera(*pos, *lk);
-	add_camera(scene, cam);
+	scene->cam = init_camera(*pos, *lk);
 	free(pos);
 	free(lk);
 	return (&(scene->cam));

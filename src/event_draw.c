@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 19:20:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/22 19:28:10 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/26 16:59:31 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ t_scene			*singleton(t_scene *s)
 	static t_scene *prev;
 
 	if (s != NULL && prev != NULL)
-		*prev = *s;
+		prev = s;
 	if (s != NULL && prev == NULL)
 	{
 		prev = (t_scene *)malloc(sizeof(t_scene));
-		*prev = *s;
+		prev = s;
 	}
 	return (prev);
 }
@@ -83,10 +83,13 @@ void			check_scene(t_env *e)
 	{
 		set_values_from_ui(e, s);
 		if (scene_cmp(s, s2) == 0)
+		{
 			draw_image(e, s);
-		if ((s2 != NULL && s->filter != s2->filter) || s2 == NULL)
 			mount_image(e, s);
+		}
+		else if ((s2 != NULL && s->filter != s2->filter) || s2 == NULL)
+			mount_image(e, s);
+		s2 = singleton(s);
+		free_scene(&s);
 	}
-	s2 = singleton(s);
-	free(s);
 }
