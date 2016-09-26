@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/25 16:38:39 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/22 19:28:34 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/25 17:06:07 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include <objects.h>
 
-t_texture	coord_sphere_to_text(t_texture texture, t_vec coord_hit);
-t_color		colortexture(t_color src_color, t_vec coord_hit, t_texture texture);
-t_color		gtk_get_pixel(GdkPixbuf *pixbuf, double x, double y);
+t_color		colortexture(t_color src_color, t_vec coord_hit, t_texture texture, double radius);
 
 #endif

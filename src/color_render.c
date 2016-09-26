@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/22 17:55:11 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/25 16:57:24 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static inline void	apply_texture(t_ray *st, t_text *t, t_hit *pxl, t_color *c)
 			pxl->color = checkerboard(pxl->color, tmp);
 		if (pxl->texture == TEXTURE && pxl->type == SPHERE && pxl->opacity == 1)
 		{
-			pxl->color = colortexture(pxl->color, tmp, t->texture);
+			pxl->color = colortexture(pxl->color, vec_sub(pxl->pos, tmp),
+					t->texture,	pxl->dist_from_center);
 			mult_color(&pxl->color, (double)(1.0 / 255));
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/24 17:31:33 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/22 18:33:09 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/25 17:57:28 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,42 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <stdio.h>
 
-t_color		gtk_get_pixel(GdkPixbuf *pixbuf, double x, double y)
+void			gtk_get_pixel(GdkPixbuf *pixbuf, double x, double y, t_color *color)
 {
 	int				width;
 	int				height;
 	unsigned char	*buffer;
-	int				p;
-	t_color			dst_color;
+	size_t			p;
 
 	width = gdk_pixbuf_get_width(pixbuf);
 	height = gdk_pixbuf_get_height(pixbuf);
 	buffer = gdk_pixbuf_get_pixels(pixbuf);
 	p = ((((int)(x * width) % width) + width *
 				((int)(y * height) % height)) * 3);
-	dst_color.r = buffer[p];
-	dst_color.g = buffer[p + 1];
-	dst_color.b = buffer[p + 2];
-	return (dst_color);
+	if (p <= (size_t)(width * height * 3))
+	{
+		color->r = buffer[p];
+		color->g = buffer[p + 1];
+		color->b = buffer[p + 2];
+	}
 }
 
-t_color		colortexture(t_color src_color, t_vec coord_hit, t_texture texture)
+t_texture	coord_sphere_to_text(t_texture texture, t_vec coord_hit, double dfc)
+{
+	texture.x = -atan2(coord_hit.x, coord_hit.z) / (2.0 * M_PI);
+	texture.y = ((asin(dfc) + (M_PI / 2)) / M_PI);
+	return (texture);
+}
+
+t_color		colortexture(t_color c, t_vec coord_hit, t_texture t, double dfc)
 {
 	t_color dst_color;
 
-	texture = coord_sphere_to_text(texture, coord_hit);
-	dst_color = gtk_get_pixel(texture.picture, texture.x, texture.y);
-	src_color.r = dst_color.r;
-	src_color.g = dst_color.g;
-	src_color.b = dst_color.b;
-	return (src_color);
-}
-
-t_texture	coord_sphere_to_text(t_texture texture, t_vec coord_hit)
-{
-	texture.x = (atan(-(coord_hit.x) / coord_hit.z) + M_PI) / (2.0 * M_PI);
-	texture.y = ((asin(coord_hit.y) + (M_PI / 2)) / M_PI) * 2;
-	return (texture);
+	init_color(&dst_color, 0, 0, 0);
+	t = coord_sphere_to_text(t, coord_hit, dfc);
+	gtk_get_pixel(t.picture, t.x, t.y, &dst_color);
+	c.r = dst_color.r;
+	c.g = dst_color.g;
+	c.b = dst_color.b;
+	return (c);
 }

@@ -6,7 +6,7 @@
 /*   By: tlepeche <tlepeche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 12:33:20 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/09 00:43:59 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/26 15:44:01 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void				*ft_realloc(void *ptr, size_t size);
 char				*ft_strnchr(const char *s, int c, int i);
 int					how_many(char *str, char c);
 void				free_tab(char **tab);
+void				free_tabi(double **tab, int length);
 void				ft_printtab(char **tab);
 int					get_next_line(int fd, char **line);
 typedef struct		s_list

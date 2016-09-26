@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:07:38 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 15:27:37 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/26 17:43:11 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,17 @@ int				get_filter_name(t_env *e)
 {
 	GObject		*o;
 	char		*s;
+	int			filter;
+
 
 	o = gtk_builder_get_object(e->builder, "cmb_filter");
 	s = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(o));
 	if (ft_strcmp(s, "Sepia") == 0)
-		return (SEPIA);
+		filter = SEPIA;
 	else if (ft_strcmp(s, "B&W") == 0)
-		return (NOIR_BLANC);
-	return (NONE);
+		filter = NOIR_BLANC;
+	else 
+		filter = NONE;
+	free(s);
+	return (filter);
 }

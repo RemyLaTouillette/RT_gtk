@@ -6,14 +6,14 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 00:20:42 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/21 18:32:54 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/26 16:15:03 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <stdio.h>
 
-t_color		set_black_white_color(t_color c)
+static inline t_color		set_black_white_color(t_color c)
 {
 	t_color	s;
 	int		m;
@@ -24,7 +24,7 @@ t_color		set_black_white_color(t_color c)
 	return (s);
 }
 
-t_color		set_sepia_color(t_color c)
+static inline t_color		set_sepia_color(t_color c)
 {
 	t_color	s;
 	t_color	sepia;
@@ -40,7 +40,7 @@ t_color		set_sepia_color(t_color c)
 	return (s);
 }
 
-void		*sepia_filter(void *img, int filter)
+unsigned char				*sepia_filter(void *img, int filter)
 {
 	unsigned char	*new;
 	int				i;

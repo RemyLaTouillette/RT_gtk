@@ -6,32 +6,51 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/22 14:30:16 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/22 18:08:43 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/26 15:36:42 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
+size_t		find_length()
+{
+	int	fd;
+	size_t	length;
+	int tmp;
+	char str[10000];
+
+	tmp = 0;
+	length = 0;
+//	if ((fd = open("ressources/earth.bmp", O_RDONLY)) == -1)
+	if ((fd = open("ressources/worldmap512.jpg", O_RDONLY)) == -1)
+		return (0);
+	while ((tmp = read(fd, str, 10000)) != 0)
+		length += tmp;
+	close(fd);
+	return (length); 
+}
+
 GdkPixbuf	*get_texture(void)
 {
 	FILE			*file;
 	size_t			length;
-	guint8			buffer[100000];
+	unsigned char	*buffer;
 	GdkPixbufLoader	*loader;
+	GdkPixbuf		*texture;
 
 	if (!(file = fopen("ressources/worldmap512.jpg", "r")))
-	{
-		printf("file not found\n");
+//	if (!(file = fopen("ressources/earth.bmp", "r")))
 		return (NULL);
-	}
-	length = fread(buffer, 1, sizeof(buffer), file);
+	length = find_length();
+	buffer = (unsigned char *)malloc(sizeof(unsigned char) * length);
+	if (!(fread(buffer, 1, length, file)))
+		return (NULL);
 	fclose(file);
-	if (length == 100000)
-	{
-		printf("file too large\n");
-		return (NULL);
-	}
 	loader = gdk_pixbuf_loader_new();
-	gdk_pixbuf_loader_write(loader, buffer, length, NULL);
-	return (gdk_pixbuf_loader_get_pixbuf(loader));
+	if (!(gdk_pixbuf_loader_write(loader, buffer, length, NULL)))
+		return (NULL);
+	texture = gdk_pixbuf_loader_get_pixbuf(loader);
+	free(buffer);
+	gdk_pixbuf_loader_close(loader, NULL);
+	return (texture);
 }

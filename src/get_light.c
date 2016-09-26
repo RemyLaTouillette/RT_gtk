@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 17:50:40 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/22 15:06:06 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/26 18:46:13 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int			get_light_att(t_part *tmp, t_light *light)
 	free(v[0]);
 	free(color);
 	light->look_at = (light->type == DIRECT) ? *v[1] : init_vector(0, 0, 0);
-	if (light->type == DIRECT)
+	if (v[1])
 		free(v[1]);
 	return (1);
 }

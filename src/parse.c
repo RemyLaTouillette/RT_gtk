@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 12:49:33 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/22 15:03:18 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/26 18:46:58 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ t_part		*parse_content(char *s, t_part *part)
 		if (is_valid(scop))
 		{
 			if (!(tmp = parse_scop(scop)))
+			{
+				free(scop);
 				return (NULL);
+			}
 		}
 		else
 			tmp = NULL;
@@ -96,7 +99,9 @@ t_scene		*config(t_part *part)
 		tmp = tmp->next;
 	}
 	if (is_initialized(is_init, scene))
+	{
 		return (scene);
+	}
 	return (NULL);
 }
 

@@ -16,6 +16,7 @@ SRC = ft_putstr.c ft_putendl.c ft_putchar.c ft_putnbr.c get_next_line.c ft_bzero
 	  free_tab.c \
 	  ft_itoa.c \
 	  ft_strcat.c \
+	  free_tabi.c \
 
 
 NO_COLOR = "\033[0;0m"

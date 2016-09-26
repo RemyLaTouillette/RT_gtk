@@ -8,8 +8,8 @@
 	}
 	camera:
 	{
-		{pos: 0, 0, -10}
-		{look_at: 0, 0, 0}	
+		{pos: 0, -10, -10}
+		{look_at: -45, 0, 0}	
 	}
 	objects:
 	{

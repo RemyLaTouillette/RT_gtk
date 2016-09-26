@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 19:20:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 18:45:31 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/26 19:02:59 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,12 @@ t_scene			*singleton(t_scene *s)
 	static t_scene *prev;
 
 	if (s != NULL && prev != NULL)
-		prev = s;
-	if (s != NULL && prev == NULL)
 	{
-		prev = (t_scene *)malloc(sizeof(t_scene));
+		free_scene(&prev);
 		prev = s;
 	}
+	if (s != NULL && prev == NULL)
+		prev = s;
 	return (prev);
 }
 
@@ -117,10 +117,14 @@ void			check_scene(t_env *e)
 	t_scene		*s;
 	t_scene		*s2;
 	char		*sname;
+	char		*tmp;
 
 	s2 = NULL;
 	s = NULL;
-	sname = ft_strjoin("scenes/", get_scene_name(e));
+
+	tmp = get_scene_name(e);
+	sname = ft_strjoin("scenes/", tmp);
+	free(tmp);
 	if (!(e->tab_noise = create_tab_noise()))
 		print_error("Noise loading error", 1);
 	if (!(e->texture.picture = get_texture()))
@@ -133,30 +137,22 @@ void			check_scene(t_env *e)
 		set_values_from_ui(e, s);
 		if (scene_cmp(s, s2) == 0)
 		{
-			g_print("(re)draw\n");
 			draw_image(e, s);
 			mount_image(e, s);
 		}
 		else
 		{
 			if ((s2 != NULL && s->filter != s2->filter) || s2 == NULL)
-			{
-				g_print("no redraw (filter)\n");
 				mount_image(e, s);
-			}
 			else if ((s2 != NULL && s->is_dof != s2->is_dof) || s2 == NULL)
-			{
-				g_print("no redraw (dof)\n");
 				mount_image(e, s);
-			}
 			else if ((s2 != NULL && s->blur != s2->blur) || s2 == NULL)
-			{
-				g_print("no redraw (blur)\n");
 				mount_image(e, s);
-			}
 		}
-		g_print("########################\n");
-	s2 = singleton(s);
-	free(s);
-}
+		s2 = singleton(s);
+		g_object_unref(e->texture.picture);
+		free_tabi(e->tab_noise, HEIGHT);
+		s = NULL;
+	}
+	free(sname);
 }

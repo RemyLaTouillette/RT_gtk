@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:03:04 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/20 17:34:07 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/25 16:58:48 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 static inline void		complete_sphere(t_hit *hit, t_sphere *s, t_ray *ray)
 {
+	t_vec tmp;
+
 	hit->type = SPHERE;
 	hit->radius = s->radius;
 	hit->length = 0;
 	hit->dir = init_vector(0, 0, 0);
 	hit->color = s->color;
-	hit->nml = vec_add(ray->pos, scalar_product(ray->dir, hit->t));
-	hit->nml = normalize(vec_sub(s->center, hit->nml));
+	tmp = vec_add(ray->pos, scalar_product(ray->dir, hit->t));
+	hit->nml = normalize(vec_sub(s->center, tmp));
 	hit->nml_max = scalar_product(ray->dir, hit->t_max);
 	hit->nml_max = vec_add(ray->pos, hit->nml_max);
 	hit->nml_max = vec_sub(s->center, hit->nml_max);
@@ -31,6 +33,8 @@ static inline void		complete_sphere(t_hit *hit, t_sphere *s, t_ray *ray)
 	hit->ref_index = s->ref_index;
 	hit->is_negativ = s->is_negativ;
 	hit->texture = s->texture;
+	hit->pos = s->center;
+	hit->dist_from_center = (tmp.y - s->center.y) / (s->radius);
 }
 
 static inline double	sphere_det(t_ray *r, t_sphere *s, double *a, double *b)

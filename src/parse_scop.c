@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:58:44 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/22 16:05:37 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/26 18:06:13 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,18 @@ int			set_part(char **array, t_part *new_part)
 		if (ft_strchr(tmp, '}'))
 		{
 			if (!init_elem(new_part, tmp))
+			{
+				free(tmp);
 				return (0);
+			}
 		}
 		else if (ft_strchr(tmp, ':'))
 		{
 			if (!init_part(new_part, tmp))
+			{
+				free(tmp);
 				return (0);
+			}
 		}
 		free(tmp);
 		tmp = NULL;
