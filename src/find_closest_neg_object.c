@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/06 17:49:23 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/21 14:36:11 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/27 18:27:52 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		choose_neg_hit(t_hit *tmp, t_hit *n_hit)
 			n_hit->nml = tmp->nml;
 		}
 		else
-			n_hit = tmp;
+			*n_hit = *tmp;
 	}
 	else if (n_hit->t < tmp->t && n_hit->t_max < tmp->t_max &&
 			n_hit->t_max >= tmp->t)
@@ -65,7 +65,7 @@ void		choose_neg_hit(t_hit *tmp, t_hit *n_hit)
 		n_hit->nml_max = tmp->nml_max;
 	}
 	else if (tmp->t < n_hit->t && tmp->t_max > n_hit->t_max)
-		n_hit = tmp;
+		*n_hit = *tmp;
 }
 
 t_hit		find_neg_hit(t_node *nodes, t_ray *ray, t_hit *c_hit, int is_neg)

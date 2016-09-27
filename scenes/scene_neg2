@@ -1,0 +1,227 @@
+{
+	scene :
+	{
+		{
+			options: 
+			{
+				{ambient : 0}
+#				{cartoon : y}
+			 }
+		}
+	}
+	camera :
+	{
+		{pos : 0, 0.0 , -7}
+		{look_at : 0, 0, 0}
+	}
+	objects :
+	{
+		{
+			sphere:
+			{
+				{radius : 0.5}
+				{pos : 0, 0.0, 0.0}
+				{color : 0.3, 0.6, 0.8}
+				{
+					options: 
+					{
+						{specular : 50}
+					}
+				}
+			}
+		}
+		{
+			cylinder:
+			{
+				{radius : 0.1}
+				{pos : -0.2, 0.1, -0.5}
+				{dir: 0, 0, 1}
+				{color : 1, 0.4, 0.4}
+				{length: 2}
+				{
+					options: 
+					{
+						{specular : 50}
+						{is_negativ: y}
+						{is_closed :y}
+					}
+				}
+			}
+		}
+
+		{
+			cylinder:
+			{
+				{radius : 0.3}
+				{pos : 0, 0, -0.5}
+				{dir: 0, 0, 1}
+				{color : 1, 0.4, 0.4}
+				{length: 0.3}
+				{
+					options: 
+					{
+						{specular : 50}
+						{is_negativ: y}
+						{is_closed :y}
+					}
+				}
+			}
+		}
+		{
+			sphere:
+			{
+				{radius : 0.2}
+				{pos : 0.2, -0.15, -0.4}
+				{color : 1, 0.4, 0.4}
+				{
+					options: 
+					{
+						{specular : 50}
+						{is_negativ: y}
+					}
+				}
+			}
+		}
+#		{
+#			cylinder:
+#			{
+#				{radius : 0.1}
+#				{pos : 0, 0, 0}
+#				{dir : 0.2, 0.5, -0.7}
+#				{length : 5}
+#				{color : 1, 0.4, 0.4}
+#				{
+#					options: 
+#					{
+#						{specular : 50}
+#					}
+#				}
+#			}
+#		}
+		{
+			sphere:
+			{
+				{radius : 0.2}
+				{pos : 0.2, 0.0, -3}
+				{color : 1, 1, 1}
+				{
+					options: 
+					{
+						{specular: 30}
+						{opacity : 0.1}
+						{ref_index : 1.1}
+					}
+				}
+			}
+		}
+#		{
+#			cylinder:
+#			{
+#				{radius : 0.1}
+#				{pos : 0, 0, 0}
+#				{dir : 0.5, 0.6, 0.5}
+#				{length : 2}
+#				{color : 1, 0.4, 0.4}
+#				{
+#					options: 
+#					{
+#						{specular : 50}
+#						{is_negativ: y}
+#					}
+#				}
+#			}
+#		}
+		{
+			cylinder:
+			{
+				{radius : 0.1}
+				{pos : 0, 0, 0}
+				{dir : -0.5, 0.6, 0.5}
+				{length : 2}
+				{color : 1, 0.4, 0.4}
+				{
+					options: 
+					{
+						{specular : 50}
+						{is_negativ: y}
+					}
+				}
+			}
+		}
+#		{
+#			elips:
+#			{
+#				{radius : 0.2}
+#				{pos : 0, 0.2, -3.2}
+#				{quad : 0.5, 0.2, 1}
+#				{color : 1, 1, 1}
+#				{
+#					options: 
+#					{
+#						{specular : 90}
+#						{is_negativ : y}
+#					}
+#				}
+#			}
+#		}
+		{
+			plane:
+			{
+				{pos : 0, 0, 5}
+				{normal: 0, 0, 1}
+				{color: 0.1, 0.1, 0.1}
+				{
+					options:
+					{
+						{specular: 30}
+					}
+				}
+			}
+		}
+	}
+
+	light:
+	{
+#		{
+#			direct:
+#			{
+#				{pos : 0, -5.0, -4.0}
+#				{color : 255.0, 255.0, 255.0}
+#				{dir : 0.0, 0.0, 0.0}
+#				{angle : 180}
+#			}
+#		}
+		{
+			diffuse: 
+			{
+				{pos : -2, -1, -5}
+				{color : 255, 0, 255}
+				{dir : 0.0, 0.0, 0.0}
+			}
+		}
+#		{
+#			parallel: 
+#			{
+#				{pos : 1, 1, 0}
+#				{color : 255, 255, 255}
+#				{dir : 0.0, 0.0, 0.0}
+#			}
+#		}
+		{
+			parallel: 
+			{
+				{pos : -1, 1, 1}
+				{color : 255, 255, 0}
+				{dir : 0.0, 0.0, 0.0}
+			}
+		}
+		{
+			parallel: 
+			{
+				{pos : 1, 1, 1}
+				{color : 0, 255,255}
+				{dir : 0.0, 0.0, 0.0}
+			}
+		}
+	}
+}

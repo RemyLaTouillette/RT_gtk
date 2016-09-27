@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 14:28:30 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/21 14:35:34 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/26 21:40:14 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			set_color(void *img, t_color *c, t_blur *blur_array, int *n)
 	if (n[2] >= 0 && n[2] < HEIGHT * WIDTH &&
 	blur_array[n[5] * HEIGHT + n[6]].t <= blur_array[n[2]].t)
 	{
-		if (n[3] >= 0 && n[3] < WIDTH && n[4] >= 0 && n[4] < HEIGHT)
+		if (n[3] >= 0 || n[3] < WIDTH || n[4] >= 0 || n[4] < HEIGHT)
 		{
 			c[n[0]] = get_pixel_from_buffer(img, n[3], n[4]);
 			if (c[n[0]].r == 0 && c[n[0]].g == 0 && c[n[0]].b == 0)
@@ -74,6 +74,7 @@ void		*apply_depth_of_field(void *img, t_blur *array, double dof)
 	t_color	new_color;
 	t_iter	i;
 
+	printf("dof : %f\n", dof);
 	if (!(blurred_img = new_image_buffer()))
 		return (NULL);
 	i.i = -1;

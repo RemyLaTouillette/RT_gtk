@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 19:20:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 19:02:59 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/26 20:33:46 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void			check_scene(t_env *e)
 		{
 			if ((s2 != NULL && s->filter != s2->filter) || s2 == NULL)
 				mount_image(e, s);
-			else if ((s2 != NULL && s->is_dof != s2->is_dof) || s2 == NULL)
+			else if ((s2 != NULL && (s->is_dof != s2->is_dof || s->dof != s2->dof)) || s2 == NULL)
 				mount_image(e, s);
 			else if ((s2 != NULL && s->blur != s2->blur) || s2 == NULL)
 				mount_image(e, s);

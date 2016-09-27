@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/17 17:08:14 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 17:39:24 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/26 20:47:02 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,10 @@ void			set_values_from_ui(t_env *e, t_scene *s)
 		s->is_real = get_switch_state(e, "switch_cartoon") == 0 ?
 			REALISTIC : CARTOON;
 		s->is_dof = get_switch_state(e, "switch_dof");
+		g_print("is+dof = %d\n", s->is_dof);
 		s->dof = get_range_value(e, "scale_focus");
+		g_print("focus = %f\n", s->dof);
 		s->blur = get_range_value(e, "scale_blur");
-
-
-//		g_print("is_dof: %d\n", s->is_dof);
-//		g_print("dof: %f\n", s->dof);
-//		g_print("blur: %f\n", s->blur);
-	
 	}
 	s->filter = get_filter_name(e);
 }

@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:50:11 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 17:00:11 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/26 20:09:45 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void		free_node_list(t_node **node_list)
 			free(tmp->data);
 			tmp->data = NULL;
 		}
-		tmp2 = tmp;
 		tmp2 = tmp->next;
 		free(tmp);
 		tmp = tmp2;

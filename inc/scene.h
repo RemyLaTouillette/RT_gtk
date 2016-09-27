@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:31:39 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 16:28:46 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/26 19:21:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct	s_scene
 	int			h;
 	t_node		*objects;
 	t_node		*lights;
-	t_texture	texture;
 }				t_scene;
 
 t_scene			*init_scene(void);
