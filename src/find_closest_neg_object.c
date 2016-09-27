@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/06 17:49:23 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/27 18:27:52 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/27 18:27:41 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ void		choose_neg_hit(t_hit *tmp, t_hit *n_hit)
 		else
 			*n_hit = *tmp;
 	}
-	else if (n_hit->t < tmp->t && n_hit->t_max < tmp->t_max &&
-			n_hit->t_max >= tmp->t)
-	{
+	else if (n_hit->t < tmp->t && n_hit->t_max < tmp->t_max)	{
 		n_hit->t_max = tmp->t_max;
 		n_hit->nml_max = tmp->nml_max;
 	}
@@ -79,7 +77,8 @@ t_hit		find_neg_hit(t_node *nodes, t_ray *ray, t_hit *c_hit, int is_neg)
 		get_hit(ray, nodes, 1, &tmp);
 		if (tmp.bool == 1 && ((c_hit->t < tmp.t_max && c_hit->t > tmp.t) ||
 			(c_hit->t_max > tmp.t && c_hit->t_max < tmp.t_max) ||
-			(c_hit->t < tmp.t && c_hit->t_max > tmp.t_max)))
+			(c_hit->t < tmp.t && c_hit->t_max > tmp.t_max) ||
+			(c_hit->t > tmp.t && c_hit->t_max < tmp.t_max)))
 		{
 			if (n_hit.bool == 0)
 				n_hit = tmp;

@@ -6,13 +6,13 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:41:15 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 20:12:27 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/26 20:21:56 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-void		complete_scene(t_scene *s, t_blur *tmp)
+void		complete_scene(t_scene *s, double *tmp)
 {
 	s->w = WIDTH;
 	s->h = HEIGHT;
@@ -32,17 +32,14 @@ void		complete_scene(t_scene *s, t_blur *tmp)
 t_scene		*init_scene(void)
 {
 	t_scene	*s;
-	t_blur	*tmp;
+	double	*tmp;
 	int		i;
 
 	i = -1;
-	if (!(tmp = (t_blur *)malloc(sizeof(t_blur) * HEIGHT * WIDTH)))
+	if (!(tmp = (double *)malloc(sizeof(double) * HEIGHT * WIDTH)))
 		return (NULL);
 	while (++i < HEIGHT * WIDTH)
-	{
-		tmp[i].t = 0;
-		tmp[i].p_obj = 0;
-	}
+		tmp[i] = 0.0;
 	if (!(s = (t_scene *)malloc(sizeof(t_scene))))
 		return (NULL);
 	complete_scene(s, tmp);

@@ -5,12 +5,14 @@
 		{
 			{cartoon:n}
 			{ambient:0.1}
+			{depth : y}
+			{focus : 2}
 		}
 	}
 	camera:
 	{
-		{pos: 0, -10, 0}
-		{look_at: -90, 0, 0}	
+		{pos: 0, 0, -10}
+		{look_at: 0, 0, 0}	
 	}
 	objects:
 	{

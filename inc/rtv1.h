@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/22 19:28:42 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/26 20:21:22 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@
 void	write_scene(t_scene s);
 t_color		*new_color_array(int blur_lvl);
 
-void		*apply_depth_of_field(void *img, t_blur *array, double dof);
+void		*apply_depth_of_field(void *img, double *array, double dof);
 void		*apply_blur(void *img, int blur_lvl);
 int			key_hook(int keycode, t_env *e);
 
-void		test_blur(int r, t_hit *pxl, t_blur *blur);
-void		find_blur_dist(t_ray *st, t_hit *hit, t_cam *cam, t_blur *b);
+void		test_blur(int r, t_hit *pxl, double *blur);
+void		find_blur_dist(t_ray *st, t_hit *hit, t_cam *cam, double *b);
 void		*draw_scene(void *data);
-t_color		color_render(t_scene *s, t_ray *start, t_text *text, t_blur *blur);
+t_color		color_render(t_scene *s, t_ray *start, t_text *text, double *blur);
 
 double		deg_to_rad(double angle);
 t_color		mix_color(t_color *mixed_color, int n_color);

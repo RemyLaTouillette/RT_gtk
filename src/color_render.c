@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/25 16:57:24 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/26 20:17:49 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static inline void	refraction(t_scene *s, t_ray *st, t_text *text, t_hit *hit)
 	}
 }
 
-t_color				color_render(t_scene *s, t_ray *st, t_text *t, t_blur *blur)
+t_color				color_render(t_scene *s, t_ray *st, t_text *t,double *blur)
 {
 	t_color	clr[2];
 	t_hit	pxl;

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 14:18:37 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 17:17:56 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/27 18:26:59 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,20 @@ static inline void	find_neg_obj(t_scene *s, t_ray *ray, t_hit *hit, t_hit *n)
 		(tmp_content.t < hit->t && tmp_content.t_max > hit->t_max)))
 		{
 			if (n->bool == 0)
+			{
 				*n = tmp_content;
+				n->t = 0.0;
+			}
 			else if (n->t_max < tmp_content.t_max)
+			{
+				n->t = 0.0;
 				n->t_max = tmp_content.t_max;
+			}
+			else if (tmp_content.t == tmp_content.t_max &&
+					tmp_content.t > n->t && tmp_content.t_max < n->t_max)
+			{
+				n->t = 0.0;
+			}
 		}
 		tmp_object = tmp_object->next;
 	}

@@ -6,30 +6,29 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/22 16:48:21 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/26 20:17:51 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-void				test_blur(int r, t_hit *pxl, t_blur *blur)
+void				test_blur(int r, t_hit *pxl, double *blur)
 {
 	if ((r == 0 || pxl->reflection != 0) && pxl->bool == 0 && blur)
-		blur->t = 100;
+		*blur = 100;
 }
 
-void				find_blur_dist(t_ray *st, t_hit *hit, t_cam *cam, t_blur *b)
+void				find_blur_dist(t_ray *st, t_hit *hit, t_cam *cam, double *b)
 {
 	t_vec	tmp2;
 
-	b->p_obj = 0;
 	tmp2 = scalar_product(st->dir, hit->t);
 	tmp2 = vec_add(st->pos, tmp2);
-	b->t = tmp2.z;
-	if (b->t == cam->ray.pos.z)
-		b->t = 0;
-	if (b->t > 100)
-		b->t = 100;
+	*b = tmp2.z;
+	if (*b == cam->ray.pos.z)
+		*b = 0;
+	if (*b > 100)
+		*b = 100;
 }
 
 static inline t_ray	init_start_ray(t_cam cam, int x, int y)

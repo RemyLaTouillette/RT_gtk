@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 17:32:50 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/27 17:22:24 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ static inline void		choose(t_node *n, t_ray *r, t_hit *n_hit, t_hit *c_hit)
 {
 	t_vec	tmp_pos;
 
-	if ((n_hit->t < c_hit->t && n_hit->t_max < c_hit->t_max &&
-		c_hit->t < n_hit->t_max))
+	if ((n_hit->t < c_hit->t && n_hit->t_max < c_hit->t_max))// &&
+//		c_hit->t < n_hit->t_max))
 	{
 		if (n_hit->type == PLANE)
 			c_hit->nml = scalar_product(n_hit->nml, -1);
@@ -86,7 +86,7 @@ static inline void		choose(t_node *n, t_ray *r, t_hit *n_hit, t_hit *c_hit)
 		c_hit->t_max = n_hit->t;
 		c_hit->nml_max = scalar_product(n_hit->nml, -1);
 	}
-	else if (n_hit->t <= c_hit->t && n_hit->t_max >= c_hit->t_max)
+	else if (n_hit->t < c_hit->t && n_hit->t_max > c_hit->t_max)
 	{
 		tmp_pos = scalar_product(r->dir, c_hit->t_max);
 		r->pos = vec_add(r->pos, tmp_pos);

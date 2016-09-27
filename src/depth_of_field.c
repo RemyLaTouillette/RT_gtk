@@ -6,22 +6,20 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 14:28:30 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/26 21:40:14 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/27 15:21:20 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-int			set_color(void *img, t_color *c, t_blur *blur_array, int *n)
+int			set_color(void *img, t_color *c, double *blur_array, int *n)
 {
 	if (n[2] >= 0 && n[2] < HEIGHT * WIDTH &&
-	blur_array[n[5] * HEIGHT + n[6]].t <= blur_array[n[2]].t)
+	blur_array[n[5] * HEIGHT + n[6]] <= blur_array[n[2]])
 	{
-		if (n[3] >= 0 || n[3] < WIDTH || n[4] >= 0 || n[4] < HEIGHT)
+		if (n[3] >= 0 && n[3] < WIDTH && n[4] >= 0 && n[4] < HEIGHT)
 		{
 			c[n[0]] = get_pixel_from_buffer(img, n[3], n[4]);
-			if (c[n[0]].r == 0 && c[n[0]].g == 0 && c[n[0]].b == 0)
-				n[1]++;
 			n[0]++;
 		}
 	}
@@ -39,7 +37,7 @@ int			magic_init(t_color **mixed_color, int blur_lvl, int *n, t_iter iter)
 	return (1);
 }
 
-t_color		depth_of_field(void *img, int blur_lvl, t_iter iter, t_blur *array)
+t_color		depth_of_field(void *img, int blur_lvl, t_iter iter, double *array)
 {
 	t_iter	i;
 	t_color	*mixed_color;
@@ -59,22 +57,16 @@ t_color		depth_of_field(void *img, int blur_lvl, t_iter iter, t_blur *array)
 			set_color(img, mixed_color, array, n);
 		}
 	}
-	if (n[0] == n[1])
-	{
-		free(mixed_color);
-		return (mixed_color[0]);
-	}
 	return (mix_color(mixed_color, n[0]));
 }
 
-void		*apply_depth_of_field(void *img, t_blur *array, double dof)
+void		*apply_depth_of_field(void *img, double *array, double dof)
 {
 	void	*blurred_img;
 	int		blur_lvl;
 	t_color	new_color;
 	t_iter	i;
 
-	printf("dof : %f\n", dof);
 	if (!(blurred_img = new_image_buffer()))
 		return (NULL);
 	i.i = -1;
@@ -83,7 +75,7 @@ void		*apply_depth_of_field(void *img, t_blur *array, double dof)
 		i.j = -1;
 		while (++i.j < HEIGHT)
 		{
-			blur_lvl = ((int)(fabs(dof - array[i.i * HEIGHT + i.j].t))) * 2;
+			blur_lvl = ((int)(fabs(dof - array[i.i * HEIGHT + i.j]))) * 2;
 			if (blur_lvl > 10)
 				blur_lvl = 10;
 			if (blur_lvl > 0)

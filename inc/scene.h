@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:31:39 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 19:21:40 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/26 20:13:06 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@
 # include <objects.h>
 # include <node.h>
 
-typedef struct	s_blur
-{
-	int			p_obj;
-	double		t;
-}				t_blur;
-
 typedef struct	s_scene
 {
 	int			is_real;
@@ -36,7 +30,7 @@ typedef struct	s_scene
 	t_color		ambient_color;
 	double		reflection;
 	int			r;
-	t_blur		*blur_array;
+	double		*blur_array;
 	t_cam		cam;
 	int			w;
 	int			h;

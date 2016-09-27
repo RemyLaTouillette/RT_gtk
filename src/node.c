@@ -6,12 +6,11 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:50:11 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 20:09:45 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/26 19:58:25 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-#include <stdio.h>
 
 t_node		*init_node(int type, void *data, char *name)
 {

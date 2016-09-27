@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 19:20:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 20:33:46 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/27 15:40:58 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void			check_scene(t_env *e)
 		set_values_from_ui(e, s);
 		if (scene_cmp(s, s2) == 0)
 		{
-			draw_image(e, s);
+		   	draw_image(e, s);
 			mount_image(e, s);
 		}
 		else
@@ -152,7 +152,6 @@ void			check_scene(t_env *e)
 		s2 = singleton(s);
 		g_object_unref(e->texture.picture);
 		free_tabi(e->tab_noise, HEIGHT);
-		s = NULL;
 	}
 	free(sname);
 }
