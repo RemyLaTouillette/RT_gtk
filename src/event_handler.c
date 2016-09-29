@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 18:34:19 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/29 20:15:58 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/29 20:25:24 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void			click_draw(GtkApplication *app, gpointer user_data)
 {
 	t_env		*e;
 
-	g_print("cick_draw()\n");
 	(void)app;
 	e = user_data;
 	check_scene(e);
