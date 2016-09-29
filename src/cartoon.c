@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/02 12:10:14 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/20 18:02:40 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/29 18:48:35 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,25 @@ int		is_black_edge(t_hit *hit)
 {
 	double	dist_min_max;
 	double	edge_scale;
+	double	tmp_len;
 
+	if ((hit->type == TRIAN || hit->type == TETRA) &&
+		hit->dist_from_center == 1.0)
+		return (1);
 	if (hit->type == CONE)
 		edge_scale = (hit->radius * hit->dist_from_center / hit->length) * 0.5;
 	else
 		edge_scale = hit->radius > 0.0 ? hit->radius * 0.5 : 0;
-	if (hit->type == CYLINDER)
-		hit->length *= 0.5;
+	tmp_len = (hit->type == CYLINDER) ? hit->length * 0.5 : hit->length;
 	dist_min_max = hit->t_max - hit->t;
 	if (dist_min_max < edge_scale && dist_min_max > PRECISION &&
 	((is_dir(&hit->dir) && !is_same_dir(&hit->nml_max, &hit->dir) &&
 	!is_same_dir(&hit->nml, &hit->dir)) || !is_dir(&hit->dir)))
 		return (1);
-	if (hit->type != PLANE && hit->length > 0)
+	if (hit->type != PLANE && tmp_len > 0)
 	{
-		if (hit->length >= hit->dist_from_center &&
-		hit->length - hit->dist_from_center <= hit->length / 100)
+		if (tmp_len >= hit->dist_from_center &&
+		tmp_len - hit->dist_from_center <= tmp_len / 100)
 			return (1);
 	}
 	return (0);

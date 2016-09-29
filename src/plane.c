@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:03:34 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/20 17:27:22 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/28 20:01:12 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 static inline void		complete_plane(t_hit *hit, t_plane *plane)
 {
 	hit->type = PLANE;
-	hit->radius = 0;
+	hit->radius = 0.0;
 	hit->color = plane->color;
 	hit->nml.x = -plane->normal.x;
 	hit->nml.y = -plane->normal.y;
 	hit->nml.z = -plane->normal.z;
+	hit->dist_from_center = 0.0;
 	hit->reflection = plane->reflection;
 	hit->specular = plane->specular;
 	hit->opacity = plane->opacity;

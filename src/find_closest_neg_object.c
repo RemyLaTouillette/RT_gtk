@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/06 17:49:23 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/27 18:27:41 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/29 18:52:42 by nbelouni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void		init_hit(t_hit *hit)
 	hit->t_max = 1000000;
 	init_color(&(hit->color), 0, 0, 0);
 	hit->bool = 0;
-	hit->dist_from_center = -1.0;
+	hit->dist_from_center = 0.0;
+	hit->radius = 0.0;
 	hit->length = -1.0;
 	hit->opacity = 1;
 	hit->is_negativ = 0;
@@ -58,7 +59,8 @@ void		choose_neg_hit(t_hit *tmp, t_hit *n_hit)
 		else
 			*n_hit = *tmp;
 	}
-	else if (n_hit->t < tmp->t && n_hit->t_max < tmp->t_max)	{
+	else if (n_hit->t < tmp->t && n_hit->t_max < tmp->t_max)
+	{
 		n_hit->t_max = tmp->t_max;
 		n_hit->nml_max = tmp->nml_max;
 	}

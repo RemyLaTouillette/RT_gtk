@@ -21,10 +21,10 @@
 		{
 			cylinder:
 			{
-				{radius:0.2}
-				{pos:0, 0, 3}
+				{radius:0.15}
+				{pos:0, 0, 0.5}
 				{dir: 1,0,0}
-				{length: 9}
+				{length: 2}
 				{color : 0.0, 0.1, 1}
 				{
 					options:
@@ -36,7 +36,6 @@
 		}
 		{
 			tetra:
-#			triangle:
 			{
 				{v0 : -1, -1, 2}
 				{v1 : 1, -1, 2}
@@ -46,10 +45,7 @@
 				{
 					options: 
 					{
-						{specular : 100}
-						{reflection :1}
-#						{opacity : 0.1}
-#						{ref_index: 1.5}
+						{specular : 10}
 					}
 				}
 
@@ -65,25 +61,24 @@
 					options: 
 					{
 						{specular : 90}
-						{texture : checker}
 					}
 				}
 			}
 		}
-#		{
-#			plane:
-#			{
-#				{pos : 0, 0, 15}
-#				{normal: 0, 0, 1}
-#				{color : 0.0, 1, 0}
-#				{
-#					options: 
-#					{
-#						{specular : 90}
-#					}
-#				}
-#			}
-#		}
+		{
+			plane:
+			{
+				{pos : 0, 0, 15}
+				{normal: 0, 0, 1}
+				{color : 0.0, 1, 0}
+				{
+					options: 
+					{
+						{specular : 90}
+					}
+				}
+			}
+		}
 #		{
 #			plane:
 #			{
