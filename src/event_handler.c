@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 18:34:19 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/29 18:01:17 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/29 20:15:58 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,16 @@ void			click_switch(GtkApplication *app, gpointer user_data)
 	gtk_widget_set_sensitive(GTK_WIDGET(o), state);
 	o = gtk_builder_get_object(e->builder, "frm_light");
 	gtk_widget_set_sensitive(GTK_WIDGET(o), state);
+	o = gtk_builder_get_object(e->builder, "frm_cartoon");
+	gtk_widget_set_sensitive(GTK_WIDGET(o), state);
+	o = gtk_builder_get_object(e->builder, "frm_reflect");
+	gtk_widget_set_sensitive(GTK_WIDGET(o), state);
 	if (state)
 	{
 		o = gtk_builder_get_object(e->builder, "cmb_scene");
 		sname = gtk_combo_box_text_get_active_text((GTK_COMBO_BOX_TEXT(o)));
 		if ((s = parse(ft_strjoin("scenes/", sname))))
-		{
 			set_values_from_scene(e, s);
-		}
 	}
 }
 
