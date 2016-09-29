@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 17:36:50 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/19 21:23:34 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/29 19:17:00 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,55 +38,61 @@ t_color		get_median_value(t_color *av, int max)
 			}
 		}
 	}
-	return (av[4]);
+	return (av[12]);
 }
 
 t_color		get_av_color(unsigned char *img, int x, int y, t_color *av)
 {
+	t_iter	iter;
 	int		i;
 	int		j;
 	int		k;
 	t_color	c;
 
-	j = y - 1;
+	j = y - 2;
 	k = 0;
-	while (j <= y + 1)
+	while (j <= y + 2)
 	{
-		i = x - 1;
-		while (i <= x + 1)
+		i = x - 2;
+		while (i <= x + 2)
 		{
-			if (i >= 0 && j >= 0 && i < WIDTH && j < HEIGHT)
-				av[k] = get_pixel_from_buffer(img, i, j);
+			if (i < 0)
+				iter.i = 0;
+			else if (i > WIDTH - 1)
+				iter.i = WIDTH - 1;
+			else
+				iter.i = i;
+			if (j < 0)
+				iter.j = 0;
+			else if (j > HEIGHT - 1)
+				iter.j = HEIGHT - 1;
+			else
+				iter.j = j;
+			av[k] = get_pixel_from_buffer(img, iter.i, iter.j);
 			k++;
 			i++;
 		}
 		j++;
 	}
-	c = get_median_value(av, 9);
+	c = get_median_value(av, 25);
 	return (c);
 }
 
-void		*aa(void *img)
+void		aa(void *b, void *n, int u, int d)
 {
-	unsigned char	*aa;
-	t_color			av[9];
+	t_color			av[25];
 	int				i;
 	int				j;
 	t_color			c;
 
-	if (!(aa = new_image_buffer()))
-		return (NULL);
-	j = 0;
-	while (j < HEIGHT)
+	j = -1;
+	while (++j < HEIGHT)
 	{
-		i = 0;
-		while (i < WIDTH)
+		i = u - 1;
+		while (++i < d)
 		{
-			c = get_av_color(img, i, j, av);
-			put_pixel_on_buffer(aa, i, j, c);
-			i++;
+			c = get_av_color(b, i, j, av);
+			put_pixel_on_buffer(n, i, j, c);
 		}
-		j++;
 	}
-	return (aa);
 }

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/13 01:45:04 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/21 14:46:36 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/29 17:59:13 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,26 +75,22 @@ t_color		get_mixed_color(void *e, int b, int i, int j)
 	return (mix_color(tmp, n));
 }
 
-void		*apply_blur(void *img, int blur_lvl)
+void		apply_blur(void *b, void *n, int blur_lvl, t_iter iter)
 {
 	int				i;
 	int				j;
 	t_color			new_color;
-	unsigned char	*blurred_img;
 
 	if (blur_lvl <= 0)
-		return (img);
-	if (!(blurred_img = new_image_buffer()))
-		return (NULL);
-	i = -1;
-	while (++i < WIDTH)
+		return ;
+	j = -1;
+	while (++j < HEIGHT)
 	{
-		j = -1;
-		while (++j < HEIGHT)
+		i = iter.i - 1;
+		while (++i < iter.j)
 		{
-			new_color = get_mixed_color(img, blur_lvl, i, j);
-			put_pixel_on_buffer(blurred_img, i, j, new_color);
+			new_color = get_mixed_color(b, blur_lvl, i, j);
+			put_pixel_on_buffer(n, i, j, new_color);
 		}
 	}
-	return (blurred_img);
 }

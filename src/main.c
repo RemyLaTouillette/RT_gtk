@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 00:15:41 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/22 14:19:11 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/28 19:58:24 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int				gtk_put_image_to_window(GtkImage *image, GdkPixbuf *pixbuf)
 	return (1);
 }
 
-void			init_threads(t_thread *threads, t_scene *scene, t_env *e)
+void			init_threads(t_thread *threads, t_env *e)
 {
 	int			i;
 	t_pthread	pth[N_THREAD];
@@ -71,8 +71,9 @@ void			init_threads(t_thread *threads, t_scene *scene, t_env *e)
 	i = -1;
 	while (++i < N_THREAD)
 	{
-		threads[i].scene = scene;
+		threads[i].scene = e->s;
 		threads[i].buf = e->buf;
+		threads[i].buf_tmp = e->buf_tmp;
 		threads[i].env = e;
 		threads[i].y_start = (WIDTH / N_THREAD) * i;
 		threads[i].y_end = (WIDTH / N_THREAD) * (i + 1);

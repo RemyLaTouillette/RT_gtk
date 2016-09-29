@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:50 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/22 16:34:49 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/27 18:46:44 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_vec		get_cam_pos_from_ui(t_env *e);
 t_vec		get_cam_dir_from_ui(t_env *e);
 int			get_switch_state(t_env *e, char *widget);
 char		*get_scene_name(t_env *e);
-void		set_values_from_ui(t_env *e, t_scene *s);
+void		set_values_from_ui(t_env *e);
 double		get_range_value(t_env *e, char *widget);
 t_color		get_rgba(t_env *e);
 

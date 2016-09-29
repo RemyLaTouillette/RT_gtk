@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/04 00:11:00 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 16:15:41 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/29 19:43:39 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define SEPIA		1
 # define NOIR_BLANC	2
 
-unsigned char	*sepia_filter(void *img, int filter);
+void	sepia_filter(void *b, void *n, int f, t_iter iter);
+void	aa(void *b, void *n, int u, int d);
 
 #endif

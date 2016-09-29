@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 00:20:42 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/26 16:15:03 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/29 19:51:42 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,26 @@ static inline t_color		set_sepia_color(t_color c)
 	return (s);
 }
 
-unsigned char				*sepia_filter(void *img, int filter)
+void		sepia_filter(void *b, void *n, int f, t_iter iter)
 {
-	unsigned char	*new;
 	int				i;
 	int				j;
 	t_color			c;
 
-	if (filter != SEPIA && filter != NOIR_BLANC)
-		return (img);
-	if (!(new = new_image_buffer()))
-		return (NULL);
+	if (f != SEPIA && f != NOIR_BLANC)
+		return ;
 	j = -1;
 	while (++j < HEIGHT)
 	{
-		i = -1;
-		while (++i < WIDTH)
+		i = iter.i - 1;
+		while (++i < iter.j)
 		{
-			c = get_pixel_from_buffer(img, i, j);
-			if (filter == SEPIA)
+			c = get_pixel_from_buffer(b, i, j);
+			if (f == SEPIA)
 				c = set_sepia_color(c);
-			else if (filter == NOIR_BLANC)
+			else if (f == NOIR_BLANC)
 				c = set_black_white_color(c);
-			put_pixel_on_buffer(new, i, j, c);
+			put_pixel_on_buffer(n, i, j, c);
 		}
 	}
-	return (new);
 }

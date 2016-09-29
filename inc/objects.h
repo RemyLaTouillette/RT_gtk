@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/25 16:54:27 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/27 17:17:18 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct			s_env
 	void				*img;
 	t_vec				pos_plan;
 	t_cam				cam;
+	struct s_scene		*s;
 	int					fd;
 	int					mode;
 	double				**tab_noise;

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/25 17:53:36 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/25 18:48:47 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/28 18:07:16 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct			s_thread
 {
 	t_scene				*scene;
 	unsigned char		*buf;
+	unsigned char		*buf_tmp;
 	int					y_start;
 	int					y_end;
 	t_pthread			pth;

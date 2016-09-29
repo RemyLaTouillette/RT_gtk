@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 16:25:31 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/27 17:10:11 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/28 15:22:31 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		set_effect_from_scene(t_env *e, t_scene *s)
 	GObject	*o;
 	int		mode;
 
-	mode = s->is_real == REALISTIC ? 1 : 0;
+	mode = s->is_real == REALISTIC ? 0 : 1;
 	o = gtk_builder_get_object(e->builder, "switch_cartoon");
 	gtk_switch_set_state(GTK_SWITCH(o), mode);
 	o = gtk_builder_get_object(e->builder, "switch_dof");

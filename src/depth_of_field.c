@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 14:28:30 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/27 15:21:20 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/29 18:00:26 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,30 +60,27 @@ t_color		depth_of_field(void *img, int blur_lvl, t_iter iter, double *array)
 	return (mix_color(mixed_color, n[0]));
 }
 
-void		*apply_depth_of_field(void *img, double *array, double dof)
+void		apply_depth_of_field(void *b, void *n, t_scene *s, t_iter iter)
 {
-	void	*blurred_img;
 	int		blur_lvl;
 	t_color	new_color;
 	t_iter	i;
 
-	if (!(blurred_img = new_image_buffer()))
-		return (NULL);
-	i.i = -1;
-	while (++i.i < WIDTH)
+	i.j = -1;
+	while (++i.j < HEIGHT)
 	{
-		i.j = -1;
-		while (++i.j < HEIGHT)
+		i.i = iter.i - 1;
+		while (++i.i < iter.j)
 		{
-			blur_lvl = ((int)(fabs(dof - array[i.i * HEIGHT + i.j]))) * 2;
+			blur_lvl = ((int)(fabs(s->dof - s->blur_array[i.i * HEIGHT +
+							i.j]))) * 2;
 			if (blur_lvl > 10)
 				blur_lvl = 10;
 			if (blur_lvl > 0)
-				new_color = depth_of_field(img, blur_lvl, i, array);
+				new_color = depth_of_field(b, blur_lvl, i, s->blur_array);
 			else
-				new_color = get_pixel_from_buffer(img, i.i, i.j);
-			put_pixel_on_buffer(blurred_img, i.i, i.j, new_color);
+				new_color = get_pixel_from_buffer(b, i.i, i.j);
+			put_pixel_on_buffer(n, i.i, i.j, new_color);
 		}
 	}
-	return (blurred_img);
 }

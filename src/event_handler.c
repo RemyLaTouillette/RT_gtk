@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 18:34:19 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/22 18:05:19 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/29 18:01:17 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void			click_save2(GtkApplication *app, gpointer data)
 {
 	t_env		*e;
 
-	e = data;
 	(void)app;
+	e = data;
 	save_bmp(e->buf);
 }
 
@@ -34,9 +34,10 @@ void			click_draw(GtkApplication *app, gpointer user_data)
 {
 	t_env		*e;
 
+	g_print("cick_draw()\n");
+	(void)app;
 	e = user_data;
 	check_scene(e);
-	(void)app;
 }
 
 void			click_switch(GtkApplication *app, gpointer user_data)
@@ -52,8 +53,6 @@ void			click_switch(GtkApplication *app, gpointer user_data)
 	o = gtk_builder_get_object(e->builder, "btn_modif");
 	state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(o));
 	o = gtk_builder_get_object(e->builder, "frm_cam");
-	gtk_widget_set_sensitive(GTK_WIDGET(o), state);
-	o = gtk_builder_get_object(e->builder, "frm_effect");
 	gtk_widget_set_sensitive(GTK_WIDGET(o), state);
 	o = gtk_builder_get_object(e->builder, "frm_light");
 	gtk_widget_set_sensitive(GTK_WIDGET(o), state);
@@ -71,19 +70,9 @@ void			click_switch(GtkApplication *app, gpointer user_data)
 void			click_filter(GtkApplication *app, gpointer data)
 {
 	t_env		*e;
-	GdkPixbuf	*pixbuf;
-	int			filter;
 
 	(void)app;
 	e = data;
-	e->img = gtk_builder_get_object(e->builder, "img");
-	filter = get_filter_name(e);
-	e->buf_tmp = sepia_filter(e->buf, filter);
-	if (e->buf_tmp == NULL)
-	{
-		g_print("Error\n");
-		return ;
-	}
-	pixbuf = gtk_new_image(e->buf_tmp);
-	gtk_put_image_to_window(e->img, pixbuf);
+	set_values_from_ui(e);
+	mount_image(e, e->s);
 }

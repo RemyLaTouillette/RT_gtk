@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:22 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/22 17:59:08 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/29 18:06:05 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,15 @@ void			ui_init_callback(t_env *e)
 void			ui_init(t_env *e)
 {
 	gtk_init(NULL, NULL);
-	e->builder = gtk_builder_new_from_file("ui/builder.ui");
+	e->builder = gtk_builder_new();
+	if (gtk_builder_add_from_file(e->builder, "ui/builder.ui", NULL) != 1)
+		print_error("Error: builder not found", 0);
 	e->win = gtk_builder_get_object(e->builder, "window");
 	ui_init_img(e);
 	ui_init_scenes(e, "scenes");
 	ui_init_callback(e);
+	if (!(e->tab_noise = create_tab_noise()))
+		print_error("Noise loading error", 1);
+	if (!(e->texture.picture = get_texture()))
+		print_error("Texture loading error", 1);
 }

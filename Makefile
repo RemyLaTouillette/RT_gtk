@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/26 15:05:53 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/09/29 19:39:01 by sduprey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,8 @@ SRC =	main.c \
 		event_handler.c \
 		get_texture.c \
 		texture_mapping.c \
-		event_draw.c
+		event_draw.c \
+		post_processing_effects.c \
 
 SRCDIR = src/
 
@@ -108,21 +109,23 @@ LIB = -L libft -lft
 
 RM = rm -rf
 
-C_FLAGS= -Wall -Werror -Wextra -o3 `pkg-config --cflags gtk+-3.0` 
+FS = -fsanitize=address
 
-GTK_FLAGS = `pkg-config --libs gtk+-3.0` 
+C_FLAGS= -Wall -Werror -Wextra -o3 `pkg-config --cflags gtk+-3.0`
+
+GTK_FLAGS = `pkg-config --libs gtk+-3.0`
 
 all: lft $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(C_FLAGS) $(GTK_FLAGS) -o $(NAME) $(LIB) $^
+	@$(CC) $(C_FLAGS) $(GTK_FLAGS) -o $(NAME) $(LIB) $^ $(FS)
 	@echo ""
 	@echo $(PX_STR) : $(EX_STR)
 	@echo ""
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	@mkdir -p $(OBJDIR)
-	@$(CC) -c $(C_FLAGS) $(INC) $< -o $@
+	@$(CC) -c $(C_FLAGS) $(INC) $< -o $@ $(FS)
 	@echo $(CC_STR) $*
 
 lft:

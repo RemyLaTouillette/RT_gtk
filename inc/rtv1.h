@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/28 18:30:07 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/29 17:56:37 by sduprey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@
 void	write_scene(t_scene s);
 t_color		*new_color_array(int blur_lvl);
 
-void		*apply_depth_of_field(void *img, double *array, double dof);
-void		*apply_blur(void *img, int blur_lvl);
+void		apply_depth_of_field(void *b, void *n, t_scene *s, t_iter iter);
+void		apply_blur(void *b, void *n, int blur_lvl, t_iter iter);
 int			key_hook(int keycode, t_env *e);
 
 void		test_blur(int r, t_hit *pxl, double *blur);
@@ -96,7 +96,7 @@ void		save_jpeg(unsigned char *buf);
 void		ui_init(t_env *e);
 void		check_scene(t_env *e);
 double		**create_tab_noise(void);
-void		init_threads(t_thread *threads, t_scene *scene, t_env *e);
+void		init_threads(t_thread *threads, t_env *e);
 
 int			scene_cmp(t_scene *new_scene, t_scene *old_scene);
 int			objects_cmp(t_node *new_obj, t_node *old_obj);
