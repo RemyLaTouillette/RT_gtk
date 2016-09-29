@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/24 17:31:33 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/25 17:57:28 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/29 16:34:00 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <stdio.h>
 
-void			gtk_get_pixel(GdkPixbuf *pixbuf, double x, double y, t_color *color)
+void		gtk_get_pixel(GdkPixbuf *pix, double x, double y, t_color *color)
 {
 	int				width;
 	int				height;
 	unsigned char	*buffer;
 	size_t			p;
 
-	width = gdk_pixbuf_get_width(pixbuf);
-	height = gdk_pixbuf_get_height(pixbuf);
-	buffer = gdk_pixbuf_get_pixels(pixbuf);
+	width = gdk_pixbuf_get_width(pix);
+	height = gdk_pixbuf_get_height(pix);
+	buffer = gdk_pixbuf_get_pixels(pix);
 	p = ((((int)(x * width) % width) + width *
 				((int)(y * height) % height)) * 3);
 	if (p <= (size_t)(width * height * 3))

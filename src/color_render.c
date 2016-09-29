@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 03:49:13 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/26 20:17:49 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/28 17:40:15 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static inline void	apply_texture(t_ray *st, t_text *t, t_hit *pxl, t_color *c)
 		if (pxl->texture == TEXTURE && pxl->type == SPHERE && pxl->opacity == 1)
 		{
 			pxl->color = colortexture(pxl->color, vec_sub(pxl->pos, tmp),
-					t->texture,	pxl->dist_from_center);
+					t->texture, pxl->dist_from_center);
 			mult_color(&pxl->color, (double)(1.0 / 255));
 		}
 	}
@@ -78,7 +78,7 @@ static inline void	refraction(t_scene *s, t_ray *st, t_text *text, t_hit *hit)
 	}
 }
 
-t_color				color_render(t_scene *s, t_ray *st, t_text *t,double *blur)
+t_color				color_render(t_scene *s, t_ray *st, t_text *t, double *blur)
 {
 	t_color	clr[2];
 	t_hit	pxl;

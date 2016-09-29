@@ -6,31 +6,30 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/22 14:30:16 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/26 15:36:42 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/28 18:15:06 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-size_t		find_length()
+static inline size_t		find_length(void)
 {
-	int	fd;
+	int		fd;
 	size_t	length;
-	int tmp;
-	char str[10000];
+	int		tmp;
+	char	str[10000];
 
 	tmp = 0;
 	length = 0;
-//	if ((fd = open("ressources/earth.bmp", O_RDONLY)) == -1)
 	if ((fd = open("ressources/worldmap512.jpg", O_RDONLY)) == -1)
 		return (0);
 	while ((tmp = read(fd, str, 10000)) != 0)
 		length += tmp;
 	close(fd);
-	return (length); 
+	return (length);
 }
 
-GdkPixbuf	*get_texture(void)
+GdkPixbuf					*get_texture(void)
 {
 	FILE			*file;
 	size_t			length;
@@ -39,7 +38,6 @@ GdkPixbuf	*get_texture(void)
 	GdkPixbuf		*texture;
 
 	if (!(file = fopen("ressources/worldmap512.jpg", "r")))
-//	if (!(file = fopen("ressources/earth.bmp", "r")))
 		return (NULL);
 	length = find_length();
 	buffer = (unsigned char *)malloc(sizeof(unsigned char) * length);

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 14:21:37 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/27 18:47:18 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/28 18:35:55 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static inline t_color	specular_light(t_hit *p, t_vec *r, t_light *l, t_ray *c)
 
 	tmp = dot_product(c->dir, normalize(*r));
 	init_color(&tmp_color, 0, 0, 0);
-	if(!(tmp < 0 && p->opacity == 1))
+	if (!(tmp < 0 && p->opacity == 1))
 	{
 		if (p->opacity == 1)
 			spec = pow(tmp, p->specular + 1);

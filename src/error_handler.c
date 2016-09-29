@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 16:17:52 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/22 17:59:06 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/28 18:13:29 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ char	*join(char *s1, char *s2, char *s3)
 
 void	critical_error(t_error *err)
 {
-	// ft_putendl_fd ?
 	ft_putendl(err->msg);
-	exit (0); // :(
+	exit(0);
 }
 
 void	common_error(t_error *err)

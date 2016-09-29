@@ -6,11 +6,17 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/10 14:37:17 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/22 16:19:08 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/28 18:36:14 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+
+int		free_and_return(void *ptr, int i)
+{
+	free(ptr);
+	return (i);
+}
 
 int		get_unsigned_double(t_elem *elem, double *radius)
 {

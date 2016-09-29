@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/26 20:21:22 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/28 18:30:07 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int			ray_cmp(t_ray r1, t_ray r2);
 int			color_cmp(t_color c1, t_color vc);
 int			quad_cmp(t_quad q1, t_quad q2);
 int			lights_cmp(t_node *new_lights, t_node *old_lights);
+int			free_and_return(void *ptr, int i);
 
 t_color		apply_refraction(t_ray *st, t_scene *s, t_hit *hit, t_text *t);
 GdkPixbuf	*get_texture(void);

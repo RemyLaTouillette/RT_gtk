@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 02:55:00 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/27 17:22:24 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/28 18:13:49 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static inline void		get_hit_next(t_ray *r, t_node *n, int is_neg, t_hit *t)
 {
 	if (n->type == ELIPS &&
-		((t_elips *)(n->data))->is_negativ == is_neg)
+			((t_elips *)(n->data))->is_negativ == is_neg)
 		is_elips_hit(r, (t_elips *)n->data, t);
 	else if (n->type == TRIAN &&
 			((t_triangle *)(n->data))->is_negativ == is_neg)
@@ -41,7 +41,7 @@ void					get_hit(t_ray *ray, t_node *node, int is_neg, t_hit *t)
 			((t_plane *)(node->data))->is_negativ == is_neg)
 		is_plane_hit(ray, (t_plane *)node->data, t);
 	else if (node->type == CONE &&
-		((t_cone *)(node->data))->is_negativ == is_neg)
+			((t_cone *)(node->data))->is_negativ == is_neg)
 		is_cone_hit(ray, (t_cone *)node->data, t);
 	get_hit_next(ray, node, is_neg, t);
 }
@@ -69,8 +69,7 @@ static inline void		choose(t_node *n, t_ray *r, t_hit *n_hit, t_hit *c_hit)
 {
 	t_vec	tmp_pos;
 
-	if ((n_hit->t < c_hit->t && n_hit->t_max < c_hit->t_max))// &&
-//		c_hit->t < n_hit->t_max))
+	if ((n_hit->t < c_hit->t && n_hit->t_max < c_hit->t_max))
 	{
 		if (n_hit->type == PLANE)
 			c_hit->nml = scalar_product(n_hit->nml, -1);

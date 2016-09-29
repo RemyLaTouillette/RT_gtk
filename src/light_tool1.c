@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/09 14:18:37 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/27 18:26:59 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/29 19:33:23 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,18 @@ static inline void	find_neg_obj(t_scene *s, t_ray *ray, t_hit *hit, t_hit *n)
 	while (tmp_object)
 	{
 		get_hit(ray, tmp_object, 1, &tmp_content);
-		if (tmp_content.bool == 1 &&
-		((tmp_content.t == tmp_content.t_max) ||
-		(tmp_content.t < hit->t && tmp_content.t_max > hit->t_max)))
+		if (tmp_content.bool == 1 && ((tmp_content.t == tmp_content.t_max) ||
+			(tmp_content.t < hit->t && tmp_content.t_max > hit->t_max)))
 		{
-			if (n->bool == 0)
-			{
-				*n = tmp_content;
-				n->t = 0.0;
-			}
-			else if (n->t_max < tmp_content.t_max)
+			if ((tmp_content.t == tmp_content.t_max && tmp_content.t > n->t &&
+				tmp_content.t_max < n->t_max) || (n->bool == 0) ||
+					(n->t_max < tmp_content.t_max))
 			{
 				n->t = 0.0;
-				n->t_max = tmp_content.t_max;
-			}
-			else if (tmp_content.t == tmp_content.t_max &&
-					tmp_content.t > n->t && tmp_content.t_max < n->t_max)
-			{
-				n->t = 0.0;
+				if (n->bool == 0)
+					*n = tmp_content;
+				else if (n->t_max < tmp_content.t_max)
+					n->t_max = tmp_content.t_max;
 			}
 		}
 		tmp_object = tmp_object->next;
@@ -96,7 +90,7 @@ int					is_shadow(t_scene *scene, t_ray *light_ray, t_hit *c)
 		if (neg_hit.bool == 1)
 		{
 			if (neg_hit.t_max > 0.0 && neg_hit.t_max <= light_ray->length &&
-			(neg_hit.t_max >= c->t_max))
+					(neg_hit.t_max >= c->t_max))
 				shadow = 0;
 			init_hit(c);
 		}
