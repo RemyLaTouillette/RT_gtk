@@ -38,7 +38,7 @@ void				mount_image(t_env *e, t_scene *s)
 	GdkPixbuf		*pixbuf;
 
 	pixbuf = NULL;
-	if (s->filter == NONE && s->blur == 0.0 && s->is_dof == 0)
+	if (s->filter == NONE && s->blur == 0.0 && s->is_dof == 0 && s->aa == 0)
 	{
 		pixbuf = gtk_new_image(e->buf);
 		gtk_put_image_to_window(e->img, pixbuf);

@@ -36,6 +36,9 @@ typedef struct	s_scene
 	int			h;
 	t_node		*objects;
 	t_node		*lights;
+	int		aa; // 0 = off | 1 = on
+	int		aax; // 1 = matrice 33 | 2 = matrice 55 | 3 = matrice 99
+
 }				t_scene;
 
 t_scene			*init_scene(void);

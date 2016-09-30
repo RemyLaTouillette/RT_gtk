@@ -38,10 +38,10 @@ t_color		get_median_value(t_color *av, int max)
 			}
 		}
 	}
-	return (av[12]);
+	return (av[max / 2]);
 }
 
-t_color		get_av_color(unsigned char *img, int x, int y, t_color *av)
+t_color		get_av_color(unsigned char *img, t_iter map, t_color *av, int lvl)
 {
 	t_iter	iter;
 	int		i;
@@ -49,12 +49,12 @@ t_color		get_av_color(unsigned char *img, int x, int y, t_color *av)
 	int		k;
 	t_color	c;
 
-	j = y - 2;
+	j = map.j - (lvl / 2);
 	k = 0;
-	while (j <= y + 2)
+	while (j <= map.j + (lvl / 2))
 	{
-		i = x - 2;
-		while (i <= x + 2)
+		i = map.i - (lvl / 2);
+		while (i <= map.i + (lvl / 2))
 		{
 			if (i < 0)
 				iter.i = 0;
@@ -74,25 +74,27 @@ t_color		get_av_color(unsigned char *img, int x, int y, t_color *av)
 		}
 		j++;
 	}
-	c = get_median_value(av, 25);
+	c = get_median_value(av, (int)pow(lvl, 2));
 	return (c);
 }
 
-void		aa(void *b, void *n, int u, int d)
+void		aa(void *b, void *n, int lvl, t_iter it)
 {
-	t_color			av[25];
-	int				i;
-	int				j;
+	t_color			av[(int)(pow(lvl, 2))];
 	t_color			c;
+	t_iter			map;
 
-	j = -1;
-	while (++j < HEIGHT)
+	g_print("lvl: %d\n", lvl);
+	g_print("[%d]\n", (int)pow(lvl, 2));
+	g_print("%d\n", lvl / 2);
+	map.j = -1;
+	while (++map.j < HEIGHT)
 	{
-		i = u - 1;
-		while (++i < d)
+		map.i = it.i - 1;
+		while (++map.i < it.j)
 		{
-			c = get_av_color(b, i, j, av);
-			put_pixel_on_buffer(n, i, j, c);
+			c = get_av_color(b, map, av, lvl);
+			put_pixel_on_buffer(n, map.i, map.j, c);
 		}
 	}
 }

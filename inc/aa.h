@@ -19,6 +19,6 @@
 # define NOIR_BLANC	2
 
 void	sepia_filter(void *b, void *n, int f, t_iter iter);
-void	aa(void *b, void *n, int u, int d);
+void	aa(void *b, void *n, int lvl, t_iter it);
 
 #endif

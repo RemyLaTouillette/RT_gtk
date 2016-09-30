@@ -30,6 +30,13 @@ void	draw_filter_effect(unsigned char *ref, t_thread *t, int size, t_iter it)
 	ft_memcpy(ref, t->buf_tmp, size);
 }
 
+// IL Y A SUREMENT MOYEN DE FAIRE MOINS DEGUEU COMME MISE A LA NORME
+void	draw_aa_effect(unsigned char *ref, t_thread *t, int size, t_iter it)
+{
+	aa(ref, t->buf_tmp, t->scene->aax, it);
+	ft_memcpy(ref, t->buf_tmp, size);
+}
+
 void	*apply_effect(void *data)
 {
 	unsigned char	*ref;
@@ -50,6 +57,8 @@ void	*apply_effect(void *data)
 		draw_dof_effect(ref, t, size, iter);
 	if (t->scene->filter)
 		draw_filter_effect(ref, t, size, iter);
+	if (t->scene->aa == 1)
+		draw_aa_effect(ref, t, size, iter);
 	free(ref);
 	ref = NULL;
 	return (data);

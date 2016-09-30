@@ -12,6 +12,15 @@
 
 #include <rtv1.h>
 
+int			get_matrice_size(int lvl)
+{
+	if (lvl == 2)
+		return (5);
+	else if (lvl == 3)
+		return (9);
+	return (3);
+}
+
 void			set_values_from_ui(t_env *e)
 {
 	GObject		*o;
@@ -35,6 +44,8 @@ void			set_values_from_ui(t_env *e)
 	e->s->dof = get_range_value(e, "scale_focus");
 	e->s->blur = get_range_value(e, "scale_blur");
 	e->s->filter = get_filter_name(e);
+	e->s->aa = get_switch_state(e, "switch_aa");
+	e->s->aax = get_matrice_size(get_range_value(e, "scale_aa"));
 }
 
 void			set_values_from_scene(t_env *e, t_scene *s)
