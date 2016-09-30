@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 02:58:44 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/28 18:35:46 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/30 16:11:20 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,9 @@ t_part		*parse_scop(char *scop)
 		return (NULL);
 	}
 	if (!(new_part = create_part()))
-	{
 		return (NULL);
-	}
 	if (!(array = ft_strsplit(scop, '{')))
-	{
 		return (NULL);
-	}
 	if (!set_part(array, new_part))
 	{
 		print_error("Empty Object", 1);

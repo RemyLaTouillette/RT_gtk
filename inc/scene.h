@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 01:31:39 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/29 16:19:59 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/30 15:09:24 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct	s_scene
 	int			h;
 	t_node		*objects;
 	t_node		*lights;
-	int		aa; // 0 = off | 1 = on
-	int		aax; // 1 = matrice 33 | 2 = matrice 55 | 3 = matrice 99
+	int			aa;
+	int			aax; // 1 = matrice 33 | 2 = matrice 55 | 3 = matrice 99
 
 }				t_scene;
 

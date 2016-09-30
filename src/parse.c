@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 12:49:33 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/26 18:46:58 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/09/30 16:55:17 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ t_scene		*config(t_part *part)
 	t_scene	*scene;
 	int		is_init[4];
 
-	scene = init_scene();
+	if (!(scene = init_scene()))
+		return (NULL);
 	is_init[0] = 0;
 	is_init[1] = 0;
 	is_init[2] = 0;
@@ -99,9 +100,7 @@ t_scene		*config(t_part *part)
 		tmp = tmp->next;
 	}
 	if (is_initialized(is_init, scene))
-	{
 		return (scene);
-	}
 	return (NULL);
 }
 

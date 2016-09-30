@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 16:25:31 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/28 15:22:31 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/30 15:54:51 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,8 @@ void		set_effect_from_scene(t_env *e, t_scene *s)
 	gtk_range_set_value(GTK_RANGE(o), s->dof);
 	o = gtk_builder_get_object(e->builder, "scale_blur");
 	gtk_range_set_value(GTK_RANGE(o), s->blur);
-	// SWITCH ANTI-ALIASING
 	o = gtk_builder_get_object(e->builder, "switch_aa");
 	gtk_switch_set_state(GTK_SWITCH(o), s->aa);
-	// SCALE ANTI-ALIASING
 	o = gtk_builder_get_object(e->builder, "scale_aa");
 	gtk_range_set_value(GTK_RANGE(o), s->aax);
 }

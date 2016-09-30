@@ -6,59 +6,50 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 17:42:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/29 19:50:04 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/30 19:19:41 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-void	draw_blur_effect(unsigned char *ref, t_thread *t, int size, t_iter iter)
+void	choose_and_apply(unsigned char *ref, t_thread *t, int size, t_iter *it)
 {
-	apply_blur(ref, t->buf_tmp, t->scene->blur, iter);
-	ft_memcpy(ref, t->buf_tmp, size);
-}
-
-void	draw_dof_effect(unsigned char *ref, t_thread *t, int size, t_iter iter)
-{
-	apply_depth_of_field(ref, t->buf_tmp, t->scene, iter);
-	ft_memcpy(ref, t->buf_tmp, size);
-}
-
-void	draw_filter_effect(unsigned char *ref, t_thread *t, int size, t_iter it)
-{
-	sepia_filter(ref, t->buf_tmp, t->scene->filter, it);
-	ft_memcpy(ref, t->buf_tmp, size);
-}
-
-// IL Y A SUREMENT MOYEN DE FAIRE MOINS DEGUEU COMME MISE A LA NORME
-void	draw_aa_effect(unsigned char *ref, t_thread *t, int size, t_iter it)
-{
-	aa(ref, t->buf_tmp, t->scene->aax, it);
-	ft_memcpy(ref, t->buf_tmp, size);
+	memcpy(ref, t->buf, size);
+	if (t->scene->blur > 0.0)
+	{
+		apply_blur(ref, t->buf_tmp, t->scene->blur, it);
+		memcpy(ref, t->buf_tmp, size);
+	}
+	if (t->scene->is_dof == 1)
+	{
+		apply_depth_of_field(ref, t->buf_tmp, t->scene, it);
+		memcpy(ref, t->buf_tmp, size);
+	}
+	if (t->scene->aa == 1)
+	{
+		aa(ref, t->buf_tmp, t->scene->aax, it);
+		memcpy(ref, t->buf_tmp, size);
+	}
+	if (t->scene->filter)
+	{
+		sepia_filter(ref, t->buf_tmp, t->scene->filter, it);
+		memcpy(ref, t->buf_tmp, size);
+	}
 }
 
 void	*apply_effect(void *data)
 {
 	unsigned char	*ref;
 	t_thread		*t;
-	int				size;
 	t_iter			iter;
 
 	t = ((t_thread *)(data));
 	iter.i = t->y_start;
 	iter.j = t->y_end;
-	size = WIDTH * HEIGHT * 3;
-	if (!(ref = (unsigned char *)malloc(sizeof(unsigned char) * size)))
+	if (!(ref = (unsigned char *)malloc(sizeof(unsigned char) *
+					(WIDTH * HEIGHT * 3))))
 		return (NULL);
-	ft_memcpy(ref, t->buf, size);
-	if (t->scene->blur > 0.0)
-		draw_blur_effect(ref, t, size, iter);
-	if (t->scene->is_dof == 1)
-		draw_dof_effect(ref, t, size, iter);
-	if (t->scene->filter)
-		draw_filter_effect(ref, t, size, iter);
-	if (t->scene->aa == 1)
-		draw_aa_effect(ref, t, size, iter);
+	choose_and_apply(ref, t, WIDTH * HEIGHT * 3, &iter);
 	free(ref);
 	ref = NULL;
 	return (data);
@@ -71,7 +62,7 @@ void	threads_effects(t_env *e)
 
 	e->buf_tmp = new_image_buffer();
 	if (e->buf_tmp == NULL)
-		return ;
+		print_error("Creating new image failed", 1);
 	init_threads(threads, e);
 	i = -1;
 	while (++i < N_THREAD)

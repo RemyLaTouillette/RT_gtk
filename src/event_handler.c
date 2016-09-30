@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 18:34:19 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/29 20:25:24 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/30 18:54:13 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ void			click_filter(GtkApplication *app, gpointer data)
 	(void)app;
 	e = data;
 	set_values_from_ui(e);
-	mount_image(e, e->s);
+	if (e->s != NULL)
+		mount_image(e, e->s);
 }

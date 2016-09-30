@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:22 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/29 18:06:05 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/30 15:12:50 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void			ui_init(t_env *e)
 	ui_init_scenes(e, "scenes");
 	ui_init_callback(e);
 	if (!(e->tab_noise = create_tab_noise()))
-		print_error("Noise loading error", 1);
+		print_error("Noise loading error", 0);
 	if (!(e->texture.picture = get_texture()))
-		print_error("Texture loading error", 1);
+		print_error("Texture loading error", 0);
 }

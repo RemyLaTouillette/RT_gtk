@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 00:20:42 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/29 19:51:42 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/30 15:04:08 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static inline t_color		set_sepia_color(t_color c)
 	return (s);
 }
 
-void		sepia_filter(void *b, void *n, int f, t_iter iter)
+void						sepia_filter(void *b, void *n, int f, t_iter *iter)
 {
 	int				i;
 	int				j;
@@ -51,8 +51,8 @@ void		sepia_filter(void *b, void *n, int f, t_iter iter)
 	j = -1;
 	while (++j < HEIGHT)
 	{
-		i = iter.i - 1;
-		while (++i < iter.j)
+		i = iter->i - 1;
+		while (++i < iter->j)
 		{
 			c = get_pixel_from_buffer(b, i, j);
 			if (f == SEPIA)

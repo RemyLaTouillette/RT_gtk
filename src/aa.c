@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 17:36:50 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/29 19:17:00 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/30 14:58:40 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,10 @@ t_color		get_av_color(unsigned char *img, t_iter map, t_color *av, int lvl)
 		i = map.i - (lvl / 2);
 		while (i <= map.i + (lvl / 2))
 		{
-			if (i < 0)
-				iter.i = 0;
-			else if (i > WIDTH - 1)
-				iter.i = WIDTH - 1;
-			else
-				iter.i = i;
-			if (j < 0)
-				iter.j = 0;
-			else if (j > HEIGHT - 1)
-				iter.j = HEIGHT - 1;
-			else
-				iter.j = j;
+			iter.i = i < 0 ? 0 : i;
+			iter.i = i > WIDTH - 1 ? WIDTH - 1 : iter.i;
+			iter.j = j < 0 ? 0 : j;
+			iter.j = j > HEIGHT - 1 ? HEIGHT - 1 : iter.j;
 			av[k] = get_pixel_from_buffer(img, iter.i, iter.j);
 			k++;
 			i++;
@@ -78,20 +70,17 @@ t_color		get_av_color(unsigned char *img, t_iter map, t_color *av, int lvl)
 	return (c);
 }
 
-void		aa(void *b, void *n, int lvl, t_iter it)
+void		aa(void *b, void *n, int lvl, t_iter *it)
 {
 	t_color			av[(int)(pow(lvl, 2))];
 	t_color			c;
 	t_iter			map;
 
-	g_print("lvl: %d\n", lvl);
-	g_print("[%d]\n", (int)pow(lvl, 2));
-	g_print("%d\n", lvl / 2);
 	map.j = -1;
 	while (++map.j < HEIGHT)
 	{
-		map.i = it.i - 1;
-		while (++map.i < it.j)
+		map.i = it->i - 1;
+		while (++map.i < it->j)
 		{
 			c = get_av_color(b, map, av, lvl);
 			put_pixel_on_buffer(n, map.i, map.j, c);

@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 14:28:30 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/29 18:00:26 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/30 19:21:12 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_color		depth_of_field(void *img, int blur_lvl, t_iter iter, double *array)
 	return (mix_color(mixed_color, n[0]));
 }
 
-void		apply_depth_of_field(void *b, void *n, t_scene *s, t_iter iter)
+void		apply_depth_of_field(void *b, void *n, t_scene *s, t_iter *iter)
 {
 	int		blur_lvl;
 	t_color	new_color;
@@ -69,8 +69,8 @@ void		apply_depth_of_field(void *b, void *n, t_scene *s, t_iter iter)
 	i.j = -1;
 	while (++i.j < HEIGHT)
 	{
-		i.i = iter.i - 1;
-		while (++i.i < iter.j)
+		i.i = iter->i - 1;
+		while (++i.i < iter->j)
 		{
 			blur_lvl = ((int)(fabs(s->dof - s->blur_array[i.i * HEIGHT +
 							i.j]))) * 2;

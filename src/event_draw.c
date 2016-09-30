@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 19:20:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/29 19:51:44 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/30 19:20:35 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void				mount_image(t_env *e, t_scene *s)
 	GdkPixbuf		*pixbuf;
 
 	pixbuf = NULL;
+	g_print("s->is_dof = %d\n", s->is_dof);
 	if (s->filter == NONE && s->blur == 0.0 && s->is_dof == 0 && s->aa == 0)
 	{
 		pixbuf = gtk_new_image(e->buf);
@@ -66,25 +67,8 @@ t_scene				*singleton(t_scene *s)
 		prev = s;
 	}
 	if (s != NULL && prev == NULL)
-	{
 		prev = s;
-	}
 	return (prev);
-}
-
-void				check_redraw(t_env *e, t_scene *s2)
-{
-	set_values_from_ui(e);
-	if (scene_cmp(e->s, s2) == 0)
-	{
-		draw_image(e);
-		mount_image(e, e->s);
-	}
-	else
-		mount_image(e, e->s);
-	s2 = singleton(e->s);
-	//	g_object_unref(e->texture.picture);
-	//	free_tabi(e->tab_noise, HEIGHT);
 }
 
 void				check_scene(t_env *e)
@@ -102,6 +86,19 @@ void				check_scene(t_env *e)
 	if (!(e->s = parse(sname)))
 		print_error("No scene", 2);
 	else
-		check_redraw(e, s2);
+	{
+		set_values_from_ui(e);
+		if (scene_cmp(e->s, s2) == 0)
+			draw_image(e);
+		else
+		{
+		//	e->s->blur_array = s2->blur_array;
+		//	ligne du dessus fonctionne pas lorsque l'on clique a repetition sur 
+		//	draw_scene mais probleme resolu si on fait un copie du tablo de l'ancienne
+		//	scene dans la nouvelle
+		}
+		mount_image(e, e->s);
+		s2 = singleton(e->s);
+	}
 	free(sname);
 }

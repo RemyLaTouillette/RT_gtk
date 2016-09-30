@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 01:48:17 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/29 17:56:37 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/30 19:15:42 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,10 @@
 
 # define N_THREAD	4
 
-void	write_scene(t_scene s);
 t_color		*new_color_array(int blur_lvl);
 
-void		apply_depth_of_field(void *b, void *n, t_scene *s, t_iter iter);
-void		apply_blur(void *b, void *n, int blur_lvl, t_iter iter);
+void		apply_depth_of_field(void *b, void *n, t_scene *s, t_iter *iter);
+void		apply_blur(void *b, void *n, int blur_lvl, t_iter *iter);
 int			key_hook(int keycode, t_env *e);
 
 void		test_blur(int r, t_hit *pxl, double *blur);

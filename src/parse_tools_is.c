@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 16:47:26 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/22 16:21:07 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/09/30 16:56:49 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int			is_initialized(int *is_init, t_scene *scene)
 	{
 		print_error("No Objects", 1);
 	}
+	if (scene->is_real == 0)
+		scene->is_real = REALISTIC;
 	return (1);
 }
 

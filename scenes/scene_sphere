@@ -3,7 +3,6 @@
 	{
 		options:
 		{
-			{cartoon:n}
 			{ambient:0.1}
 			{depth : y}
 			{focus : 2}

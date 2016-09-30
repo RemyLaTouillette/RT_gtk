@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/13 01:45:04 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/29 17:59:13 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/09/30 14:59:07 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_color		get_mixed_color(void *e, int b, int i, int j)
 	return (mix_color(tmp, n));
 }
 
-void		apply_blur(void *b, void *n, int blur_lvl, t_iter iter)
+void		apply_blur(void *b, void *n, int blur_lvl, t_iter *iter)
 {
 	int				i;
 	int				j;
@@ -86,8 +86,8 @@ void		apply_blur(void *b, void *n, int blur_lvl, t_iter iter)
 	j = -1;
 	while (++j < HEIGHT)
 	{
-		i = iter.i - 1;
-		while (++i < iter.j)
+		i = iter->i - 1;
+		while (++i < iter->j)
 		{
 			new_color = get_mixed_color(b, blur_lvl, i, j);
 			put_pixel_on_buffer(n, i, j, new_color);

@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/09/29 19:39:01 by sduprey          ###   ########.fr        #
+#    Updated: 2016/09/30 16:21:11 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,6 @@ SRC =	main.c \
 		elipsoid.c \
 		triangle.c \
 		parallelo.c \
-		write_scene.c \
 		image_buffer.c \
 		save_bmp.c \
 		save_jpeg.c \
@@ -118,14 +117,14 @@ GTK_FLAGS = `pkg-config --libs gtk+-3.0`
 all: lft $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(C_FLAGS) $(GTK_FLAGS) -o $(NAME) $(LIB) $^ $(FS)
+	@$(CC) $(C_FLAGS) $(GTK_FLAGS) -o $(NAME) $(LIB) $^
 	@echo ""
 	@echo $(PX_STR) : $(EX_STR)
 	@echo ""
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	@mkdir -p $(OBJDIR)
-	@$(CC) -c $(C_FLAGS) $(INC) $< -o $@ $(FS)
+	@$(CC) -c $(C_FLAGS) $(INC) $< -o $@ 
 	@echo $(CC_STR) $*
 
 lft:

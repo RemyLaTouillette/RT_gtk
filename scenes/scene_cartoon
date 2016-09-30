@@ -42,6 +42,7 @@
 						{specular: 98}
 						{opacity:0.1}
 						{ref_index:1.55}
+						{is_closed: y}
 					}
 				}
 			}
