@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 16:25:31 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/30 15:54:51 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/03 17:34:16 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void		set_ambient_color_from_scene(t_env *e, t_scene *s)
 	}
 	o = gtk_builder_get_object(e->builder, "scale_color");
 	gtk_range_set_value(GTK_RANGE(o), s->ambient_index);
+	gdk_rgba_free(rgba);
 }
 
 void		set_effect_from_scene(t_env *e, t_scene *s)

@@ -6,7 +6,7 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 23:46:59 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/27 17:17:18 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/10/03 17:15:55 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct			s_env
 	int					filter;
 	int					dof;
 	double				focus;
+	double				*blur_array;
 	double				blur;
 	t_color				amblight;
 	double				ambindex;

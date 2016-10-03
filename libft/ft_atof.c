@@ -6,7 +6,7 @@
 /*   By: tlepeche <tlepeche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 16:54:54 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/08/09 01:58:03 by nbelouni         ###   ########.fr       */
+/*   Updated: 2016/10/03 19:59:46 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static int	convert_result(char *str, int a, int *precision)
 	return (result);
 }
 
-#include <stdio.h>
 float		ft_atof(char *str)
 {
 	int		a;

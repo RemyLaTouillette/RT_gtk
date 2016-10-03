@@ -6,11 +6,25 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 19:20:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/30 19:20:35 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/03 19:57:42 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+
+t_scene				*singleton(t_scene *s)
+{
+	static t_scene *prev;
+
+	if (s != NULL && prev != NULL)
+	{
+		free_scene(&prev);
+		prev = s;
+	}
+	if (s != NULL && prev == NULL)
+		prev = s;
+	return (prev);
+}
 
 void				draw_image(t_env *e)
 {
@@ -36,9 +50,9 @@ void				draw_image(t_env *e)
 void				mount_image(t_env *e, t_scene *s)
 {
 	GdkPixbuf		*pixbuf;
+	int				i;
 
 	pixbuf = NULL;
-	g_print("s->is_dof = %d\n", s->is_dof);
 	if (s->filter == NONE && s->blur == 0.0 && s->is_dof == 0 && s->aa == 0)
 	{
 		pixbuf = gtk_new_image(e->buf);
@@ -46,6 +60,9 @@ void				mount_image(t_env *e, t_scene *s)
 	}
 	else
 	{
+		i = -1;
+		while (++i < WIDTH * HEIGHT)
+			e->s->blur_array[i] = e->blur_array[i];
 		threads_effects(e);
 		pixbuf = gtk_new_image(e->buf_tmp);
 		gtk_put_image_to_window(e->img, pixbuf);
@@ -57,18 +74,20 @@ void				mount_image(t_env *e, t_scene *s)
 	}
 }
 
-t_scene				*singleton(t_scene *s)
+static inline void	draw(t_env *e, t_scene *s2)
 {
-	static t_scene *prev;
+	int	i;
 
-	if (s != NULL && prev != NULL)
+	i = 0;
+	set_values_from_ui(e);
+	if (scene_cmp(e->s, s2) == 0)
 	{
-		free_scene(&prev);
-		prev = s;
+		draw_image(e);
+		i = -1;
+		while (++i < WIDTH * HEIGHT)
+			e->blur_array[i] = e->s->blur_array[i];
 	}
-	if (s != NULL && prev == NULL)
-		prev = s;
-	return (prev);
+	mount_image(e, e->s);
 }
 
 void				check_scene(t_env *e)
@@ -77,27 +96,16 @@ void				check_scene(t_env *e)
 	char			*sname;
 	char			*tmp;
 
-	s2 = NULL;
 	e->s = NULL;
 	tmp = get_scene_name(e);
 	sname = ft_strjoin("scenes/", tmp);
-	free(tmp);
 	s2 = singleton(e->s);
+	free(tmp);
 	if (!(e->s = parse(sname)))
 		print_error("No scene", 2);
 	else
 	{
-		set_values_from_ui(e);
-		if (scene_cmp(e->s, s2) == 0)
-			draw_image(e);
-		else
-		{
-		//	e->s->blur_array = s2->blur_array;
-		//	ligne du dessus fonctionne pas lorsque l'on clique a repetition sur 
-		//	draw_scene mais probleme resolu si on fait un copie du tablo de l'ancienne
-		//	scene dans la nouvelle
-		}
-		mount_image(e, e->s);
+		draw(e, s2);
 		s2 = singleton(e->s);
 	}
 	free(sname);

@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:22 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/30 15:12:50 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/03 19:18:16 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,22 @@ void			ui_init_callback(t_env *e)
 	g_signal_connect(o, "clicked", G_CALLBACK(click_filter), e);
 }
 
+double			*ui_init_array(void)
+{
+	int		i;
+	double	*tab;
+
+	if (!(tab = (double *)malloc(sizeof(double) * WIDTH * HEIGHT)))
+		return (NULL);
+	i = 0;
+	while (i < WIDTH * HEIGHT)
+	{
+		tab[i] = 0.0;
+		i++;
+	}
+	return (tab);
+}
+
 void			ui_init(t_env *e)
 {
 	gtk_init(NULL, NULL);
@@ -78,4 +94,7 @@ void			ui_init(t_env *e)
 		print_error("Noise loading error", 0);
 	if (!(e->texture.picture = get_texture()))
 		print_error("Texture loading error", 0);
+	if (!(e->blur_array = ui_init_array()))
+		print_error("UI initialisation error", 0);
+	e->s = NULL;
 }

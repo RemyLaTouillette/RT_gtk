@@ -6,13 +6,13 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/17 17:08:14 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/29 15:59:59 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/10/03 19:58:27 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-int			get_matrice_size(int lvl)
+int				get_matrice_size(int lvl)
 {
 	if (lvl == 2)
 		return (5);
