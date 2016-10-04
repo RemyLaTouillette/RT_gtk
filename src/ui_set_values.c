@@ -6,31 +6,20 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/17 17:08:14 by sduprey           #+#    #+#             */
-/*   Updated: 2016/10/03 19:58:27 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 17:04:20 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-int				get_matrice_size(int lvl)
+void			set_values_from_ui(t_env *e, int bool)
 {
-	if (lvl == 2)
-		return (5);
-	else if (lvl == 3)
-		return (9);
-	return (3);
-}
-
-void			set_values_from_ui(t_env *e)
-{
-	GObject		*o;
 	gboolean	state;
 
-	o = gtk_builder_get_object(e->builder, "btn_modif");
-	state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(o));
+	state = get_switch_state(e, "switch_modif");
 	if (!e->s)
 		return ;
-	if (state)
+	if (state && bool)
 	{
 		e->s->cam.ray.pos = get_cam_pos_from_ui(e);
 		e->s->cam.look_at = get_cam_dir_from_ui(e);
@@ -45,7 +34,6 @@ void			set_values_from_ui(t_env *e)
 	e->s->blur = get_range_value(e, "scale_blur");
 	e->s->filter = get_filter_name(e);
 	e->s->aa = get_switch_state(e, "switch_aa");
-	e->s->aax = get_matrice_size(get_range_value(e, "scale_aa"));
 }
 
 void			set_values_from_scene(t_env *e, t_scene *s)

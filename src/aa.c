@@ -6,7 +6,7 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 17:36:50 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/30 14:58:40 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 16:32:33 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ t_color		get_av_color(unsigned char *img, t_iter map, t_color *av, int lvl)
 	return (c);
 }
 
-void		aa(void *b, void *n, int lvl, t_iter *it)
+void		aa(void *b, void *n, t_iter *it)
 {
-	t_color			av[(int)(pow(lvl, 2))];
+	t_color			av[9];
 	t_color			c;
 	t_iter			map;
 
@@ -82,7 +82,7 @@ void		aa(void *b, void *n, int lvl, t_iter *it)
 		map.i = it->i - 1;
 		while (++map.i < it->j)
 		{
-			c = get_av_color(b, map, av, lvl);
+			c = get_av_color(b, map, av, 3);
 			put_pixel_on_buffer(n, map.i, map.j, c);
 		}
 	}

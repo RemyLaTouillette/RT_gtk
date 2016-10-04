@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 19:20:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/10/03 19:57:42 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 16:32:52 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static inline void	draw(t_env *e, t_scene *s2)
 	int	i;
 
 	i = 0;
-	set_values_from_ui(e);
+	set_values_from_ui(e, 1);
 	if (scene_cmp(e->s, s2) == 0)
 	{
 		draw_image(e);
@@ -99,7 +99,7 @@ void				check_scene(t_env *e)
 	e->s = NULL;
 	tmp = get_scene_name(e);
 	sname = ft_strjoin("scenes/", tmp);
-	s2 = singleton(e->s);
+	s2 = singleton(NULL);
 	free(tmp);
 	if (!(e->s = parse(sname)))
 		print_error("No scene", 2);

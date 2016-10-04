@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 16:17:52 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/28 18:13:29 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 14:27:34 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void	print_error(char *msg, int crit)
 		critical_error(err);
 	else
 		common_error(err);
+	free(err);
 }

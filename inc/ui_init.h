@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:50 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/09/30 15:06:01 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 15:55:38 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		click_draw(GtkApplication *app, gpointer user_data);
 void		click_save(GtkApplication *app, gpointer user_data);
 void		click_save2(GtkApplication *app, gpointer user_data);
 void		click_quit(GtkApplication *app, gpointer user_data);
-void		click_switch(GtkApplication *app, gpointer user_data);
+void		click_switch(GtkApplication *app, gboolean boo, gpointer user_data);
 void		click_filter(GtkApplication *app, gpointer user_data);
 
 int			get_switch_state(t_env *e, char *str);
@@ -29,7 +29,7 @@ t_vec		get_cam_pos_from_ui(t_env *e);
 t_vec		get_cam_dir_from_ui(t_env *e);
 int			get_switch_state(t_env *e, char *widget);
 char		*get_scene_name(t_env *e);
-void		set_values_from_ui(t_env *e);
+void		set_values_from_ui(t_env *e, int bool);
 double		get_range_value(t_env *e, char *widget);
 t_color		get_rgba(t_env *e);
 

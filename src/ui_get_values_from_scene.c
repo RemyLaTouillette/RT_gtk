@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 16:25:31 by sduprey           #+#    #+#             */
-/*   Updated: 2016/10/03 17:34:16 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 16:24:10 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void		set_cam_dir_from_scene(t_env *e, t_scene *s)
 	GObject	*o;
 
 	o = gtk_builder_get_object(e->builder, "scale_cam_dir_x");
-	gtk_range_set_value(GTK_RANGE(o), s->cam.ray.dir.x);
+	gtk_range_set_value(GTK_RANGE(o), 180 / M_PI * s->cam.look_at.x);
 	o = gtk_builder_get_object(e->builder, "scale_cam_dir_y");
-	gtk_range_set_value(GTK_RANGE(o), s->cam.ray.dir.y);
+	gtk_range_set_value(GTK_RANGE(o), 180 / M_PI * s->cam.look_at.y);
 	o = gtk_builder_get_object(e->builder, "scale_cam_dir_z");
-	gtk_range_set_value(GTK_RANGE(o), s->cam.ray.dir.z);
+	gtk_range_set_value(GTK_RANGE(o), 180 / M_PI * s->cam.look_at.z);
 }
 
 void		set_reflection_from_scene(t_env *e, t_scene *s)
@@ -80,6 +80,4 @@ void		set_effect_from_scene(t_env *e, t_scene *s)
 	gtk_range_set_value(GTK_RANGE(o), s->blur);
 	o = gtk_builder_get_object(e->builder, "switch_aa");
 	gtk_switch_set_state(GTK_SWITCH(o), s->aa);
-	o = gtk_builder_get_object(e->builder, "scale_aa");
-	gtk_range_set_value(GTK_RANGE(o), s->aax);
 }

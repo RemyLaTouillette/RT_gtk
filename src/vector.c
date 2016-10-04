@@ -6,12 +6,11 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/07 05:31:40 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/20 14:12:09 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 17:05:38 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
-#include <stdio.h>
+#include <rtv1.h>
 
 t_vec		init_vector(double x, double y, double z)
 {

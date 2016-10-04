@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 17:42:54 by sduprey           #+#    #+#             */
-/*   Updated: 2016/10/03 16:08:37 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 16:28:11 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	choose_and_apply(unsigned char *ref, t_thread *t, int size, t_iter *it)
 	}
 	if (t->scene->aa == 1)
 	{
-		aa(ref, t->buf_tmp, t->scene->aax, it);
+		aa(ref, t->buf_tmp, it);
 		memcpy(ref, t->buf_tmp, size);
 	}
 	if (t->scene->filter)

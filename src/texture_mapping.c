@@ -6,13 +6,11 @@
 /*   By: bhenne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/24 17:31:33 by bhenne            #+#    #+#             */
-/*   Updated: 2016/09/29 16:34:00 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 17:05:46 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-#include <stdio.h>
 
 void		gtk_get_pixel(GdkPixbuf *pix, double x, double y, t_color *color)
 {

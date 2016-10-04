@@ -6,12 +6,11 @@
 /*   By: nbelouni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 04:58:48 by nbelouni          #+#    #+#             */
-/*   Updated: 2016/09/22 15:31:06 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 17:04:59 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-#include <stdio.h>
 
 static inline t_ray	find_refract(t_ray *s, t_hit pxl, double c_r, int test)
 {

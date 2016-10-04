@@ -6,15 +6,11 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 06:31:18 by sduprey           #+#    #+#             */
-/*   Updated: 2016/10/04 12:39:17 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 17:05:12 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-#include <stdio.h>
-
-#include <fcntl.h>
-#include <unistd.h>
 
 void		continue_bmp_info_header(int fd)
 {

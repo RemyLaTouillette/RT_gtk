@@ -6,7 +6,7 @@
 #    By: sduprey <sduprey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/17 05:35:05 by sduprey           #+#    #+#              #
-#    Updated: 2016/10/03 19:16:01 by tlepeche         ###   ########.fr        #
+#    Updated: 2016/10/04 17:47:57 by tlepeche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,6 @@ SRC =	main.c \
 		lights_cmp.c \
 		error_handler.c \
 		event_handler.c \
-		event_handler2.c \
 		get_texture.c \
 		texture_mapping.c \
 		event_draw.c \

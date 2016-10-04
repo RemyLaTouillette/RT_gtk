@@ -6,12 +6,11 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 00:20:42 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/30 15:04:08 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 17:05:28 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-#include <stdio.h>
 
 static inline t_color		set_black_white_color(t_color c)
 {

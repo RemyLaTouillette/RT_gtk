@@ -6,12 +6,11 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/10 03:20:20 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/20 14:14:58 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/04 17:04:48 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-#include <stdio.h>
 
 t_cam		init_camera(t_vec pos, t_vec look)
 {
