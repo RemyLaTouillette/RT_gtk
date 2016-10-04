@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/07 06:31:18 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/22 15:34:08 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/10/04 12:39:17 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ int			find_file_name(void)
 	int		i;
 	int		fd;
 
-	if (!(file_name = (char *)malloc(sizeof(char) * (23))))
+	if (!(file_name = (char *)malloc(sizeof(char) * (17))))
 		return (-1);
-	file_name = ft_strcpy(file_name, "saves/save_img.bmp");
+	file_name = ft_strcpy(file_name, "save_img.bmp");
 	i = 1;
 	fd = open(file_name, O_WRONLY | O_CREAT | O_EXCL, 0777);
 	while (fd == -1 && i < 100)
 	{
-		file_name = ft_strcpy(file_name, "saves/save_img(");
+		file_name = ft_strcpy(file_name, "save_img(");
 		file_name = ft_strcat(file_name, ft_itoa(i));
 		file_name = ft_strcat(file_name, ").bmp");
 		i++;

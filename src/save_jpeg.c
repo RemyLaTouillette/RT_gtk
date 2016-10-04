@@ -6,7 +6,7 @@
 /*   By: sduprey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 19:03:02 by sduprey           #+#    #+#             */
-/*   Updated: 2016/09/22 15:34:10 by sduprey          ###   ########.fr       */
+/*   Updated: 2016/10/04 12:39:29 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ char			*filename_for_saving(void)
 
 	if (!(fname = (char *)malloc(sizeof(char) * 24)))
 		return (NULL);
-	fname = ft_strcpy(fname, "saves/save_img.jpeg");
+	fname = ft_strcpy(fname, "save_img.jpeg");
 	i = 1;
 	check = file_exist(fname);
 	while (check == 1 && i < 100)
 	{
-		fname = ft_strcpy(fname, "saves/save_img(");
+		fname = ft_strcpy(fname, "save_img(");
 		fname = ft_strcat(fname, ft_itoa(i));
 		fname = ft_strcat(fname, ").jpeg");
 		check = file_exist(fname);
