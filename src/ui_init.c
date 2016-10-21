@@ -6,7 +6,7 @@
 /*   By: tlepeche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 18:22:22 by tlepeche          #+#    #+#             */
-/*   Updated: 2016/10/04 16:12:15 by tlepeche         ###   ########.fr       */
+/*   Updated: 2016/10/21 16:30:35 by tlepeche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void			ui_init_scenes(t_env *e, char *path)
 		{
 			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(o), scenes[i++]);
 		}
+		free_tab(scenes);
 	}
-	free_tab(scenes);
 }
 
 void			ui_init_callback(t_env *e)
